@@ -1,3 +1,5 @@
-environment_id="ruby-1.9.2p290"
+#!/usr/bin/env bash
+
+environment_id="ruby-1.9.3-p194"
 
 rvm --create use  "$environment_id"

@@ -40,4 +40,10 @@ class User
 
   ## Token authenticatable
   # field :authentication_token, :type => String
+  
+  field :name, :type => String, :default => ""
+  
+  has_many :posts
+  has_many :likes
+  has_many :comments
 end
