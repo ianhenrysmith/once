@@ -1,7 +1,10 @@
 Once::Application.routes.draw do
   devise_for :users
+  
+  match "/users/sign_out", :to => "devise/sessions#destroy"
 
   resources :users
+  resources :posts
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
