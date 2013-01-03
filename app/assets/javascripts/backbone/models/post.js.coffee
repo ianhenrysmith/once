@@ -1,5 +1,6 @@
 class Once.Models.Post extends Backbone.Model
   paramRoot: 'post'
+  idAttribute: "_id"
 
   defaults:
     title: null

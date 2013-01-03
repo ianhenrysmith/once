@@ -21,6 +21,7 @@ class Once.Views.Posts.NewView extends Backbone.View
     @model.unset("errors")
 
     @collection.create(@model.toJSON(),
+      wait: true
       success: (post) =>
         @model = post
         window.location.hash = "/#{@model.id}"

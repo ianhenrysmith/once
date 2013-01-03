@@ -13,7 +13,7 @@ class Once.Views.Posts.EditView extends Backbone.View
     @model.save(null,
       success: (post) =>
         @model = post
-        window.location.hash = "/#{@model.id}"
+        window.location.hash = "/#{@model._id}"
     )
 
   render: ->

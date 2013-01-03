@@ -1,7 +1,7 @@
 class Post
   include Mongoid::Document
   
-  TYPES = %w(quote image video link tweet)
+  TYPES = %w(quote image video link tweet text)
   
   field :content
   field :title, :type => String

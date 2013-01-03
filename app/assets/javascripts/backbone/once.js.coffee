@@ -9,3 +9,7 @@ window.Once =
   Collections: {}
   Routers: {}
   Views: {}
+  
+# window.UserId = $("#current_user_id").val()
+
+# console.log window.UserId

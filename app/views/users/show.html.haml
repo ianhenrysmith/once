@@ -3,4 +3,5 @@
 - @user.posts.each do |post|
   %div= post.title
   
-%div= link_to "New Post", new_post_path
+%div= link_to "Posts", posts_path
+%div= link_to "New Post", "/posts#/new"
