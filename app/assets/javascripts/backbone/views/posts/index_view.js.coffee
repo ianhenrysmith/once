@@ -18,16 +18,16 @@ class Once.Views.Posts.IndexView extends Backbone.View
     
   do_action: (e) =>
     action = $(e.target).attr("action")
-    this[action]()
+    this[action](e)
     
-  filter_posts: () =>
+  filter_posts: (e) =>
     current_user_id = $("#current_user_id").val()
-    # @options.posts
-    posts = @options.posts.filter( (post) -> post.get("user_id") == current_user_id )
+    posts = new Once.Collections.PostsCollection(@options.posts.where({title: 'yarrp'}))
     @options.posts = posts
+    @render()
     
   render: =>
-    @$el.html(@template(posts: @options.posts.toJSON() ))
+    @$el.html(@template(posts: @options.posts.toJSON(), cuid: @options.cuid, className: "smoo" ))
     @addAll()
 
     return this

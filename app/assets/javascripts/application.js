@@ -17,5 +17,6 @@
 //= require backbone
 //= require backbone_rails_sync
 //= require backbone_datalink
+//= require js-routes
 //= require backbone/once
 //= require_tree .
