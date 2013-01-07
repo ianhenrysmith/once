@@ -23,6 +23,7 @@ class Once.Views.Posts.NewView extends Backbone.View
     @collection.create(@model.toJSON(),
       wait: true
       success: (post) =>
+        window.CanCreate = false
         @model = post
         window.location.hash = "/#{@model.id}"
 

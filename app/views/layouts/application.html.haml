@@ -6,6 +6,10 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
   %body
-    = render :partial => "shared/nav"
-    = render :partial => "shared/global_fields"
-    = yield
+    .section_body
+      .float_left.text_logo="Once"
+      .float_left
+        = render :partial => "shared/nav"
+        = render :partial => "shared/global_fields"
+        = yield
+      .clr

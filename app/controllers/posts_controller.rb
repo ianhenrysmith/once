@@ -16,7 +16,7 @@ class PostsController < ApplicationController
   end
   
   def create
-    params[:post][:user_id] ||= current_user.id
+    params[:post][:user_id] = current_user.id
     params[:post][:type] ||= "text"
     @post = Post.new(params[:post])
     success = false
@@ -26,11 +26,9 @@ class PostsController < ApplicationController
     end
     
     if success
-      puts "8888888888888888888888888888888888888888"
       current_user.update_last_post_created_time
       respond_with @post
     else
-      puts "nononononononoononononononononononononoo"
       respond_with(@post, :status => :precondition_failed)  # user probably already created a post today
     end
   end

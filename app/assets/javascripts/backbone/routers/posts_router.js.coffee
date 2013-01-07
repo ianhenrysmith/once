@@ -18,7 +18,7 @@ class Once.Routers.PostsRouter extends Backbone.Router
     $("#posts").html(@view.render().el)
 
   index: ->
-    @view = new Once.Views.Posts.IndexView(posts: @posts, cuid: @current_user_id)
+    @view = new Once.Views.Posts.IndexView(posts: @posts)
     $("#posts").html(@view.render().el)
 
   show: (id) ->

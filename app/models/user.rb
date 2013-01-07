@@ -26,7 +26,7 @@ class User
   validates_presence_of :encrypted_password
   
   def can_create_post?(post)
-    last_post_created_time == nil || !last_post_created_time.today? #|| Rails.env.development?
+    last_post_created_time == nil || !last_post_created_time.today? || Rails.env.development?
   end
   
   def update_last_post_created_time(time=Time.now)
