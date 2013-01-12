@@ -1,7 +1,0 @@
-= link_to "Once", root_path
-- if current_user.present?
-  = link_to "Sign out", destroy_user_session_path, :class => ''
-  = link_to "Me", current_user, :class => ''
-- else
-  = link_to "Sign in", new_user_session_path, :class => ''
-  = link_to "Register", new_user_registration_path, :class => ""
