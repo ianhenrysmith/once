@@ -1,7 +1,6 @@
 class Once.Routers.PostsRouter extends Backbone.Router
   initialize: (options) ->
     @current_user_id = $("#current_user_id").val()
-    @smoo = "smoo"
     @posts = new Once.Collections.PostsCollection()
     @posts.fetch()
     @posts.reset options.posts
@@ -28,6 +27,5 @@ class Once.Routers.PostsRouter extends Backbone.Router
 
   edit: (id) ->
     post = @posts.get(id)
-    
     @view = new Once.Views.Posts.EditView(model: post)
     $("#posts").html(@view.render().el)

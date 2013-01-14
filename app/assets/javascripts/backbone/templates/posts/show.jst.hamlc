@@ -1,0 +1,10 @@
+.col2.sm_hide
+.iblock
+  %p
+    %b="Title:"
+    = this.title
+  %p
+    %b="Content:"
+    = this.content
+
+%a{ href:"#/index"}="Back"
