@@ -6,5 +6,6 @@
   %p
     %b="Content:"
     = this.content
-
+  %p
+    %b="Type"
 %a{ href:"#/index"}="Back"

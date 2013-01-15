@@ -1,2 +1,6 @@
 - user_id = current_user ? current_user.id : nil
 = hidden_field_tag "current_user_id", user_id
+
+- case controller_name
+- when "posts"
+  = hidden_field_tag "post_types", Post::TYPES

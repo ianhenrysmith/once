@@ -1,0 +1,21 @@
+.iblock
+  %h2= "EDIT POST"
+  %form#edit-post{name: "post"}
+    %p
+      %b="Title:"
+      %input{ type:"text", name:"title", id:"title", value:"#{this.title}"}
+    %p
+      %b="Content:"
+      %input{ type:"text", name:"content", id:"content", value:"#{this.content}"}
+    %p
+      %b="Type"
+      %input{ type: "text", name: "type", id: "type", value:"#{this.type}"}
+      .dropdown
+        %span.dropdown-toggle="Change Type"
+        %ul.dropdown-menu{ role:"menu"}
+          - select_options = $("#post_types").val().split(" ");
+          - for opt in select_options
+            %li= opt
+    %p
+      %input{ type:"submit", value:"Update Post" }
+%a{ href:"#/index"}="Back"
