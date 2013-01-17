@@ -1,11 +1,9 @@
-.col2.sm_hide
-.iblock
-  %p
-    %b="Title:"
-    = this.title
-  %p
-    %b="Content:"
-    = this.content
-  %p
-    %b="Type"
+%h2.uppercase= this.title
+
+%p.t1= this.description
+- if this.type == "image"
+  %img{ src: "#{this.content}" }
+- else
+  %p= this.content
+%p= this.type
 %a{ href:"#/index"}="Back"

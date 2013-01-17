@@ -1,6 +1,9 @@
 #posts
 
 :javascript
+  var Posts = new Backbone.Collection;
+  Posts.reset(#{ @posts.to_json });
+  
   $(function() {
     // Blog is the app name
     window.router = new Once.Routers.PostsRouter({posts: #{@posts.to_json.html_safe}});

@@ -2,7 +2,6 @@ class Once.Routers.PostsRouter extends Backbone.Router
   initialize: (options) ->
     @current_user_id = $("#current_user_id").val()
     @posts = new Once.Collections.PostsCollection()
-    @posts.fetch()
     @posts.reset options.posts
 
   routes:
@@ -29,3 +28,4 @@ class Once.Routers.PostsRouter extends Backbone.Router
     post = @posts.get(id)
     @view = new Once.Views.Posts.EditView(model: post)
     $("#posts").html(@view.render().el)
+    $(".dropdown-toggle").dropdown()

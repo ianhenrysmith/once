@@ -8,14 +8,17 @@
       %b="Content:"
       %input{ type:"text", name:"content", id:"content", value:"#{this.content}"}
     %p
+      %b="Why:"
+      %input{ type:"text", name:"description", id:"description", value:"#{this.description}"}
+    %p
       %b="Type"
-      %input{ type: "text", name: "type", id: "type", value:"#{this.type}"}
-      .dropdown
-        %span.dropdown-toggle="Change Type"
+      .iblock.dropdown
+        %input.dropdown_target{ type: "text", name: "type", id: "type", value:"#{this.type}"}
+        %span.dropdown-toggle= this.type
         %ul.dropdown-menu{ role:"menu"}
           - select_options = $("#post_types").val().split(" ");
           - for opt in select_options
-            %li= opt
+            %li.dropdown_item{v: opt}= opt
     %p
       %input{ type:"submit", value:"Update Post" }
 %a{ href:"#/index"}="Back"

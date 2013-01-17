@@ -9,16 +9,21 @@ class Once.Views.Posts.EditView extends Backbone.View
   update: (e) ->
     e.preventDefault()
     e.stopPropagation()
+    
+    params = {}
+    arr = $("form").serializeArray()
+    for kv in arr
+      params[kv.name] = kv.value
 
-    @model.save(null,
+    console.log params
+
+    @model.save(params,
       success: (post) =>
         @model = post
-        window.location.hash = "/#{@model._id}"
+        window.location.hash = "/#{@model.id}"
+      wait: true
     )
 
   render: ->
     @$el.html(@template(@model.toJSON() ))
-
-    this.$("form").backboneLink(@model)
-
     return this

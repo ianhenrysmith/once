@@ -4,11 +4,11 @@ class PostsController < ApplicationController
   respond_to :json, :html
   
   def index
-    posts = Post.all
+    @posts = Post.all
     if params[:user_id]
-      posts = Post.where(:user_id => params[:user_id]).all
+      @posts = Post.where(:user_id => params[:user_id]).all
     end
-    respond_with posts
+    respond_with @posts
   end
   
   def new
@@ -34,8 +34,9 @@ class PostsController < ApplicationController
   end
   
   def update
+    # debugger
     @post = Post.find(params[:id])
-    respond_with @post.update(params[:post])
+    respond_with @post.update_attributes(params[:post])
   end
     
   def destroy
