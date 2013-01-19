@@ -1,24 +1,34 @@
-.iblock
-  %h2= "EDIT POST"
-  %form#edit-post{name: "post"}
-    %p
-      %b="Title:"
-      %input{ type:"text", name:"title", id:"title", value:"#{this.title}"}
-    %p
-      %b="Content:"
-      %input{ type:"text", name:"content", id:"content", value:"#{this.content}"}
-    %p
-      %b="Why:"
-      %input{ type:"text", name:"description", id:"description", value:"#{this.description}"}
-    %p
-      %b="Type"
-      .iblock.dropdown
-        %input.dropdown_target{ type: "text", name: "type", id: "type", value:"#{this.type}"}
-        %span.dropdown-toggle= this.type
-        %ul.dropdown-menu{ role:"menu"}
-          - select_options = $("#post_types").val().split(" ");
-          - for opt in select_options
-            %li.dropdown_item{v: opt}= opt
+.post_1
+  %h2= "Edit"
+  %form#edit-post.t1{name: "post"}
+    %table.table_1
+      %tr
+        %td
+          .b="Title"
+        %td
+          .m2
+            %input.h3{ type:"text", name:"title", id:"title", value:"#{this.title}"}
+      %tr
+        %td
+          .b="Content"
+        %td
+          %input.p.m2{ type:"text", name:"content", id:"content", value:"#{this.content}"}
+      %tr
+        %td.label
+          .b="Why"
+        %td
+          %textarea.p.m2{ type:"text", name:"description", id:"description", value:"#{this.description}", rows:"6", cols:"65"}
+      %tr
+        %td.label
+          .b="Type"
+        %td
+          .iblock.dropdown.m2
+            %input.dropdown_target{ type: "text", name: "type", id: "type", value:"#{this.type}"}
+            %span.dropdown-toggle= this.type
+            %ul.dropdown-menu{ role:"menu"}
+              - select_options = $("#post_types").val().split(" ");
+              - for opt in select_options
+                %li.dropdown_item{v: opt}= opt
     %p
       %input{ type:"submit", value:"Update Post" }
-%a{ href:"#/index"}="Back"
+  %a{ href:"#/index"}="Back"

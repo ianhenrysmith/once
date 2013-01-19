@@ -1,6 +1,6 @@
 Once.Views.Posts ||= {}
 
-class Once.Views.Posts.IndexView extends Backbone.View
+class Once.Views.Posts.IndexView extends Once.Views.Posts.BaseView
   template: JST["backbone/templates/posts/index"]
   
   events:
@@ -26,7 +26,7 @@ class Once.Views.Posts.IndexView extends Backbone.View
     @render(posts)
     
   render: (posts=@options.posts.toJSON()) =>
-    @$el.html(@template(posts: posts))
+    @$el.html(@template(posts: posts, h: this.helpers))
     @addAll()
 
     return this

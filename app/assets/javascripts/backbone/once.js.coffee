@@ -1,6 +1,7 @@
 #= require_self
 #= require_tree ./templates
 #= require_tree ./models
+#= require_tree ./helpers
 #= require_tree ./views
 #= require_tree ./routers
 
@@ -9,5 +10,6 @@ window.Once =
   Collections: {}
   Routers: {}
   Views: {}
+  Helpers: {}
   
 window.CanCreate = true

@@ -1,9 +1,13 @@
-%h2.uppercase= this.title
+.post_1
+  %h2= this.title
 
-%p.t1= this.description
-- if this.type == "image"
-  %img{ src: "#{this.content}" }
-- else
-  %p= this.content
-%p= this.type
-%a{ href:"#/index"}="Back"
+  %p.t1= this.description
+  - if this.type == "image"
+    %a{href: "#{this.content}"}
+      %img{ src: "#{this.content}", class: "img_responsive"}
+  - else if this.type == "quote"
+    %p.quote_1= this.content
+  - else
+    %p= this.content
+  %p
+    %a{ href:"#/index"}="Back"

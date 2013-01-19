@@ -1,8 +1,11 @@
-// Small
-@media screen and (max-width: 500px)
-  body
-    font-size: 0.8em
-
+// all
+body
+  transition:         all 0.2s linear
+  -o-transition:      all 0.2s linear
+  -moz-transition:    all 0.2s linear
+  -webkit-transition: all 0.2s linear
+.img_responsive
+  max-width: 100%
     
 //medium
 @media screen and (max-width: 767px)
@@ -17,7 +20,16 @@
   .md_block
     display: block
     float: none
-
+  .post_1
+    margin: 0 20px
+    
+// Small
+@media screen and (max-width: 500px)
+  body
+    font-size: 0.8em
+  .post_1
+    margin: 0
+  
 //large
 @media screen and (min-width: 1281px)
   body

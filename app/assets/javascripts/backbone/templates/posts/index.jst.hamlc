@@ -1,14 +1,17 @@
-%h2="Listing posts"
+.post_1
+  %h2="Listing posts"
 
-%table#posts-table
-  %tr
-    %thTitle
-    %thContent
-    %th
-    %th
-    %th
+  %table.table_2#posts-table
+    %tr
+      %th="Title"
+      %th
+        %span.m2i="Type"
+      %th
+        %span.m2i="Preview"
+      %th
+      %th
 
-- if true
-  %a{href: "#/new"}="New Post"
-.view_action{ action:"filter_posts", keys:"user_id", values:""}="My Posts"
-.view_action{ action:"filter_posts", keys:"user_id", values:""}="All Posts"
+  - if true
+    %a{href: "#/new"}="New Post"
+  .view_action{ action:"filter_posts", keys:"user_id", values:""}="My Posts"
+  .view_action{ action:"filter_posts", keys:"user_id", values:""}="All Posts"
