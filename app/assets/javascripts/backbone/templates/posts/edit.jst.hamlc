@@ -6,29 +6,25 @@
         %td
           .b="Title"
         %td
+          %h3{contenteditable: true}= @post.title
           .m2
-            %input.h3{ type:"text", name:"title", id:"title", value:"#{this.title}"}
+            %input.h3{ type:"text", name:"title", id:"title", value:"#{@post.title}"}
       %tr
         %td
           .b="Content"
         %td
-          %input.p.m2{ type:"text", name:"content", id:"content", value:"#{this.content}"}
+          %input.p.m2{ type:"text", name:"content", id:"content", value:"#{@post.content}"}
       %tr
         %td.label
           .b="Why"
         %td
-          %textarea.p.m2{ type:"text", name:"description", id:"description", value:"#{this.description}", rows:"6", cols:"65"}
+          %textarea.p.m2{ type:"text", name:"description", id:"description", value:"#{@post.description}", rows:"6", cols:"65"}
       %tr
         %td.label
           .b="Type"
         %td
-          .iblock.dropdown.m2
-            %input.dropdown_target{ type: "text", name: "type", id: "type", value:"#{this.type}"}
-            %span.dropdown-toggle= this.type
-            %ul.dropdown-menu{ role:"menu"}
-              - select_options = $("#post_types").val().split(" ");
-              - for opt in select_options
-                %li.dropdown_item{v: opt}= opt
+          - vs = $("#post_types").val().split(" ")
+          != @h.dropdown({options: vs, field: "type", value: @post.type})
     %p
       %input{ type:"submit", value:"Update Post" }
   %a{ href:"#/index"}="Back"

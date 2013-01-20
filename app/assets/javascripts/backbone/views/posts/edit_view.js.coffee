@@ -1,6 +1,6 @@
 Once.Views.Posts ||= {}
 
-class Once.Views.Posts.EditView extends Backbone.View
+class Once.Views.Posts.EditView extends Once.Views.Posts.BaseView
   template: JST["backbone/templates/posts/edit"]
 
   events:
@@ -25,5 +25,5 @@ class Once.Views.Posts.EditView extends Backbone.View
     )
 
   render: ->
-    @$el.html(@template(@model.toJSON() ))
+    @$el.html(@template(post: @model.toJSON(), h: this.helpers ))
     return this

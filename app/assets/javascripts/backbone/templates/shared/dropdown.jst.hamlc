@@ -1,0 +1,6 @@
+.iblock.dropdown.m2
+  %input.dropdown_target{ type: "text", name: @field, id: @field, value:"#{@value}"}
+  %span.dropdown-toggle= @value
+  %ul.dropdown-menu{ role:"menu"}
+    - for opt in @options
+      %li.dropdown_item{v: opt}= opt
