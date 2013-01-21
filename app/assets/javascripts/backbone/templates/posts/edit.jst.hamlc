@@ -6,25 +6,25 @@
         %td
           .b="Title"
         %td
-          %h3{contenteditable: true}= @post.title
-          .m2
-            %input.h3{ type:"text", name:"title", id:"title", value:"#{@post.title}"}
+          %h3.editable.m2{contenteditable: true}= @post.title
+          %input.ce_target{ type:"text", name:"title", id:"title", value:"#{@post.title}"}
       %tr
         %td
           .b="Content"
         %td
-          %input.p.m2{ type:"text", name:"content", id:"content", value:"#{@post.content}"}
+          %p.editable.m2{contenteditable: true}=@post.content
+          %input.ce_target{ type:"text", name:"content", id:"content", value:"#{@post.content}"}
       %tr
         %td.label
           .b="Why"
         %td
           %textarea.p.m2{ type:"text", name:"description", id:"description", value:"#{@post.description}", rows:"6", cols:"65"}
       %tr
-        %td.label
+        %td
           .b="Type"
         %td
           - vs = $("#post_types").val().split(" ")
-          != @h.dropdown({options: vs, field: "type", value: @post.type})
+          != @h.dropdown({values: vs, field: "type", value: @post.type, options: {class: "editable m2"}})
     %p
       %input{ type:"submit", value:"Update Post" }
   %a{ href:"#/index"}="Back"

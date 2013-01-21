@@ -17,7 +17,8 @@ $('[contenteditable]')
         $this = $(this)
         html = $this.html()
         if $this.data('before') isnt html
+            index = $("[contenteditable]").index($this)
+            $($(".ce_target")[index]).val(html)
             $this.data 'before', html
-            console.log html
             $this.trigger('change')
         return $this
