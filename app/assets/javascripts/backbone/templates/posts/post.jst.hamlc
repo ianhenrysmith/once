@@ -1,11 +1,12 @@
-%td
-  %a{href:"#/#{ @post.id }"}= @post.title
-%td
-  %span.m2i= @post.type
-%td
-  %span.m2i
-    != @h.preview(@post)
-%td
-  %a.m2i{href:"#/#{ @post.id }/edit"}="Edit"
-%td
-  %a.destroy.m2i{href:"#/#{ @post.id }/destroy"}="Delete"
+.b4.text_r.margin_05t.sm_hide
+  .text_small
+    = @post.created_string
+    %p= @post.type
+    %p
+      %a{href:"#/#{ @post.id }/edit"}="Edit"
+    %p
+      %a{href:"#/#{ @post.id }/destroy"}="Delete"
+.b3.m2i
+  %a{href:"#/#{ @post.id }"}!= @h.preview(@post)
+.b2.margin_05t
+  %a.h3{href:"#/#{ @post.id }"}!= @post.title

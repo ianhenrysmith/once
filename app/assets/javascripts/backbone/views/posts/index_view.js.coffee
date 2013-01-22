@@ -14,7 +14,7 @@ class Once.Views.Posts.IndexView extends Once.Views.Posts.BaseView
 
   addOne: (post) =>
     view = new Once.Views.Posts.PostView({model : post})
-    @$("tbody").append(view.render().el)
+    @$("#posts_body").append(view.render().el)
     
   do_action: (e) =>
     action = $(e.target).attr("action")
