@@ -1,4 +1,7 @@
-.b4.text_r.margin_05t.sm_hide
+.b3
+  %a{href:"#/#{ @post.id }"}!= @h.preview(@post)
+.b2
+  %a.h3{href:"#/#{ @post.id }"}!= @post.title
   .text_small
     = @post.created_string
     %p= @post.type
@@ -6,7 +9,3 @@
       %a{href:"#/#{ @post.id }/edit"}="Edit"
     %p
       %a{href:"#/#{ @post.id }/destroy"}="Delete"
-.b3.m2i
-  %a{href:"#/#{ @post.id }"}!= @h.preview(@post)
-.b2.margin_05t
-  %a.h3{href:"#/#{ @post.id }"}!= @post.title
