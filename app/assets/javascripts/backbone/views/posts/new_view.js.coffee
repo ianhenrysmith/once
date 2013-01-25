@@ -1,6 +1,6 @@
 Once.Views.Posts ||= {}
 
-class Once.Views.Posts.NewView extends Backbone.View
+class Once.Views.Posts.NewView extends Once.Views.Posts.BaseView
   template: JST["backbone/templates/posts/new"]
 
   events:
@@ -32,7 +32,7 @@ class Once.Views.Posts.NewView extends Backbone.View
     )
 
   render: ->
-    @$el.html(@template(@model.toJSON() ))
+    @$el.html(@template(post: @model.toJSON(), h: this.helpers  ))
 
     this.$("form").backboneLink(@model)
 
