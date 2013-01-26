@@ -19,8 +19,13 @@ class Once.Views.Posts.NewView extends Once.Views.Posts.BaseView
     e.stopPropagation()
 
     @model.unset("errors")
+    
+    params = {}
+    arr = $("form").serializeArray()
+    for kv in arr
+      params[kv.name] = kv.value
 
-    @collection.create(@model.toJSON(),
+    @collection.create(params,
       wait: true
       success: (post) =>
         window.CanCreate = false
@@ -33,7 +38,5 @@ class Once.Views.Posts.NewView extends Once.Views.Posts.BaseView
 
   render: ->
     @$el.html(@template(post: @model.toJSON(), h: this.helpers  ))
-
-    this.$("form").backboneLink(@model)
 
     return this

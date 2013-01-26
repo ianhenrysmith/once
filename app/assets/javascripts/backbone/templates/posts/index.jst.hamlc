@@ -3,8 +3,7 @@
 
   %br
   %br
-  .b4.text_r
-    - if true
-      %a{href: "#/new"}="New Post"
-    .view_action{ action:"filter_posts", keys:"user_id", values:""}="My Posts"
-    .view_action{ action:"filter_posts", keys:"user_id", values:""}="All Posts"
+  - if true
+    %a{href: "#/new"}="New Post"
+  -#.view_action{ action:"filter_posts", keys:"user_id", values:""}="My Posts"
+  -#.view_action{ action:"filter_posts", keys:"user_id", values:""}="All Posts"

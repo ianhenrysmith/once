@@ -15,8 +15,6 @@ class Once.Views.Posts.EditView extends Once.Views.Posts.BaseView
     for kv in arr
       params[kv.name] = kv.value
 
-    console.log params
-
     @model.save(params,
       success: (post) =>
         @model = post

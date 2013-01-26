@@ -21,6 +21,7 @@ class Once.Routers.PostsRouter extends Backbone.Router
     @$pane.animate({
       width: "100%"
     }, 200)
+    $(".dropdown-toggle").dropdown()
     
   index: ->
     @view = new Once.Views.Posts.IndexView(posts: @posts)

@@ -7,7 +7,7 @@ class Once.Views.Posts.PostView extends Once.Views.Posts.BaseView
     "click .destroy" : "destroy"
 
   tagName: "div"
-  className: "post_row"
+  className: "post_block"
     
   destroy: () ->
     @model.destroy()
