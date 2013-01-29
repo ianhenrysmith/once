@@ -1,11 +1,12 @@
-.preview_container
+.preview_container{type:@post.type}
   %a{href:"#/#{ @post.id }"}!= @h.preview(@post)
 %a.h4{href:"#/#{ @post.id }"}!= @post.title
 .text_small
   %a{href: @post.creator_path }= @post.creator_name
   = @post.created_string
-.text_smaller
-  = @post.description
+- unless @post.type == "tweet"
+  .text_smaller
+    = @post.description
 -#  
   %p
     %a{href:"#/#{ @post.id }/edit"}="Edit"

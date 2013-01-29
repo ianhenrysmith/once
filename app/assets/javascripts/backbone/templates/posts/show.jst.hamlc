@@ -1,4 +1,4 @@
-.post_0
+.post_0.white_bg
   %h2= this.title
 
   %p.t1= this.description
@@ -7,6 +7,11 @@
       %img{ src: "#{this.content}", class: "img_responsive"}
   - else if this.type == "quote"
     %p.quote_1= this.content
+  - else if this.type == "video"
+    - yt_id = this.content.split("watch?v=")[1]
+    %iframe{ width:"560", height:"315", src:"http://www.youtube.com/embed/#{yt_id}", frameborder:"0", allowfullscreen:"true"}
+  - else if this.type == "tweet"
+    = @post.tweet_embed_code
   - else
     %p= this.content
   %p

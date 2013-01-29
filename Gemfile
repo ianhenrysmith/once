@@ -37,3 +37,5 @@ gem "mongoid", ">= 2.0.0.beta.19"
 
 gem "rails-backbone"
 gem "js-routes"
+
+gem "httparty"
