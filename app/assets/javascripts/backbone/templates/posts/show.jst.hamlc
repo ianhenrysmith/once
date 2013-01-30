@@ -11,7 +11,8 @@
     - yt_id = this.content.split("watch?v=")[1]
     %iframe{ width:"560", height:"315", src:"http://www.youtube.com/embed/#{yt_id}", frameborder:"0", allowfullscreen:"true"}
   - else if this.type == "tweet"
-    = @post.tweet_embed_code
+    =#! unescape(@tweet_embed_code.replace("+", " "))
+    = "(embedding tweets doesn't work yet...)"
   - else
     %p= this.content
   %p

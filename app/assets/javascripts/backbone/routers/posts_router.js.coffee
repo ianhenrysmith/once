@@ -9,11 +9,12 @@ class Once.Routers.PostsRouter extends Backbone.Router
     @$posts = $("#posts")
     
   routes:
-    "new"      : "newPost"
-    "index"    : "index"
-    ":id/edit" : "edit"
-    ":id"      : "show"
-    ".*"       : "index"
+    "new"           : "newPost"
+    "index"         : "index"
+    ":id/edit"      : "edit"
+    ":id"           : "show"
+    ".*"            : "index"
+    "index/:user_id": "index"
 
   newPost: ->
     @view = new Once.Views.Posts.NewView(collection: @posts)
@@ -24,7 +25,9 @@ class Once.Routers.PostsRouter extends Backbone.Router
     $(".dropdown-toggle").dropdown()
     
   index: ->
-    @view = new Once.Views.Posts.IndexView(posts: @posts)
+    console.log user_id if user_id
+    @user = {name: "smooface"}
+    @view = new Once.Views.Posts.IndexView(posts: @posts, user: @user)
     @$posts.html(@view.render().el)
     @$pane.animate({
       width: "0"

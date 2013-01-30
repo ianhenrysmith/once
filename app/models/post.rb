@@ -23,9 +23,10 @@ class Post
   
   def as_json(options={})
     result = super(options)
-    result[:id] = id.to_s
-    result[:created_string] = created_at.strftime("%D") if created_at
-    result[:tweet_embed_code] = CGI::escapeHTML(tweet_embed_code) if tweet_embed_code
+    result["id"] = id.to_s
+    result["created_string"] = created_at.strftime("%D") if created_at
+    result["tweet_embed_code"] = CGI::escape(tweet_embed_code) if tweet_embed_code
+    
     result
   end
   
