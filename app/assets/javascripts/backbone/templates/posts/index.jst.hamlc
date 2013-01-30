@@ -1,6 +1,5 @@
 .post_1.gray_lt_bg
-  - if @user.length isnt undefined
-    // this isn't working correctly...
+  - if @user.name isnt undefined
     // http://localhost:9191/posts#/user/50cf3be9a09fc2ac83000001
     %h2="Showing posts from #{@user.name}"
   #posts_body
