@@ -33,4 +33,10 @@ class User
     self.last_post_created_time = time
     self.save
   end
+  
+  def as_json(options={})
+    result = super(options)
+    result["id"] = id.to_s
+    result
+  end
 end

@@ -5,9 +5,8 @@ class PostsController < ApplicationController
   
   def index
     @posts = Post.all
-    if params[:user_id]
-      @posts = Post.where(:user_id => params[:user_id]).all
-    end
+    @users = User.all
+    
     respond_with @posts
   end
   

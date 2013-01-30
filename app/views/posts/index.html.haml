@@ -8,11 +8,11 @@
   %td#post_pane_content.panel_1
 
 :javascript
-  var Posts = new Backbone.Collection;
-  Posts.reset(#{ @posts.to_json });
+  posts_json = #{ @posts.to_json.html_safe };
+  users_json = #{@users.to_json.html_safe};
   
   $(function() {
     // Blog is the app name
-    window.router = new Once.Routers.PostsRouter({posts: Posts});
+    window.router = new Once.Routers.PostsRouter({posts: posts_json, users: users_json});
     Backbone.history.start();
   });

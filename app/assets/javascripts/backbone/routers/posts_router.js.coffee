@@ -3,6 +3,8 @@ class Once.Routers.PostsRouter extends Backbone.Router
     @current_user_id = $("#current_user_id").val()
     @posts = new Once.Collections.PostsCollection()
     @posts.reset options.posts
+    @users = new Once.Collections.UsersCollection()
+    @users.reset options.users
     
     @$pane = $("#post_pane")
     @$post = $("#post_pane_content")
@@ -14,7 +16,7 @@ class Once.Routers.PostsRouter extends Backbone.Router
     ":id/edit"      : "edit"
     ":id"           : "show"
     ".*"            : "index"
-    "index/:user_id": "index"
+    "user/:user_id" : "user_index"
 
   newPost: ->
     @view = new Once.Views.Posts.NewView(collection: @posts)
@@ -25,9 +27,22 @@ class Once.Routers.PostsRouter extends Backbone.Router
     $(".dropdown-toggle").dropdown()
     
   index: ->
-    console.log user_id if user_id
-    @user = {name: "smooface"}
-    @view = new Once.Views.Posts.IndexView(posts: @posts, user: @user)
+    @view = new Once.Views.Posts.IndexView(posts: @posts)
+    @$posts.html(@view.render().el)
+    @$pane.animate({
+      width: "0"
+    }, 200)
+    
+  user_index: (user_id) ->
+    # http://localhost:9191/posts#/user/50cf3be9a09fc2ac83000001
+    
+    @user = @users.get(user_id)
+    if @user
+      posts = new Once.Collections.PostsCollection( @posts.where({user_id: user_id}) )
+    else
+      posts = @posts
+      
+    @view = new Once.Views.Posts.IndexView(posts: posts, user: @user)
     @$posts.html(@view.render().el)
     @$pane.animate({
       width: "0"
