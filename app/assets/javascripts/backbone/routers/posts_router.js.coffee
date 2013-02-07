@@ -25,6 +25,7 @@ class Once.Routers.PostsRouter extends Backbone.Router
       width: "100%"
     }, 200)
     $(".dropdown-toggle").dropdown()
+    $('.standard-attachment').jackUpAjax(window.jackUp)
     
   index: ->
     @view = new Once.Views.Posts.IndexView(posts: @posts)

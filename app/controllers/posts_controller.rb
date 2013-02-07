@@ -17,7 +17,17 @@ class PostsController < ApplicationController
   def create
     params[:post][:user_id] = current_user.id
     params[:post][:type] ||= "text"
+    
+    asset_params = params[:post][:asset_ids]
+    params[:post].delete(:asset_ids)
+    
     @post = Post.new(params[:post])
+    @post.assets.build
+    asset_params.split(' ').each do |id|
+      asset = Asset.find(id)
+      @post.assets << asset
+    end
+    
     success = false
     
     if current_user && current_user.can_create_post?(@post)

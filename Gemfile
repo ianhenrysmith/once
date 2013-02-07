@@ -39,3 +39,8 @@ gem "rails-backbone"
 gem "js-routes"
 
 gem "httparty"
+
+gem "mongoid-paperclip", :require => "mongoid_paperclip"
+gem "aws-s3",            :require => "aws/s3"
+gem 'rack-raw-upload'
+gem 'jack_up', git: "git://github.com/thoughtbot/jack_up.git", branch: "use_form_data"

@@ -29,6 +29,13 @@
         %td
           - vs = $("#post_types").val().split(" ")
           != @h.dropdown({values: vs, field: "type", value: "text", options: {class: "editable m2"}})
+      %tr
+        %td="Upload"
+        %td
+          .file-drop
+            %span{ 'data-placeholder' => 'Drop files here' } Drop files here
+
+          %input.standard-attachment{ name: 'standard_attachment', accept: 'image/*', type: "file", multiple: "multiple" }
     %p
       %input{ type:"submit", value:"Create Post" }
   %a{ href:"#/index"}="Cancel"

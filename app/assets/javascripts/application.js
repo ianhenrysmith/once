@@ -20,5 +20,5 @@
 //= require js-routes
 //= require hamlcoffee
 //= require backbone/once
-//= require ckeditor/ckeditor
+//= require jack_up
 //= require_tree .

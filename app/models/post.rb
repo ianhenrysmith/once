@@ -14,10 +14,14 @@ class Post
   field :creator_path, type: String
   # twitter
   field :tweet_embed_code, type: String
+  field :assets_attributes
   
   belongs_to :user
   has_many :comments
   has_many :likes
+  has_many :assets, dependent: :destroy
+
+  accepts_nested_attributes_for :assets
   
   validates_inclusion_of	:type, :in => TYPES
   
