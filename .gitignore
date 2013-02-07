@@ -17,3 +17,5 @@
 .DS_STORE
 
 public/system/
+
+config/initializers/aws_dev.rb

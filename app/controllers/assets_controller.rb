@@ -2,8 +2,6 @@ class AssetsController < ApplicationController
   respond_to :json, :html
   
   def create
-    debugger
-    
     @asset = Asset.new(photo: params[:file])
 
     if @asset.save

@@ -15,6 +15,8 @@ class Post
   # twitter
   field :tweet_embed_code, type: String
   field :assets_attributes
+  # assets
+  field :asset_url, type: String
   
   belongs_to :user
   has_many :comments
@@ -23,7 +25,7 @@ class Post
 
   accepts_nested_attributes_for :assets
   
-  validates_inclusion_of	:type, :in => TYPES
+  validates_inclusion_of	:type, in: TYPES
   
   def as_json(options={})
     result = super(options)
@@ -39,6 +41,9 @@ class Post
     self.creator_name = u.name
     self.creator_path = "/users/#{u.id}"
     self.creator_avatar_url = "smoo"
+    if assets.present?
+      self.asset_url = assets.first.photo.url
+    end
     self.save
   end
   

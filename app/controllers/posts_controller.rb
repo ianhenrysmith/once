@@ -17,21 +17,26 @@ class PostsController < ApplicationController
   def create
     params[:post][:user_id] = current_user.id
     params[:post][:type] ||= "text"
+    # should also grab user path, user avatar here for cache fields
     
     asset_params = params[:post][:asset_ids]
-    params[:post].delete(:asset_ids)
+    params[:post].delete(:asset_ids) if asset_params
     
     @post = Post.new(params[:post])
-    @post.assets.build
     asset_params.split(' ').each do |id|
       asset = Asset.find(id)
-      @post.assets << asset
+      if asset
+        @post.assets << asset
+        @post.asset_url = asset.photo.url
+        asset.set_post_id(@post.id)
+      end
     end
     
     success = false
     
     if current_user && current_user.can_create_post?(@post)
       success = @post.save
+      # schedule refresh cache fields job here, I think?
     end
     
     if success
