@@ -2,7 +2,7 @@
   .logo_main="Once"
   .buttons_main
     = link_to "NEW POST", "/posts#/new", class: "h2"
-    = link_to "MY POSTS", current_user, class: "h2"
+    = link_to "MY POSTS", "/posts#/user/#{current_user.id}", class: "h2" if current_user
     = link_to "ALL POSTS", posts_path, class: "h2"
     .b0.float_right
       - if current_user.present?

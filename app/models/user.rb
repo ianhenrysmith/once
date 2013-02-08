@@ -17,7 +17,10 @@ class User
   # fields
   field :name, :type => String, :default => ""
   field :last_post_created_time, :type => Time
+  # assets
+  field :asset_url, type: String
   
+  has_many :assets, dependent: :destroy
   has_many :posts
   has_many :likes
   has_many :comments
@@ -31,6 +34,13 @@ class User
   
   def update_last_post_created_time(time=Time.now)
     self.last_post_created_time = time
+    self.save
+  end
+  
+  def refresh_cache_fields
+    if assets.present?
+      self.asset_url = assets.first.photo.url
+    end
     self.save
   end
   

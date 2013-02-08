@@ -2,11 +2,7 @@ $ -> # when the document is ready
   # create a new processor with the endpoint to where your assets are uploaded
   window.jackUp = new JackUp.Processor(path: '/assets')
   # called if upload is an image; returns an image jQuery object with src attribute assigned
-  window.jackUp.on 'upload:start', (e, file) ->
-    console.log file
-  window.jackUp.on 'upload:imageRenderReady', (e, options) ->
-    console.log options
-    
+  window.jackUp.on 'upload:imageRenderReady', (e, options) ->    
     # assigns a data-attribute with the file guid for later referencing
     # set the border color to red, denoting that the image is still being uploaded
     options.image.attr("data-id", options.file.__guid__).css(border: "5px solid red")
@@ -36,7 +32,6 @@ $ -> # when the document is ready
     # read the response from the server
     asset = JSON.parse(options.responseText)
     assetId = asset.id
-    console.log asset
     # create a hidden input containing the asset id of the uploaded file
     assetIdsElement = $("<input type='hidden' name='asset_ids' id='assets_#{asset}'>").val("#{asset}")
     # append it to the form so saving the form associates the created post

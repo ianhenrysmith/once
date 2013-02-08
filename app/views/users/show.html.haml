@@ -1,7 +1,15 @@
-%div="My stuff"
+.gray_bg
+  .post_1.gray_lt_bg
+    - if current_user.id == @user.id
+      %h2="Me"
+      - if @user.asset_url
+        %h3.block="Picture"
+        = image_tag @user.asset_url
+      = form_for @user, remote: true, html: { class: "autoupdate" } do |f|
+        = f.label :name
+        = f.text_field :name
+        %h4.block="Upload new photo"
+        .file-drop
+          %span{ 'data-placeholder' => 'Drop files here' } Drop files here
 
-- @user.posts.each do |post|
-  %div= post.title
-  
-%div= link_to "Posts", posts_path
-%div= link_to "New Post", "/posts#/new"
+        %input.standard-attachment{ name: 'standard_attachment', accept: 'image/*', type: "file", multiple: "multiple" }

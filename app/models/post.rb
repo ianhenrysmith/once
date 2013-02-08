@@ -40,7 +40,7 @@ class Post
     u = user
     self.creator_name = u.name
     self.creator_path = "/users/#{u.id}"
-    self.creator_avatar_url = "smoo"
+    self.creator_avatar_url = u.avatar_url
     if assets.present?
       self.asset_url = assets.first.photo.url
     end

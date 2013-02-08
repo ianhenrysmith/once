@@ -23,6 +23,11 @@ class PostsController < ApplicationController
     params[:post].delete(:asset_ids) if asset_params
     
     @post = Post.new(params[:post])
+    
+    ## Plans here: 
+    ##  handle multiple assets better
+    ##  dont dup assets
+    ##  abstract this method to a base model class
     asset_params.split(' ').each do |id|
       asset = Asset.find(id)
       if asset
