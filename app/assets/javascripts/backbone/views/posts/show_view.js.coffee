@@ -1,8 +1,10 @@
 Once.Views.Posts ||= {}
 
-class Once.Views.Posts.ShowView extends Backbone.View
+class Once.Views.Posts.ShowView extends Once.Views.Posts.BaseView
   template: JST["backbone/templates/posts/show"]
-
-  render: ->
+  render_attributes:
+    pane: "open"
+    
+  do_render: ->
     @$el.html(@template(@model.toJSON() ))
     return this

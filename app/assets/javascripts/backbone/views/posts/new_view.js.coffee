@@ -2,7 +2,11 @@ Once.Views.Posts ||= {}
 
 class Once.Views.Posts.NewView extends Once.Views.Posts.BaseView
   template: JST["backbone/templates/posts/new"]
-
+  render_attributes:
+    pane: "open"
+    dropdown: true
+    upload: true
+    
   events:
     "submit #new-post": "save"
 
@@ -36,7 +40,6 @@ class Once.Views.Posts.NewView extends Once.Views.Posts.BaseView
         @model.set({errors: $.parseJSON(jqXHR.responseText)})
     )
 
-  render: ->
-    @$el.html(@template(post: @model.toJSON(), h: this.helpers  ))
-
+  do_render: () ->
+    @$el.html(@template(post: @model.toJSON(), h: @helpers  ))
     return this
