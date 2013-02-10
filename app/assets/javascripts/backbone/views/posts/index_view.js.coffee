@@ -27,7 +27,7 @@ class Once.Views.Posts.IndexView extends Once.Views.Posts.BaseView
     
   render: (posts=@options.posts.toJSON()) =>
     if @options.user then user = @options.user.toJSON() else user = {}
-    @$el.html(@template(posts: posts, h: this.helpers, user: user))
+    @$el.html(@template(posts: posts, h: @helpers, user: user))
     @addAll()
 
     return this

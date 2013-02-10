@@ -1,0 +1,1 @@
+.avatar{class: "#{@size} #{@options.class}", style: "background-image: url(#{@url});"}

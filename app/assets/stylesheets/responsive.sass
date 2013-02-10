@@ -6,6 +6,15 @@ body
   -webkit-transition: all 0.2s linear
 .img_responsive
   max-width: 100%
+  
+// Small
+@media screen and (max-width: 500px)
+  body
+    font-size: 0.8em
+  .post_1
+    margin: 0
+  .fw_col
+    width: 320px
     
 //medium
 @media screen and (max-width: 767px)
@@ -22,15 +31,29 @@ body
     float: none
   .post_1
     margin: 0 20px
+
+// 2 cols
+// Should come up with programmatic way of doing this
+@media screen and (min-width: 784px)
+  .fw_col
+    width: 640px
     
-// Small
-@media screen and (max-width: 500px)
-  body
-    font-size: 0.8em
-  .post_1
-    margin: 0
+// 3 cols
+@media screen and (min-width: 1104px)
+  .fw_col
+    width: 960px
   
 //large
 @media screen and (min-width: 1281px)
   body
     font-size: 1.2em
+    
+// 4 cols
+@media screen and (min-width: 1424px)
+  .fw_col
+    width: 1280px
+    
+// 5 cols
+@media screen and (min-width: 1744px)
+  .fw_col
+    width: 1600px

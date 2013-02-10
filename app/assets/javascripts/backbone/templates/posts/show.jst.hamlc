@@ -17,5 +17,3 @@
     %p= this.content
     - if this.asset_url
       %img{ src: "#{this.asset_url}", class: "img_responsive"}
-  %p
-    %a{ href:"#/index"}="Back"

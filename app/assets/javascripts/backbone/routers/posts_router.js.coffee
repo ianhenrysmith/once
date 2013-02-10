@@ -39,7 +39,6 @@ class Once.Routers.PostsRouter extends Backbone.Router
     
     @user = @users.get(user_id)
     if @user
-      console.log @user.name
       posts = new Once.Collections.PostsCollection( @posts.where({user_id: user_id}) )
     else
       posts = @posts

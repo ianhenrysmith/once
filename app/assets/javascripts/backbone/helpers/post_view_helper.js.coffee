@@ -22,3 +22,5 @@ class Once.Views.Posts.BaseView extends Backbone.View
           else post.content
     dropdown: (options={}) =>
       JST['backbone/templates/shared/dropdown'](options)
+    avatar: (url, size="medium", options={}) =>
+      JST['backbone/templates/shared/avatar']({url: url, size: size, options: options})
