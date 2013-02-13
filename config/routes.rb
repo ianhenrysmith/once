@@ -1,11 +1,13 @@
 Once::Application.routes.draw do
   devise_for :users
   
-  match "/users/sign_out", :to => "devise/sessions#destroy"
+  match "/users/sign_out", to: "devise/sessions#destroy"
 
   resources :users
   resources :posts
   resources :assets
+  
+  match "/ajax/send_action", to: "ajax#send_action"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

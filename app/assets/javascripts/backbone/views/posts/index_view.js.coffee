@@ -2,9 +2,6 @@ Once.Views.Posts ||= {}
 
 class Once.Views.Posts.IndexView extends Once.Views.Posts.BaseView
   template: JST["backbone/templates/posts/index"]
-  
-  events:
-    "click .view_action": "do_action"
 
   initialize: () ->
     @options.posts.bind('reset', @addAll)
@@ -15,10 +12,6 @@ class Once.Views.Posts.IndexView extends Once.Views.Posts.BaseView
   addOne: (post) =>
     view = new Once.Views.Posts.PostView({model : post})
     @$("#posts_body").append(view.render().el)
-    
-  do_action: (e) =>
-    action = $(e.target).attr("action")
-    this[action](e)
     
   filter_posts: (e) =>
     current_user_id = $("#current_user_id").val()

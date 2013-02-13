@@ -3,6 +3,7 @@ class Post
   include Mongoid::Timestamps
   
   TYPES = %w(quote image video link tweet text)
+  AJAX_ACTIONS = %w(toggle_like)
   
   field :content, type: String
   field :title, type: String
@@ -47,6 +48,16 @@ class Post
     self.save
   end
   
+  def toggle_like(options={})
+    if user = options[:user]
+      # should probably send over like id, if possible, for faster find
+      action = "destroy" if like = Like.where(post_id: id, user_id: user.id).first
+      like ||= Like.new(post: self, user: user)
+      like.try{|l| l.send( action ||= "save" )} == true
+    end
+  end
+  
+  # twitter
   def set_tw_preview
     if tweet?
       code = TwitterClient.get_tw_embed_code(tweet_id)

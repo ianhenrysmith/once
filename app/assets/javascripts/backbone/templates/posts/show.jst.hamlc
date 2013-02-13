@@ -1,19 +1,20 @@
 .post_0
-  %h2= this.title
+  %input{ type:"hidden", name:"atomic_post_id", id:"atomic_post_id", value: @post.id }
+  %h2= @post.title
 
-  %p.t1= this.description
-  - if this.type == "image"
+  %p.t1= @description
+  - if @type == "image"
     %a{href: "#{this.content}"}
       %img{ src: "#{this.content}", class: "img_responsive"}
-  - else if this.type == "quote"
+  - else if @post.type == "quote"
     %p.quote_1= this.content
-  - else if this.type == "video"
+  - else if @post.type == "video"
     - yt_id = this.content.split("watch?v=")[1]
     %iframe{ width:"560", height:"315", src:"http://www.youtube.com/embed/#{yt_id}", frameborder:"0", allowfullscreen:"true"}
-  - else if this.type == "tweet"
+  - else if @post.type == "tweet"
     =#! unescape(@tweet_embed_code.replace("+", " "))
     = "(embedding tweets doesn't work yet...)"
   - else
-    %p= this.content
-    - if this.asset_url
+    %p= @post.content
+    - if @post.asset_url
       %img{ src: "#{this.asset_url}", class: "img_responsive"}
