@@ -1,5 +1,6 @@
 .post_0
   %input{ type:"hidden", name:"atomic_post_id", id:"atomic_post_id", value: @post.id }
+  %input{ type:"hidden", name:"owner_id", id:"owner_id", value: @post.user_id }
   %h2= @post.title
 
   %p.t1= @description
@@ -7,9 +8,9 @@
     %a{href: "#{this.content}"}
       %img{ src: "#{this.content}", class: "img_responsive"}
   - else if @post.type == "quote"
-    %p.quote_1= this.content
+    %p.quote_1= @post.content
   - else if @post.type == "video"
-    - yt_id = this.content.split("watch?v=")[1]
+    - yt_id = @post.content.split("watch?v=")[1]
     %iframe{ width:"560", height:"315", src:"http://www.youtube.com/embed/#{yt_id}", frameborder:"0", allowfullscreen:"true"}
   - else if @post.type == "tweet"
     =#! unescape(@tweet_embed_code.replace("+", " "))

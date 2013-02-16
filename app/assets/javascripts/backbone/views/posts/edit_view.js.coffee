@@ -7,7 +7,7 @@ class Once.Views.Posts.EditView extends Once.Views.Posts.BaseView
   render_attributes:
     pane: "open"
     dropdown: true
-    upload: false
+    sidebar_actions: ["view"]
     
   events:
     "submit #edit-post": "update"

@@ -1,0 +1,14 @@
+.gray_bg
+  .post_1.gray_lt_bg
+    = form_for @user, remote: true, html: { class: "autoupdate" } do |f|
+      = f.label :name
+      = f.text_field :name
+  
+      = f.label :email
+      = f.text_field :email
+  
+      %h4.block="Upload new photo"
+      .file-drop
+        %span{ 'data-placeholder' => 'Drop files here' } Drop files here
+
+      %input.standard-attachment{ name: 'standard_attachment', accept: 'image/*', type: "file", multiple: "multiple" }

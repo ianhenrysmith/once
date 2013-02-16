@@ -1,4 +1,5 @@
 .post_0
+  %input{ type:"hidden", name:"atomic_post_id", id:"atomic_post_id", value: @post.id }
   %h2= "Edit"
   %form#edit-post.t1{name: "post"}
     %table.table_1

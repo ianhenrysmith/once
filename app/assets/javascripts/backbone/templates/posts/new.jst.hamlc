@@ -1,7 +1,6 @@
 .post_0
   %h2= "New"
   %form#new-post.t1{name: "post"}
-    %input{ type:"hidden", name:"user_id", id:"user_id", value: Once.Routers.PostsRouter.current_user_id }
     %table.table_1
       %tr
         %td

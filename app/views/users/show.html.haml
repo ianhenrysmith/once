@@ -1,15 +1,13 @@
-.gray_bg
-  .post_1.gray_lt_bg
-    - if current_user.id == @user.id
-      %h2="Me"
+- cache @user do
+  .gray_bg
+    .post_1.gray_lt_bg
+      - if current_user.id == @user.id
+        %h2="Me"
+        = link_to "Edit", edit_user_path(@user)
+      - else
+        %h2= @user.name || "(no name)"
+    
       - if @user.asset_url
         %h3.block="Picture"
         = image_tag @user.asset_url
-      = form_for @user, remote: true, html: { class: "autoupdate" } do |f|
-        = f.label :name
-        = f.text_field :name
-        %h4.block="Upload new photo"
-        .file-drop
-          %span{ 'data-placeholder' => 'Drop files here' } Drop files here
-
-        %input.standard-attachment{ name: 'standard_attachment', accept: 'image/*', type: "file", multiple: "multiple" }
+            

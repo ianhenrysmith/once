@@ -2,9 +2,13 @@
 %table#post_pane.pane_1
   %td#atomic_menu.pane_btns_1.panel_1
     %a{href: "/posts#/index"}
-      %h2.block="CLOSE"  # should be something like 'window.history.back();'
+      %h2.block="CLOSE"
+    %a.block.acktion{action: "view", href: "javascript://", location: "/posts#/:id"}
+      %h2="VIEW"
     %h2.block.acktion{action: "toggle_like"}="LIKE"
-    %h2.block="COMMENT"
+    %h2.block.acktion{action: "comment"}="COMMENT"
+    %a.block.acktion{action: "edit", href: "javascript://", location: "/posts#/:id/edit"}
+      %h2="EDIT"
   %td#post_pane_content.panel_1.white_bg
 
 :javascript
