@@ -21,8 +21,7 @@ class Once.Views.Posts.IndexView extends Once.Views.Posts.BaseView
   do_render: (posts=@options.posts.toJSON()) ->
     # only need to render if pageload or coming from another view
     #   should fix this!
-    if @options.user then user = @options.user.toJSON() else user = {}
-    @$el.html(@template(posts: posts, h: @helpers, user: user))
+    @$el.html(@template(posts: posts, h: @helpers, user: @options.user))
     @addAll()
 
     return this

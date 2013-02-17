@@ -1,14 +1,20 @@
 .gray_bg
   .post_1.gray_lt_bg
-    = form_for @user, remote: true, html: { class: "autoupdate" } do |f|
-      = f.label :name
-      = f.text_field :name
+    = form_for @user, remote: true, html: { class: "autoupdate form_1" } do |f|
+      %p
+        = f.label :name
+        = f.text_field :name
+      %p
+        = f.label :email
+        = f.text_field :email
   
-      = f.label :email
-      = f.text_field :email
-  
-      %h4.block="Upload new photo"
-      .file-drop
-        %span{ 'data-placeholder' => 'Drop files here' } Drop files here
-
-      %input.standard-attachment{ name: 'standard_attachment', accept: 'image/*', type: "file", multiple: "multiple" }
+      %h4.block="Photo"
+      - if @user.asset_url
+        %p.text_small="Current photo:"
+        = image_tag @user.asset_url, class: "avatar medium"
+      -#
+        .file-drop
+          %span{ 'data-placeholder' => 'Drop files here' } Drop files here
+      %div
+        %p.text_small="Choose new photo:"
+        %input.standard-attachment{ name: 'standard_attachment', accept: 'image/*', type: "file", multiple: "multiple" }

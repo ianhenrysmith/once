@@ -1,6 +1,7 @@
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
+  include BaseModel
   
   ## Devise
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
@@ -16,7 +17,7 @@ class User
   field :last_sign_in_ip,    :type => String
   
   # fields
-  field :name, :type => String, :default => ""
+  field :name, :type => String, :default => "(no name)"
   field :last_post_created_time, :type => Time
   # assets
   field :asset_url, type: String
@@ -30,11 +31,20 @@ class User
   validates_presence_of :encrypted_password
   
   def self.cache_key
-    Digest::MD5.hexdigest "#{maximum(:updated_at)}.try(:to_i)-#{count}"
+    Digest::MD5.hexdigest "#{max(:updated_at).try(:to_i)}-#{count}"
+  end
+  
+  def self.cached(ck=cache_key, query=nil)
+    Rails.cache.fetch("users_#{ck}") do
+      puts 'bleh ---------------------- User.all'
+      User.all.to_a
+    end
   end
   
   def can_create_post?(post)
-    last_post_created_time == nil || !last_post_created_time.today? || Rails.env.development?
+    Rails.cache.fetch("user_#{id}_#{updated_at}_can_create_post", expires: 2.minutes) do
+      last_post_created_time == nil || !last_post_created_time.today? || Rails.env.development?
+    end
   end
   
   def update_last_post_created_time(time=Time.now)
@@ -49,16 +59,17 @@ class User
     self.save
   end
   
-  def recent_post_ids
-    Rails.cache.fetch("recent_user_posts_#{id}_#{last_post_created_time.to_i}") do
-      posts = Post.where(user_id: self.id).desc(:created_at).limit(100).only(:id).to_a.map{ |p| p.id }
-      
+  def recent_posts
+    Rails.cache.fetch("recent_user_posts_#{id}_#{last_post_created_time.to_i}", expires: 1.week) do
+      Post.where(user_id: self.id).desc(:created_at).limit(100).only(:id, :title).to_a
     end
   end
   
   def as_json(options={})
-    result = super(options)
-    result["id"] = id.to_s
-    result
+    Rails.cache.fetch("user_#{id}_#{updated_at}_as_json", expires: 1.week) do
+      result = super(options)
+      result["id"] = id.to_s
+      result
+    end
   end
 end

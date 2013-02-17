@@ -3,8 +3,6 @@ class Once.Routers.PostsRouter extends Backbone.Router
     @current_user_id = $("#current_user_id").val()
     @posts = new Once.Collections.PostsCollection()
     @posts.reset options.posts
-    @users = new Once.Collections.UsersCollection()
-    @users.reset options.users
     
     @$post = $("#post_pane_content")
     @$posts = $("#posts")
@@ -25,13 +23,15 @@ class Once.Routers.PostsRouter extends Backbone.Router
     @view = new Once.Views.Posts.IndexView(posts: @posts)
     @$posts.html(@view.render().el)
     
-  user_index: (user_id) ->    
-    user = @users.get(user_id)
-    if user
-      posts = new Once.Collections.PostsCollection( @posts.where({user_id: user_id}) )
-    else
-      posts = @posts
-      
+  user_index: (user_id) ->
+    posts = new Once.Collections.PostsCollection( @posts.where({user_id: user_id}) )
+
+    post = posts.at(0)
+    user = {
+      name:      post.get("creator_name")
+      asset_url: post.get("creator_avatar_url")
+      id:        post.get("user_id")
+    }
     @view = new Once.Views.Posts.IndexView(posts: posts, user: user)
     @$posts.html(@view.render().el)
 

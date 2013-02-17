@@ -1,8 +1,6 @@
 Once.Views.Posts ||= {}
 
-class Once.Views.Posts.EditView extends Once.Views.Posts.BaseView
-  # todo: add navigation to this view, cause right now you can't edit posts
-  
+class Once.Views.Posts.EditView extends Once.Views.Posts.BaseView  
   template: JST["backbone/templates/posts/edit"]
   render_attributes:
     pane: "open"

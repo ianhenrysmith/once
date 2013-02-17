@@ -1,11 +1,12 @@
 class PostsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :handle_params, only: :create
   
   respond_to :json, :html
   
   def index
-    @posts = Post.all
-    @users = User.all
+    @post_cache_key = Post.cache_key
+    @posts = Post.cached(@post_cache_key) # need paging here soon, I think
     
     respond_with @posts
   end
@@ -16,44 +17,27 @@ class PostsController < ApplicationController
   
   def create
     params[:post][:user_id] = current_user.id
-    params[:post][:type] ||= "text"
-    # should also grab user path, user avatar here for cache fields
-    
-    asset_params = params[:post][:asset_ids]
-    params[:post].delete(:asset_ids) if asset_params
     
     @post = Post.new(params[:post])
     
-    ## Plans here: 
-    ##  handle multiple assets better
-    ##  dont dup assets
-    ##  abstract this method to a base model class
-    asset_params.split(' ').each do |id|
-      asset = Asset.find(id)
-      if asset
-        @post.assets << asset
-        @post.asset_url = asset.photo.url
-        asset.set_post_id(@post.id)
-      end
-    end
+    @asset_params.split(' ').each{ |id| @post.add_asset(id) } if @asset_params
     
     success = false
     
     if current_user && current_user.can_create_post?(@post)
-      success = @post.save
-      # schedule refresh cache fields job here, I think?
+      success = @post.refresh_cache_fields(true) #implies save
     end
     
     if success
       current_user.update_last_post_created_time
       respond_with @post
     else
-      respond_with(@post, :status => :precondition_failed)  # user probably already created a post today
+      # need to make sure create page doesn't get cleared here on an error
+      respond_with(@post, :status => :precondition_failed)
     end
   end
   
   def update
-    # debugger
     @post = Post.find(params[:id])
     respond_with @post.update_attributes(params[:post])
   end

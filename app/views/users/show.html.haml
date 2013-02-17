@@ -3,11 +3,13 @@
     .post_1.gray_lt_bg
       - if current_user.id == @user.id
         %h2="Me"
+        %span.text_smaller="(#{@user.name})"
         = link_to "Edit", edit_user_path(@user)
       - else
         %h2= @user.name || "(no name)"
-    
+      .clr
       - if @user.asset_url
-        %h3.block="Picture"
         = image_tag @user.asset_url
-            
+      %h3.block="Recent Posts"
+      - @user.recent_posts.each do |post|
+        = link_to post[:title], bb_path(post), class: "block"

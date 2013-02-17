@@ -1,21 +1,21 @@
-#posts.gray_bg
-%table#post_pane.pane_1
-  %td#atomic_menu.pane_btns_1.panel_1
-    %a{href: "/posts#/index"}
-      %h2.block="CLOSE"
-    %a.block.acktion{action: "view", href: "javascript://", location: "/posts#/:id"}
-      %h2="VIEW"
-    %h2.block.acktion{action: "toggle_like"}="LIKE"
-    %h2.block.acktion{action: "comment"}="COMMENT"
-    %a.block.acktion{action: "edit", href: "javascript://", location: "/posts#/:id/edit"}
-      %h2="EDIT"
-  %td#post_pane_content.panel_1.white_bg
+- cache( "#{@post_cache_key}" ) do
+  #posts.gray_bg
+  %table#post_pane.pane_1
+    %td#atomic_menu.pane_btns_1.panel_1
+      %a{href: "/posts#/index"}
+        %h2.block="CLOSE"
+      %a.block.acktion{action: "view", href: "javascript://", location: "/posts#/:id"}
+        %h2="VIEW"
+      %h2.block.acktion{action: "toggle_like"}="LIKE"
+      %h2.block.acktion{action: "comment"}="COMMENT"
+      %a.block.acktion{action: "edit", href: "javascript://", location: "/posts#/:id/edit"}
+        %h2="EDIT"
+    %td#post_pane_content.panel_1.white_bg
 
-:javascript
-  posts_json = #{ @posts.to_json.html_safe };
-  users_json = #{@users.to_json.html_safe};
+  :javascript
+    posts_json = #{ @posts.to_json.html_safe };
   
-  $(function() {
-    window.router = new Once.Routers.PostsRouter({posts: posts_json, users: users_json});
-    Backbone.history.start();
-  });
+    $(function() {
+      window.router = new Once.Routers.PostsRouter({posts: posts_json});
+      Backbone.history.start();
+    });

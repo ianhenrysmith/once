@@ -1,7 +1,9 @@
 .post_1.gray_lt_bg
-  - if @user.name isnt undefined
+  - if @user
     .white_bg.fw_col
       - if @user.asset_url
         != @h.avatar(@user.asset_url, "medium")
-      %h2="Showing posts from #{@user.name}"
+      %h2.nowrap
+        ="Showing posts from"
+        %a{href: "/users/#{@user.id}"}=@user.name
   #posts_body

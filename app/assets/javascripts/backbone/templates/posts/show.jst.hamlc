@@ -3,19 +3,19 @@
   %input{ type:"hidden", name:"owner_id", id:"owner_id", value: @post.user_id }
   %h2= @post.title
 
-  %p.t1= @description
-  - if @type == "image"
-    %a{href: "#{this.content}"}
-      %img{ src: "#{this.content}", class: "img_responsive"}
+  %p.t1= @post.description
+  - if @post.type == "image"
+    %a{href: "#{@post.content}"}
+      %img{ src: "#{@post.content}", class: "img_responsive"}
   - else if @post.type == "quote"
     %p.quote_1= @post.content
   - else if @post.type == "video"
     - yt_id = @post.content.split("watch?v=")[1]
     %iframe{ width:"560", height:"315", src:"http://www.youtube.com/embed/#{yt_id}", frameborder:"0", allowfullscreen:"true"}
   - else if @post.type == "tweet"
-    =#! unescape(@tweet_embed_code.replace("+", " "))
+    =#! unescape(@post.tweet_embed_code.replace("+", " "))
     = "(embedding tweets doesn't work yet...)"
   - else
     %p= @post.content
     - if @post.asset_url
-      %img{ src: "#{this.asset_url}", class: "img_responsive"}
+      %img{ src: "#{@post.asset_url}", class: "img_responsive"}
