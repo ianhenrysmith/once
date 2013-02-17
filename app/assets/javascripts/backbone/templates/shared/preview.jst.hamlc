@@ -4,9 +4,9 @@
     - if @type == "image"
       %img{ src: c, class: 'preview_img'}
     - else if @type == "quote"
-      .preview_quote= c
+      .preview_quote = c
     - else if @type == "text"
-      = c
+      != c
     - else if @type == "video"
       - yt_id = @content.split("watch?v=")[1]
       %iframe{ width:'270', height:'152', src:"http://www.youtube.com/embed/#{yt_id}", frameborder:'0', allowfullscreen:'true'

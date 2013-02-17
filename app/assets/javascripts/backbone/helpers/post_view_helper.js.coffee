@@ -23,13 +23,14 @@ class Once.Views.Posts.BaseView extends Backbone.View
     @$pane = @$pane || $("#post_pane")
     pane_open = @$pane.data("open") == true
     should_open = @render_attributes.pane == "open"
+    
+    scroll_top = $(window).scrollTop()
+    if scroll_top > 39
+      @$pane.css("margin-top": "#{scroll_top}px")
+    else
+      @$pane.css("margin-top": "")
 
     if should_open && !pane_open
-      scroll_top = $(window).scrollTop()
-      if scroll_top > 39
-        $("#post_pane").css("margin-top": "#{scroll_top}px")
-      else
-        $("#post_pane").css("margin-top": "")
       @$pane.animate({
         width: "100%"
       }, 200)
