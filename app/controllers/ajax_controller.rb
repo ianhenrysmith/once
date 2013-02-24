@@ -12,6 +12,7 @@ class AjaxController < ApplicationController
       resource = klass.try{ |c| c.find(params[:id]) }
       options = {}.merge params[:options]
       options[:user] = current_user
+      debugger
       resource.try{ |r| r.send(params[:resource_action], options) } # need some sort of action permission check here, probably should use cancan
     end
     

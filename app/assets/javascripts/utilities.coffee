@@ -18,9 +18,8 @@ $('[contenteditable]')
     html = $this.html()
     if $this.data('before') isnt html
       index = $("[contenteditable]").index($this)
-      $($(".ce_target")[index]).val(html)
+      $($(".ce_target")[index]).val(html).change()
       $this.data 'before', html
-      $this.trigger('change')
     return $this
 
 $ ->
@@ -38,6 +37,9 @@ $(".autoupdate input").live("paste keyup change blur", () ->
     queue_save(@$form)
 )
 
+$(".autoupdate_btn").live("click", (e) ->
+  update_form(queue_save( $(e.target).closest("form") )) )
+
 queue_save = ($form) ->
   if $form.data("set_up") != true
     setup_form($form)
@@ -46,7 +48,7 @@ queue_save = ($form) ->
     $form.data("save_queued", true)
     $form.find('.form_status').text("Unsaved")
     save = () -> update_form($form)
-    window.setTimeout(save, 5000) #save queued
+    window.setTimeout(save, 2000) #save queued
   
 setup_form = ($form) ->
   $form.data("set_up", true)
@@ -56,13 +58,14 @@ setup_form = ($form) ->
   # should also handle timeouts etc
   # should move this to its own method
   $form.bind('ajax:complete', (e) ->
-    e.preventDefault()
     set_text = () -> $form.find('.form_status').text("Saved")
-    window.setTimeout(set_text, 1000)
+    window.setTimeout(set_text, 2000)
+    e.preventDefault()
   )
 
 update_form = ($form) ->
-  $form.data("save_queued", false)
-  $form.find('.form_status').text("Saving...")
-  $form.submit()    
-    
+  if typeof $form == "object" # have to fix this some time
+    $form.data("save_queued", false)
+    $form.find('.form_status').text("Saving...")
+    $form.submit()
+  

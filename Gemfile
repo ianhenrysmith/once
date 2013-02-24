@@ -29,6 +29,7 @@ end
 gem 'debugger'
 
 gem "devise"
+gem "cancan", ">= 1.5.0"
 gem "haml", ">= 3.0.0"
 gem "haml-rails"
 gem "jquery-rails"

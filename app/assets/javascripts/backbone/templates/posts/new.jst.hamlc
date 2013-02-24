@@ -1,40 +1,7 @@
 .post_0
   %h2= "New"
-  %form#new-post.t1{name: "post"}
-    %table.table_1
-      %tr
-        %td
-          .b="Title"
-        %td
-          %h3.editable.m2{contenteditable: true}
-          %input.ce_target{ type:"text", name:"title", id:"title", value:""}
-      %tr
-        %td
-          .b="Content"
-        %td
-          %p.editable.m2{contenteditable: true}
-          %input.ce_target{ type:"text", name:"content", id:"content", value:""}
-      %tr
-        %td.label
-          .b="Why"
-        %td
-          %p.editable.m2{contenteditable: true, id: "post_description"}
-          - # CKEDITOR.replace("post_description") ### full editor
-          - # CKEDITOR.inline( "post_description") ### inline editor
-          %input.ce_target{ type:"text", name:"description", id:"description", value:""}
-      %tr
-        %td
-          .b="Type"
-        %td
-          - vs = $("#post_types").val().split(" ")
-          != @h.dropdown({values: vs, field: "type", value: "text", options: {class: "editable m2"}})
-      %tr
-        %td="Upload"
-        %td
-          .file-drop
-            %span{ 'data-placeholder' => 'Drop files here' } Drop files here
-
-          %input.standard-attachment{ name: 'standard_attachment', accept: 'image/*', type: "file", multiple: "multiple" }
+  %form#new-post{name: "post"}
+    != JST["backbone/templates/posts/post_fields"]({post: @post, h: @h})
     %p
       %input{ type:"submit", value:"Create Post" }
   %a{ href:"#/index"}="Cancel"

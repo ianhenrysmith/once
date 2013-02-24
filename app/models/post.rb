@@ -41,6 +41,7 @@ class Post
   end
   
   def as_json(options={})
+    # should also cache this based on user id, and figure out way to expire old items
     Rails.cache.fetch("post_#{id}_#{updated_at}_as_json", expires: 1.week) do
       result = super(options)
       result["id"] = id.to_s
@@ -58,7 +59,7 @@ class Post
       self.creator_avatar_url = u.asset_url
     end
     if assets.present?
-      self.asset_url = assets.first.photo.url
+      self.asset_url = assets.last.photo.url
     end
     return save ? self.save : true
   end

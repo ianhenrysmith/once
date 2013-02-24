@@ -51,6 +51,7 @@ GEM
     bson_ext (1.8.0)
       bson (~> 1.8.0)
     builder (3.0.4)
+    cancan (1.6.9)
     cocaine (0.4.2)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -185,6 +186,7 @@ DEPENDENCIES
   aws-s3
   aws-sdk
   bson_ext
+  cancan (>= 1.5.0)
   coffee-rails (~> 3.2.1)
   debugger
   devise

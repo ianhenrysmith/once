@@ -1,34 +1,7 @@
 .post_0
   %input{ type:"hidden", name:"atomic_post_id", id:"atomic_post_id", value: @post.id }
-  %h2= "Edit"
-  %form#edit-post.t1{name: "post"}
-    %table.table_1
-      %tr
-        %td
-          .b="Title"
-        %td
-          %h3.editable.m2{contenteditable: true}!= @post.title
-          %input.ce_target{ type:"text", name:"title", id:"title", value:"#{@post.title}"}
-      %tr
-        %td
-          .b="Content"
-        %td
-          %p.editable.m2{contenteditable: true}!=@post.content
-          %input.ce_target{ type:"text", name:"content", id:"content", value:"#{@post.content}"}
-      %tr
-        %td.label
-          .b="Why"
-        %td
-          %p.editable.m2{contenteditable: true, id: "post_description"}!= @post.description
-          - # CKEDITOR.replace("post_description") ### full editor
-          - # CKEDITOR.inline( "post_description") ### inline editor
-          %input.ce_target{ type:"text", name:"description", id:"description", value:"#{@post.description}"}
-      %tr
-        %td
-          .b="Type"
-        %td
-          - vs = $("#post_types").val().split(" ")
-          != @h.dropdown({values: vs, field: "type", value: @post.type, options: {class: "editable m2"}})
-    %p
-      %input{ type:"submit", value:"Update Post" }
-  %a{ href:"#/index"}="Back"
+  
+  %form#edit-post.autoupdate{name: "post"}
+    != JST["backbone/templates/posts/post_fields"]({post: @post, h: @h})
+
+    %h3.autoupdate_btn="Save"

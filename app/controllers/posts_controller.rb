@@ -1,6 +1,8 @@
 class PostsController < ApplicationController
+  load_and_authorize_resource
+  
   before_filter :authenticate_user!
-  before_filter :handle_params, only: :create
+  before_filter :handle_params, only: [:create, :update]
   
   respond_to :json, :html
   
@@ -16,6 +18,7 @@ class PostsController < ApplicationController
   end
   
   def create
+    debugger # want to see if post.new is done by cancan
     params[:post][:user_id] = current_user.id
     
     @post = Post.new(params[:post])
@@ -38,15 +41,27 @@ class PostsController < ApplicationController
   end
   
   def update
-    @post = Post.find(params[:id])
     respond_with @post.update_attributes(params[:post])
   end
     
   def destroy
-    respond_with Post.find(params[:id]).destroy
+    respond_with @post.destroy
   end
   
   def show
-    respond_with Post.find(params[:id])
+    respond_with @post
+  end
+  
+  private
+  
+  def handle_params
+    
+    params[:post].delete(:id)
+    params[:post].delete(:_id)
+    params[:post].delete(:updated_at)
+    params[:post].delete(:created_at)
+    
+    params[:post][:assets_attributes] ||= []
+    @asset_params = params[:post].delete(:asset_ids)
   end
 end

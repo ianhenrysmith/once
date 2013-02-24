@@ -1,0 +1,26 @@
+%span.editable_label.text_smaller.tall="Title"
+%h2.editable_1.editable{contenteditable: true, "placeholder-text": "Title"}
+  != @post.title
+  %br
+%input.ce_target{ type:"text", name:"title", id:"title", value:"#{@post.title}"}
+%br
+
+%span.editable_label.text_smaller.normal="Type"
+- vs = $("#post_types").val().split(" ")
+!= @h.dropdown({values: vs, field: "type", value: @post.type, options: {class: "editable_dd_1 editable", id: "post_type_dd"}})
+%br
+
+- # gets populated with template from content_areas/edit in setup_edit() of post_view_helper
+.post_content_area
+
+%span.editable_label.text_smaller.normal="Description"
+%span.editable_1.editable.t1{contenteditable: true, id: "post_description"}
+  != @post.description
+  %br
+%input.ce_target{ type:"text", name:"description", id:"description", value:"#{@post.description}"}
+%br
+
+
+- # for ckeditor:
+- # CKEDITOR.replace("post_description") ### full editor
+- # CKEDITOR.inline( "post_description") ### inline editor

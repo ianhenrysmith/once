@@ -1,0 +1,13 @@
+- content = @post.get("asset_url")
+- content ||= @post.get("content")
+%span.editable_label.text_smaller.normal="Image"
+%span.editable_1.editable.t1{contenteditable: true}
+  !=content
+  %br
+%input.ce_target{ type:"text", name:"content", id:"content", value:"#{content}"}
+%br
+
+%span.text_smaller="or"
+%br
+
+%input.standard-attachment{ name: 'standard_attachment', accept: 'image/*', type: "file", multiple: "multiple" }

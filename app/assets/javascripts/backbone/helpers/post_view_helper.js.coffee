@@ -47,17 +47,40 @@ class Once.Views.Posts.BaseView extends Backbone.View
   setup_upload: () ->
     $('.standard-attachment').jackUpAjax(window.jackUp)
     
+  setup_edit: (post) ->
+    $content_area = $(".post_content_area")
+    post_type_templates = {
+      image: "image"
+      link:  "text"
+      quote: "text"
+      text:  "text"
+      tweet: "text"
+      video: "text"
+    }
+    set_content_area = (type) ->
+      $content_area.html(JST["backbone/templates/posts/content_areas/edit/#{type}"]({post: post}))
+
+    set_content_area(post_type_templates[post.get("type")])
+
+    # need to tweak the dropdown js in utilities.coffee to trigger a change event, separate these concerns
+    $("#post_type_dd li").click((e) ->
+      console.log("smoo")
+      set_content_area(post_type_templates[$(e.target).attr("v")])
+    )
+    
   render: (view) ->
     that = @do_render()
     @toggle_pane()
-    @do_callbacks(@get_callbacks())
+    @do_callbacks(@get_callbacks(), @model)
     that
     
-  do_callbacks: (callbacks) ->
-    setTimeout((setup = () => callback() for callback in callbacks), 1)
+  do_callbacks: (callbacks, post) ->
+    setTimeout((setup = () => callback(post) for callback in callbacks), 1)
     
-  get_callbacks: (callbacks=[]) ->
+  get_callbacks: (post) ->
+    callbacks=[]
     callbacks.push @setup_atomic_menu
+    callbacks.push @setup_edit if @render_attributes.edit
     callbacks.push @setup_dropdowns if @render_attributes.dropdown
     callbacks.push @setup_upload if @render_attributes.upload
     callbacks
@@ -93,6 +116,17 @@ class Once.Views.Posts.BaseView extends Backbone.View
         $to_hide.push el
     $to_show.show()
     $to_hide.hide()
+    
+  toggle_like: (e) =>
+    $.ajax(
+      url: "ajax/send_action"
+      data:
+        id: $("#atomic_post_id").val()
+        class: "Post"
+        resource_action: "toggle_like"
+      dataType: "json"
+      type: "POST"
+    )
     
   do_action: (e) =>
     if !e.target.getAttribute("action")

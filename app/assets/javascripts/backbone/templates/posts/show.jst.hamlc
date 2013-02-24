@@ -3,7 +3,6 @@
   %input{ type:"hidden", name:"owner_id", id:"owner_id", value: @post.user_id }
   %h2= @post.title
 
-  %p.t1= @post.description
   - if @post.type == "image"
     %a{href: "#{@post.content}"}
       %img{ src: "#{@post.content}", class: "img_responsive"}
@@ -19,3 +18,5 @@
     %p= @post.content
     - if @post.asset_url
       %img{ src: "#{@post.asset_url}", class: "img_responsive"}
+      
+  %p.t1= @post.description

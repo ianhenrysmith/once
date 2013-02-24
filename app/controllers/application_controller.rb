@@ -4,10 +4,4 @@ class ApplicationController < ActionController::Base
   def index
   end
   
-  private
-  
-  def handle_params
-    # have to make this work for user too
-    @asset_params = params[:post].delete(:asset_ids)
-  end
 end

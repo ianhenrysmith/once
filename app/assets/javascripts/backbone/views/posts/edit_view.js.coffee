@@ -6,6 +6,7 @@ class Once.Views.Posts.EditView extends Once.Views.Posts.BaseView
     pane: "open"
     dropdown: true
     sidebar_actions: ["view"]
+    edit: true
     
   events:
     "submit #edit-post": "update"

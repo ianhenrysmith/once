@@ -12,7 +12,10 @@
       - if @user.asset_url
         %p.text_small="Current photo:"
         = image_tag @user.asset_url, class: "avatar medium"
-      -#
+        
+      -# will implement this later when I figure out:
+        - # a) getting multiple assets on post to work
+        - # b) how this area should look / interact
         .file-drop
           %span{ 'data-placeholder' => 'Drop files here' } Drop files here
       %div

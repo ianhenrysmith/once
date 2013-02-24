@@ -1,4 +1,4 @@
-.dropdown{ class: @options.class }
+.dropdown{ class: @options.class, id: @options.id}
   %input.dropdown_target{ type: "text", name: @field, id: @field, value:"#{@value}"}
   %span.dropdown-toggle= @value
   %ul.dropdown-menu{ role:"menu"}
