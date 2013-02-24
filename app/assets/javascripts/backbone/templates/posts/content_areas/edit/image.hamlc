@@ -3,7 +3,7 @@
 %span.editable_label.text_smaller.normal="Image"
 %span.editable_1.editable.t1{contenteditable: true}
   !=content
-  %br
+  - #%br ---- have to get these working again to fix cursor issue
 %input.ce_target{ type:"text", name:"content", id:"content", value:"#{content}"}
 %br
 

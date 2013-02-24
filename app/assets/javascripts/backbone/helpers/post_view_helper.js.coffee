@@ -57,15 +57,16 @@ class Once.Views.Posts.BaseView extends Backbone.View
       tweet: "text"
       video: "text"
     }
-    set_content_area = (type) ->
-      $content_area.html(JST["backbone/templates/posts/content_areas/edit/#{type}"]({post: post}))
+    
+    set_content_area = (template="text",type="text") ->
+      $content_area.html(JST["backbone/templates/posts/content_areas/edit/#{template}"]({post: post, type: type}))
 
-    set_content_area(post_type_templates[post.get("type")])
+    set_content_area(post_type_templates[post.get("type")], post.get("type"))
 
     # need to tweak the dropdown js in utilities.coffee to trigger a change event, separate these concerns
     $("#post_type_dd li").click((e) ->
-      console.log("smoo")
-      set_content_area(post_type_templates[$(e.target).attr("v")])
+      type = $(e.target).attr("v")
+      set_content_area(post_type_templates[type], type)
     )
     
   render: (view) ->

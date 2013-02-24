@@ -1,7 +1,9 @@
 .post_0
   %input{ type:"hidden", name:"atomic_post_id", id:"atomic_post_id", value: @post.id }
   
-  %form#edit-post.autoupdate{name: "post"}
+  - # make this form autoupdate at some pt, once I fix buggos
+  %form#edit-post{name: "post"}
     != JST["backbone/templates/posts/post_fields"]({post: @post, h: @h})
 
-    %h3.autoupdate_btn="Save"
+    - # %h3.autoupdate_btn="Save"
+    %input{ type:"submit", value:"Save" }

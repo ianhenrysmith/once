@@ -18,20 +18,10 @@ class PostsController < ApplicationController
   end
   
   def create
-    debugger # want to see if post.new is done by cancan
-    params[:post][:user_id] = current_user.id
-    
-    @post = Post.new(params[:post])
-    
+    debugger
     @asset_params.split(' ').each{ |id| @post.add_asset(id) } if @asset_params
     
-    success = false
-    
-    if current_user && current_user.can_create_post?(@post)
-      success = @post.refresh_cache_fields(true) #implies save
-    end
-    
-    if success
+    if @post.refresh_cache_fields(true) # save
       current_user.update_last_post_created_time
       respond_with @post
     else
@@ -63,5 +53,7 @@ class PostsController < ApplicationController
     
     params[:post][:assets_attributes] ||= []
     @asset_params = params[:post].delete(:asset_ids)
+    
+    params[:post][:user_id] ||= current_user.id
   end
 end

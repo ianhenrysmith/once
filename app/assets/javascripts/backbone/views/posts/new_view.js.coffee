@@ -6,6 +6,7 @@ class Once.Views.Posts.NewView extends Once.Views.Posts.BaseView
     pane: "open"
     dropdown: true
     upload: true
+    edit: true
     
   events:
     "submit #new-post": "save"
