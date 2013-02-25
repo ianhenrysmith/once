@@ -10,6 +10,12 @@
       .clr
       - if @user.asset_url
         = image_tag @user.asset_url
-      %h3.block="Recent Posts"
-      - @user.recent_posts.each do |post|
-        = link_to post[:title], bb_path(post), class: "block"
+      .clr
+      .col1
+        %h3.block="Recent Posts"
+        - @user.recent_posts.each do |post|
+          = link_to post[:title], bb_path(resource: post), class: "block"
+      .col1
+        %h3.block="Liked Posts"
+        - @user.recent_likes.each do |like|
+          = link_to like[:post_title], bb_path(id: like[:post_id]), class: "block"

@@ -78,7 +78,8 @@ class Post
       # action = "destroy" if like = Like.where(post_id: id, user_id: user.id).first
       
       unless like = Like.where(post_id: id, user_id: user.id).first # change this to be a scoped query
-        Like.create(post: self, user: user) # move this to be a method in Like
+        user.update_last_post_liked_time
+        Like.create(post: self, user: user, post_title: title) # move this to be a method in Like?
       end
     end
   end

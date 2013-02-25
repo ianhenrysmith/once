@@ -21,7 +21,7 @@ class User
   
   # caching
   field :last_post_created_time, type: Time
-  field :last_like_time, type: Time
+  field :last_post_liked_time, type: Time
   
   # assets
   field :asset_url, type: String
@@ -52,8 +52,11 @@ class User
   end
   
   def update_last_post_created_time(time=Time.now)
-    self.last_post_created_time = time
-    self.save
+    self.update_attribute( :last_post_created_time, time )
+  end
+  
+  def update_last_post_liked_time(time=Time.now)
+    self.update_attribute( :last_post_liked_time, time )
   end
   
   def refresh_cache_fields
@@ -66,6 +69,12 @@ class User
   def recent_posts
     Rails.cache.fetch("recent_user_posts_#{id}_#{last_post_created_time.to_i}", expires: 1.week) do
       Post.where(user_id: self.id).desc(:created_at).limit(100).only(:id, :title).to_a
+    end
+  end
+  
+  def recent_likes
+    Rails.cache.fetch("recent_user_posts_#{id}_#{last_post_liked_time.to_i}", expires: 1.week) do
+      Like.where(user_id: self.id).desc(:created_at).limit(100).only(:post_id, :post_title).to_a
     end
   end
   
