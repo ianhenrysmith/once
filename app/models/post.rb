@@ -5,6 +5,11 @@ class Post
   
   TYPES = %w(quote image video link tweet text)
   AJAX_ACTIONS = %w(toggle_like)
+  SANITIZE = {   # fields that get sanitized in PoCo#create and update
+    title:       Sanitize::Config::RESTRICTED,
+    content:     Sanitize::Config::RESTRICTED,
+    desctiption: Sanitize::Config::RELAXED
+  }
 
   field :content, type: String
   field :title, type: String, default: "(untitled)"
@@ -29,14 +34,16 @@ class Post
   
   validates_inclusion_of	:type, in: TYPES
   
+  scope :recent, order_by(created_at: :desc).limit(100)
+  
   def self.cache_key
     Digest::MD5.hexdigest "#{max(:updated_at).try(:to_i)}-#{count}"
   end
   
   def self.cached(ck=cache_key, query=nil)
-    Rails.cache.fetch("posts_#{ck}") do
+    Rails.cache.fetch("posts_#{ck}", expires: 1.week) do
       puts 'bleh ---------------------- Post.all'
-      Post.all.to_a
+      Post.recent.to_a
     end
   end
   
@@ -67,9 +74,12 @@ class Post
   def toggle_like(options={})
     if user = options[:user]
       # should probably send over like id, if possible, for faster find
-      action = "destroy" if like = Like.where(post_id: id, user_id: user.id).first
-      like ||= Like.new(post: self, user: user)
-      like.try{|l| l.send( action ||= "save" )} == true
+      
+      # action = "destroy" if like = Like.where(post_id: id, user_id: user.id).first
+      
+      unless like = Like.where(post_id: id, user_id: user.id).first # change this to be a scoped query
+        Like.create(post: self, user: user) # move this to be a method in Like
+      end
     end
   end
   

@@ -1,7 +1,7 @@
 .post_0
   %h2= "New"
-  %form#new-post{name: "post"}
+  %form#new-post.t1{name: "post"}
     != JST["backbone/templates/posts/post_fields"]({post: @post, h: @h})
     %p
       %input{ type:"submit", value:"Create Post" }
-  %a{ href:"#/index"}="Cancel"
+  %a{ href:"#/"}="Cancel"

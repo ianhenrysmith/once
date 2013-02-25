@@ -1,14 +1,22 @@
-.gray_lt_bg
-  .logo_main="Once"
-  .buttons_main
-    = link_to "NEW POST", "/posts#/new", class: "h2"
-    = link_to "MY POSTS", "/posts#/user/#{current_user.id}", class: "h2" if current_user
-    = link_to "ALL POSTS", "/posts#/index", class: "h2"
-    .b0.float_right
-      - if current_user.present?
-        %p
-          = link_to "Sign out", destroy_user_session_path, :class => ''
-          = link_to "Me", current_user, :class => ''
-      - else
-        = link_to "Sign in", new_user_session_path, :class => ''
-        = link_to "Register", new_user_registration_path, :class => ""
+- if current_user
+  - cache current_user do
+    .gray_lt_bg
+      %a.logo_main{href:"/"}="OnceThis"
+      .buttons_main
+        = link_to "NEW POST", "/#/new", class: "h2"
+        = link_to "YOUR POSTS", "/#/user/#{current_user.id}", class: "h2" 
+        = link_to "ALL POSTS", "/#/", class: "h2"
+        .b0.float_right
+          %p
+            = link_to "Sign out", destroy_user_session_path
+            = link_to "You", user_path(current_user)
+- else
+  - cache "index/header", expires: 1.week do
+    .gray_lt_bg
+      %a.logo_main{href:"/"}="OnceThis"
+      .buttons_main
+        = link_to "ALL POSTS", "/#/", class: "h2"
+        .b0.float_right
+          %p
+            = link_to "Sign in", new_user_session_path
+            = link_to "Register", new_user_registration_path

@@ -1,15 +1,16 @@
-- cache( "#{@post_cache_key}" ) do
+- cache( "#{@post_cache_key}", expires: 1.day ) do
   #posts.gray_bg
   #post_pane.pane_1
     #atomic_menu.pane_btns_1.panel_1
-      %a{href: "/posts#/index"}
+      %a{href: "/#/"}
         %h2.block="CLOSE" # have to make this work for user posts index page as well
-      %a.block.acktion{action: "view", href: "javascript://", location: "/posts#/:id"}
+      %a.block.acktion{action: "view", href: "javascript://", location: "/#/:id"}
         %h2="VIEW"
       %h2.block.acktion{action: "toggle_like"}="LIKE"
-      %h2.block.acktion{action: "comment"}="COMMENT"
-      %a.block.acktion{action: "edit", href: "javascript://", location: "/posts#/:id/edit"}
+
+      %a.block.acktion{action: "edit", href: "javascript://", location: "/#/:id/edit"}
         %h2="EDIT"
+
     #post_pane_content.panel_1.white_bg
 
   :javascript

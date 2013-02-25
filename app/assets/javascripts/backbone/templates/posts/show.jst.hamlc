@@ -1,8 +1,10 @@
 .post_0
   %input{ type:"hidden", name:"atomic_post_id", id:"atomic_post_id", value: @post.id }
   %input{ type:"hidden", name:"owner_id", id:"owner_id", value: @post.user_id }
-  %h2= @post.title
+  %div
+    %h2= @post.title
 
+  -# todo: break this into partials like with edit
   - if @post.type == "image"
     %a{href: "#{@post.content}"}
       %img{ src: "#{@post.content}", class: "img_responsive"}

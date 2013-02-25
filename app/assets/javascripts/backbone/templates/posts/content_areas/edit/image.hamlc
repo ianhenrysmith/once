@@ -1,10 +1,7 @@
 - content = @post.get("asset_url")
 - content ||= @post.get("content")
 %span.editable_label.text_smaller.normal="Image"
-%span.editable_1.editable.t1{contenteditable: true}
-  !=content
-  - #%br ---- have to get these working again to fix cursor issue
-%input.ce_target{ type:"text", name:"content", id:"content", value:"#{content}"}
+%input.editable.editable_1{ type:"text", name:"content", id:"content", value:"#{content}", placeholder: "Image URL"}
 %br
 
 %span.text_smaller="or"

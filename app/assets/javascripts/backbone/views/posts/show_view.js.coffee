@@ -9,6 +9,7 @@ class Once.Views.Posts.ShowView extends Once.Views.Posts.BaseView
       "toggle_like",
       "comment",
       "edit",
+      "delete"
       ]
     
   do_render: ->

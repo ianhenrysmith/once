@@ -18,7 +18,6 @@ class PostsController < ApplicationController
   end
   
   def create
-    debugger
     @asset_params.split(' ').each{ |id| @post.add_asset(id) } if @asset_params
     
     if @post.refresh_cache_fields(true) # save
@@ -53,6 +52,10 @@ class PostsController < ApplicationController
     
     params[:post][:assets_attributes] ||= []
     @asset_params = params[:post].delete(:asset_ids)
+    
+    Post::SANITIZE.each do |k,v|
+      params[:post][k] = Sanitize.clean(params[:post][k], v)
+    end
     
     params[:post][:user_id] ||= current_user.id
   end

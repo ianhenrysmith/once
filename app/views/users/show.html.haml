@@ -1,4 +1,4 @@
-- cache @user do
+- cache @user, expires: 1.week do
   .gray_bg
     .post_1.gray_lt_bg
       - if current_user.id == @user.id

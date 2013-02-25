@@ -14,6 +14,7 @@ class Once.Routers.PostsRouter extends Backbone.Router
     ":id"           : "show"
     ".*"            : "index"
     "user/:user_id" : "user_index"
+    ""              : "index"
 
   newPost: ->
     @view = new Once.Views.Posts.NewView(collection: @posts)

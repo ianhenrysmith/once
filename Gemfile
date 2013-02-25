@@ -46,3 +46,5 @@ gem "aws-s3",            :require => "aws/s3" #do I need this one?
 gem "aws-sdk"
 gem 'rack-raw-upload'
 gem 'jack_up', git: "git://github.com/thoughtbot/jack_up.git", branch: "use_form_data"
+
+gem "sanitize"

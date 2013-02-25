@@ -1,12 +1,12 @@
-.preview_container{type:@post.type}
-  %a{href:"#/#{ @post.id }"}!= @h.preview(@post)
-%a.h4{href:"#/#{ @post.id }"}!= @post.title
-.text_small
-  %a{href: "#/user/#{@post.user_id}" }= @post.creator_name
-  = @post.created_string
-- unless @post.type == "tweet"
+.overflow_hidden
+  .preview_container{type:@post.type}
+    %a{href:"#/#{ @post.id }"}!= @h.preview(@post)
+  %a.h4{href:"#/#{ @post.id }"}!= @post.title
+  .text_small
+    %a{href: "#/user/#{@post.user_id}" }= @post.creator_name
+    = @post.created_string
   .text_smaller
-    = @post.description
+    != @post.description
 -#  
   %p
     %a{href:"#/#{ @post.id }/edit"}="Edit"

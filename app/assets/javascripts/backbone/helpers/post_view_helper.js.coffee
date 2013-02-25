@@ -9,6 +9,7 @@ class Once.Views.Posts.BaseView extends Backbone.View
     upload: false
     sidebar_actions: ["like","comment"]
   permissions:
+    delete: "owner"
     edit: "owner"
   callbacks: []
   helpers: 
@@ -112,7 +113,7 @@ class Once.Views.Posts.BaseView extends Backbone.View
           
         if location = el.getAttribute("location")
           id = $("#atomic_post_id").val()
-          el.setAttribute('href', location.replace(":id", id)) # /posts#/:id/edit
+          el.setAttribute('href', location.replace(":id", id)) # #/:id/edit
       else
         $to_hide.push el
     $to_show.show()

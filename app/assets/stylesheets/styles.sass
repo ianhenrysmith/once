@@ -10,10 +10,20 @@
   margin: 1em 0
   min-width: 320px
   padding: 0.3em 16px
+input.editable_1
+  border-width: 0px
+  min-width: 100%
+  outline: none
+  padding: 8px 12px
+  &.h2
+    padding: 3px 12px
+  &:not(.h2)
+    font-size: 1em
 .editable_dd_1
   @extend .editable_1
-  cursor: pointer
   min-width: 0
+  .dropdown-toggle
+    cursor: pointer
 .editable_label
   display: inline-block
   margin-left: -148px

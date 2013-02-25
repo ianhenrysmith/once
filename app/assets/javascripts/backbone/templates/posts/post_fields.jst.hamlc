@@ -1,8 +1,5 @@
 %span.editable_label.text_smaller.tall="Title"
-%h2.editable_1.editable{contenteditable: true, "placeholder-text": "Title"}
-  != @post.title
-  - #%br ---- have to get these working again to fix cursor issue
-%input.ce_target{ type:"text", name:"title", id:"title", value:"#{@post.title}"}
+%input.editable.editable_1.h2{ type:"text", name:"title", id:"title", value:"#{@post.title}", placeholder: "Title"}
 %br
 
 %span.editable_label.text_smaller.normal="Type"

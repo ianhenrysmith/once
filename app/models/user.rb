@@ -5,20 +5,24 @@ class User
   
   ## Devise
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
-  field :email,              :type => String, :default => ""
-  field :encrypted_password, :type => String, :default => ""
-  field :reset_password_token,   :type => String
-  field :reset_password_sent_at, :type => Time
-  field :remember_created_at, :type => Time
-  field :sign_in_count,      :type => Integer, :default => 0
-  field :current_sign_in_at, :type => Time
-  field :last_sign_in_at,    :type => Time
-  field :current_sign_in_ip, :type => String
-  field :last_sign_in_ip,    :type => String
+  field :email,              type: String, default: ""
+  field :encrypted_password, type: String, default: ""
+  field :reset_password_token,   type: String
+  field :reset_password_sent_at, type: Time
+  field :remember_created_at, type: Time
+  field :sign_in_count,      type: Integer, default: 0
+  field :current_sign_in_at, type: Time
+  field :last_sign_in_at,    type: Time
+  field :current_sign_in_ip, type: String
+  field :last_sign_in_ip,    type: String
   
   # fields
-  field :name, :type => String, :default => "(no name)"
-  field :last_post_created_time, :type => Time
+  field :name, type: String, default: "(no name)"
+  
+  # caching
+  field :last_post_created_time, type: Time
+  field :last_like_time, type: Time
+  
   # assets
   field :asset_url, type: String
   
@@ -35,14 +39,14 @@ class User
   end
   
   def self.cached(ck=cache_key, query=nil)
-    Rails.cache.fetch("users_#{ck}") do
+    Rails.cache.fetch("users_#{ck}", expires: 1.week) do
       puts 'bleh ---------------------- User.all'
       User.all.to_a
     end
   end
   
   def can_create_post?(post)
-    Rails.cache.fetch("user_#{id}_#{updated_at}_can_create_post", expires: 2.minutes) do
+    Rails.cache.fetch("user_#{id}_#{updated_at}_can_create_post", expires: 1.week) do
       last_post_created_time == nil || !last_post_created_time.today? || Rails.env.development?
     end
   end
