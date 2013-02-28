@@ -26,6 +26,8 @@ class User
   # assets
   field :asset_url, type: String
   
+  index user_id: 1
+  
   has_many :assets, dependent: :destroy
   has_many :posts
   has_many :likes

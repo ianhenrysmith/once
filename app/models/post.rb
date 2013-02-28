@@ -25,6 +25,9 @@ class Post
   # assets
   field :asset_url, type: String
   
+  index updated_at: 1
+  index user_id: 1
+  
   belongs_to :user
   has_many :comments
   has_many :likes
@@ -37,7 +40,7 @@ class Post
   scope :recent, order_by(created_at: :desc).limit(100)
   
   def self.cache_key
-    Digest::MD5.hexdigest "#{max(:updated_at).try(:to_i)}-#{count}"
+    Digest::MD5.hexdigest "#{desc(:updated_at).limit(1).only(:updated_at).first.updated_at.try(:to_i)}-#{count}"
   end
   
   def self.cached(ck=cache_key, query=nil)
