@@ -26,7 +26,7 @@ class User
   # assets
   field :asset_url, type: String
   
-  index user_id: 1
+  index post_ids: 1
   
   has_many :assets, dependent: :destroy
   has_many :posts
@@ -47,8 +47,12 @@ class User
     end
   end
   
-  def can_create_post?(post)
-    Rails.cache.fetch("user_#{id}_#{updated_at}_can_create_post", expires: 1.week) do
+  def can_create_post? # probably should rename this
+    Rails.cache.fetch("user_#{id}_#{updated_at}_can_create_post") do
+      # I'd like to make this work with time zones
+      #   (if it doesn't already, have to check that out too)
+      
+      # maybe want to add an is_ian field cause this is my product and I do what I want.
       last_post_created_time == nil || !last_post_created_time.today? || Rails.env.development?
     end
   end

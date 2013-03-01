@@ -4,7 +4,7 @@
       - if current_user.id == @user.id
         %h2="Me"
         %span.text_smaller="(#{@user.name})"
-        = link_to "Edit", edit_user_path(@user)
+        = link_to "Edit", edit_user_path(@user), class: "vanilla"
       - else
         %h2= @user.name || "(no name)"
       .clr
@@ -14,8 +14,8 @@
       .col1
         %h3.block="Recent Posts"
         - @user.recent_posts.each do |post|
-          = link_to post[:title], bb_path(resource: post), class: "block"
+          = link_to post[:title], bb_path(resource: post), class: "block vanilla"
       .col1
         %h3.block="Liked Posts"
         - @user.recent_likes.each do |like|
-          = link_to like[:post_title], bb_path(id: like[:post_id]), class: "block"
+          = link_to like[:post_title], bb_path(id: like[:post_id]), class: "block vanilla"

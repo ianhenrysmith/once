@@ -1,22 +1,25 @@
 - if current_user
-  - cache current_user do
+  - cache [current_user, "header"] do
     .gray_lt_bg
       %a.logo_main{href:"/"}="OnceThis"
       .buttons_main
-        = link_to "NEW POST", "/#/new", class: "h2"
-        = link_to "YOUR POSTS", "/#/user/#{current_user.id}", class: "h2" 
-        = link_to "ALL POSTS", "/#/", class: "h2"
+        - if (can? :create, Post)
+          = link_to "NEW POST", "/#/new", class: "button_1 button_nav"
+        - else
+          .button_nav.button_1{inactive: "true"}="NEW POST"
+        = link_to "YOUR POSTS", "/#/user/#{current_user.id}", class: "button_1 button_nav" 
+        = link_to "ALL POSTS", "/#/", class: "button_1 button_nav"
         .b0.float_right
           %p
-            = link_to "Sign out", destroy_user_session_path
-            = link_to "You", user_path(current_user)
+            = link_to "Sign out", destroy_user_session_path, class: "button_1 vanilla"
+            = link_to "You", user_path(current_user), class: "button_1 vanilla"
 - else
   - cache "index/header", expires: 1.week do
     .gray_lt_bg
       %a.logo_main{href:"/"}="OnceThis"
       .buttons_main
-        = link_to "ALL POSTS", "/#/", class: "h2"
+        = link_to "ALL POSTS", "/#/", class: "button_1 button_nav"
         .b0.float_right
           %p
-            = link_to "Sign in", new_user_session_path
-            = link_to "Register", new_user_registration_path
+            = link_to "Sign in", new_user_session_path, class: "button_1"
+            = link_to "Register", new_user_registration_path, class: "button_1"

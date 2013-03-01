@@ -1,9 +1,12 @@
 .post_1.gray_lt_bg
+  - unless Once.Constants.current_user_id
+    .white_bg.fw_col
+      %h2="OnceThis is for the things you love."
   - if @user
     .white_bg.fw_col
       - if @user.asset_url
         != @h.avatar(@user.asset_url, "medium")
       %h2.nowrap
         ="Showing posts from"
-        %a{href: "/users/#{@user.id}"}=@user.name
+        %a{href: "/users/#{@user.id}", class: "vanilla"}=@user.name
   #posts_body

@@ -11,5 +11,6 @@ window.Once =
   Routers: {}
   Views: {}
   Helpers: {}
+  Constants: {}
   
-window.CanCreate = true
+Once.Constants.CanCreate = true

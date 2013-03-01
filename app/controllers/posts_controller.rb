@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   load_and_authorize_resource
   
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, except: [:index]
   before_filter :handle_params, only: [:create, :update]
   
   respond_to :json, :html

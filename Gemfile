@@ -12,36 +12,34 @@ group :assets do
   gem 'execjs'
 end
 
-
-
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
-
-# Use unicorn as the web server
-# gem 'unicorn'
-
 # Deploy with Capistrano
 # gem 'capistrano'
 
-# To use debugger
 gem 'debugger'
 
-gem "devise"
-gem "cancan", ">= 1.5.0"
+# frontend
 gem "haml", ">= 3.0.0"
 gem "haml-rails"
 gem "jquery-rails"
-gem "bson_ext"
-gem "mongoid", ">= 2.0.0.beta.19"
-
 gem "rails-backbone"
 gem "js-routes" #do I need this one?
 
+
+#backend
+gem "bson_ext"
+gem "mongoid", ">= 2.0.0.beta.19"
+
+gem "remote_syslog"
+
+gem 'memcachier'
+gem 'dalli'
+
+gem "devise"
+gem "cancan", ">= 1.5.0"
+
 gem "httparty"
 
+#uploads
 gem "mongoid-paperclip", :require => "mongoid_paperclip"
 gem "aws-s3",            :require => "aws/s3" #do I need this one?
 gem "aws-sdk"

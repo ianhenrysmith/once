@@ -3,7 +3,7 @@
     %a{href:"#/#{ @post.id }"}!= @h.preview(@post)
   %a.h4{href:"#/#{ @post.id }"}!= @post.title
   .text_small
-    %a{href: "#/user/#{@post.user_id}" }= @post.creator_name
+    %a{href: "#/user/#{@post.user_id}", class: "vanilla" }= @post.creator_name
     = @post.created_string
   .text_smaller
     != @post.description

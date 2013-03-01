@@ -14,8 +14,7 @@ class Once.Views.Posts.IndexView extends Once.Views.Posts.BaseView
     @$("#posts_body").append(view.render().el)
     
   filter_posts: (e) =>
-    current_user_id = Once.Routers.PostsRouter.current_user_id
-    posts = new Once.Collections.PostsCollection(@options.posts.where({user_id: current_user_id}))
+    posts = new Once.Collections.PostsCollection(@options.posts.where({user_id: Once.Constants.current_user_id}))
     @render(posts)
     
   do_render: (posts=@options.posts.toJSON()) ->

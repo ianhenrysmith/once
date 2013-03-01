@@ -104,7 +104,7 @@ class Once.Views.Posts.BaseView extends Backbone.View
         permission ||= "all"
         
         if permission == "owner"
-          if $("owner_id").val() == Once.Routers.PostsRouter.current_user_id
+          if $("owner_id").val() == Once.Constants.current_user_id
             $to_show.push el
           else
             $to_hide.push el
