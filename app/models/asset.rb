@@ -9,7 +9,7 @@ class Asset
   belongs_to :user
   
   has_mongoid_attached_file :photo,
-    path:          ':photo/:id/:style.:extension',
+    path:          ':id/:style.:extension',
     storage:        :s3,
     s3_credentials: {
       bucket:            ENV['AWS_BUCKET'],
