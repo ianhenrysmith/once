@@ -1,7 +1,9 @@
 .post_1.gray_lt_bg
   - unless Once.Constants.current_user_id
-    .white_bg.fw_col
+    .white_bg.fw_col.c1
       %h2="OnceThis is for the things you love."
+      %p="Post the things that inspire you: quotes, images, videos, Tweets, links, text."
+      %p.text_emphasis="Oh yeah: you can post once a day."
   - if @user
     .white_bg.fw_col
       - if @user.asset_url
