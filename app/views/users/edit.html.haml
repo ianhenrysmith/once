@@ -1,6 +1,7 @@
 .gray_bg
   .post_1.gray_lt_bg
-    = form_for @user, remote: true, html: { class: "autoupdate form_1" } do |f|
+    %h3="Hey, you can edit yourself"
+    = form_for @user, remote: true, html: { class: "autoupdate form_1 b1 avatar medium", :"data-type" => 'json'} do |f|
       %p
         = f.label :name
         = f.text_field :name
@@ -10,14 +11,16 @@
   
       %h4.block="Photo"
       - if @user.asset_url
-        %p.text_small="Current photo:"
-        = image_tag @user.asset_url, class: "avatar medium"
+        %p.b1.text_small="Current photo:"
+        = render partial: "avatar"
         
       -# will implement this later when I figure out:
-        - # a) getting multiple assets on post to work
+        - # a) getting multiple assets on user to work
         - # b) how this area should look / interact
         .file-drop
           %span{ 'data-placeholder' => 'Drop files here' } Drop files here
-      %div
+          
+      .b1
         %p.text_small="Choose new photo:"
         %input.standard-attachment{ name: 'standard_attachment', accept: 'image/*', type: "file", multiple: "multiple" }
+      .new_image_area.b1

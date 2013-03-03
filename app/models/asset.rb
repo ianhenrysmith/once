@@ -9,7 +9,7 @@ class Asset
   belongs_to :user
   
   has_mongoid_attached_file :photo,
-    path:          ':id/:style.:extension',
+    path:          ':photo/:id/:style.:extension',
     storage:        :s3,
     s3_credentials: {
       bucket:            ENV['AWS_BUCKET'],
@@ -32,7 +32,11 @@ class Asset
     result["id"] = id.to_s
   end
   
-  def set_post_id(id)
-    self.update_attributes(post_id: id)
+  def set_owner(id, klass)
+    if klass == Post
+      self.update_attributes(post_id: id)
+    elsif klass == User
+      self.update_attributes(user_id: id)
+    end
   end
 end

@@ -7,7 +7,7 @@ module BaseModel
     if asset
       self.assets << asset
       self.asset_url = asset.photo.url
-      asset.set_post_id(self.id) if self.is_a? Post
+      asset.set_owner(self.id, self.class)
     end
   end
 end

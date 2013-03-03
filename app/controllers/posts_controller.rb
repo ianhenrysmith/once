@@ -18,7 +18,7 @@ class PostsController < ApplicationController
   end
   
   def create
-    @asset_params.split(' ').each{ |id| @post.add_asset(id) } if @asset_params
+    @asset_params.each{ |id| @post.add_asset(id) } if @asset_params.present?
     
     if @post.refresh_cache_fields(true) # save
       current_user.update_last_post_created_time
@@ -51,7 +51,7 @@ class PostsController < ApplicationController
     params[:post].delete(:created_at)
     
     params[:post][:assets_attributes] ||= []
-    @asset_params = params[:post].delete(:asset_ids)
+    @asset_params = params[:post].try{|ps| ps.delete(:asset_ids).split(" ")}
     
     Post::SANITIZE.each do |k,v|
       params[:post][k] = Sanitize.clean(params[:post][k], v)

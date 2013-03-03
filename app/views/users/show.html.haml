@@ -1,4 +1,4 @@
-- cache @user, expires: 1.week do
+- cache @user do
   .gray_bg
     .post_1.gray_lt_bg
       - if current_user && current_user.id == @user.id
@@ -8,8 +8,7 @@
       - else
         %h2= @user.name || "(no name)"
       .clr
-      - if @user.asset_url
-        = image_tag @user.asset_url
+      = render partial: "avatar"
       .clr
       .col1
         %h3.block="Recent Posts"

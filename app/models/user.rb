@@ -22,11 +22,13 @@ class User
   # caching
   field :last_post_created_time, type: Time
   field :last_post_liked_time, type: Time
+  field :last_post_edited_time, type: Time
   
   # assets
   field :asset_url, type: String
   
   index post_ids: 1
+  index like_ids: 1
   
   has_many :assets, dependent: :destroy
   has_many :posts

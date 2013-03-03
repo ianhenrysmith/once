@@ -41,8 +41,7 @@ $(".autoupdate_btn").live("click", (e) ->
   update_form(queue_save( $(e.target).closest("form") )) )
 
 queue_save = ($form) ->
-  if $form.data("set_up") != true
-    setup_form($form)
+  setup_form($form) unless $form.data("set_up") == true
     
   unless $form.data("save_queued") == true
     $form.data("save_queued", true)
@@ -54,13 +53,17 @@ setup_form = ($form) ->
   $form.data("set_up", true)
   $form.append("<p class='form_status text_smaller'></p>")
   
-  # prevent blarphing
-  # should also handle timeouts etc
-  # should move this to its own method
-  $form.bind('ajax:complete', (e) ->
-    set_text = () -> $form.find('.form_status').text("Saved")
-    window.setTimeout(set_text, 2000)
-    e.preventDefault()
+  $form.submit( () ->
+    $.ajax(
+      url: $form.attr('action')
+      data: $form.serialize()
+      dataType: 'json'
+      type: 'PUT'
+      success: (json) -> 
+        set_text = () -> $form.find('.form_status').text("Saved")
+        window.setTimeout(set_text, 2000)
+    )
+    return false
   )
 
 update_form = ($form) ->

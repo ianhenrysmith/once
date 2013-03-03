@@ -1,49 +1,39 @@
 class UsersController < ApplicationController
+  load_and_authorize_resource
+  
   before_filter :authenticate_user!, except: [:show]
-  before_filter :handle_params, only: :create
+  before_filter :handle_params, only: [:create, :update]
   
   respond_to :json, :html
   
   def index
   end
   
-  def show
-    @user = User.find(params[:id])
-    
+  def show    
     if stale?( @user )
       respond_with @user
     end
   end
   
-  def edit
-    @user = User.find(params[:id])
-    
+  def edit    
     if stale?( @user )
       respond_with @user
     end
   end
   
   def update
-    @user = User.find(params[:id])
-    if @user.try(:id) == current_user.id
-      #this should probably be some sort of before filter
-      if asset_params = params[:asset_ids]
-        params[:user].delete(:asset_ids)
-        ## Plans here: 
-        ##  handle multiple assets better
-        ##  dont dup assets
-        ##  abstract this method to a base model class
-        asset_params.split(' ').each do |id|
-          asset = Asset.find(id)
-          if asset
-            @user.assets << asset
-            @user.asset_url = asset.photo.url
-            asset.set_post_id(@user.id)
-          end
-        end
-      end
-      @user.update_attributes(params[:user])
+    debugger
+    if @asset_params.present?
+      @asset_params.each{ |id| @user.add_asset(id) }
     end
-    respond_with @user
+    
+    respond_with @user.update_attributes(params[:user])
+  end
+  
+  private
+  
+  def handle_params
+    params[:user][:assets_attributes] ||= []
+    @asset_params = params.delete(:asset_ids).split(" ") if params[:assets_ids]
   end
 end

@@ -5,13 +5,13 @@ $ -> # when the document is ready
   window.jackUp.on 'upload:imageRenderReady', (e, options) ->    
     # assigns a data-attribute with the file guid for later referencing
     # set the border color to red, denoting that the image is still being uploaded
-    options.image.attr("data-id", options.file.__guid__).css(border: "5px solid red")
-    $('.file-drop').append(options.image)
+    options.image.attr("data-id", options.file.__guid__).css(border: "1px solid #EBFF9A")
+    $('.new_image_area').append(options.image)
 
   # upload has been sent to server; server will handle processing
   window.jackUp.on "upload:sentToServer", (e, options) ->
     # change the border color to yellow to signify successful upload (server is still processing)
-    $("img[data-id='#{options.file.__guid__}']").css borderColor: 'yellow'
+    $("img[data-id='#{options.file.__guid__}']").css borderColor: '#FBB829'
 
   # # when server responds successfully
   # jackUp.on "upload:success", (e, options) ->
@@ -27,18 +27,27 @@ $ -> # when the document is ready
     
     
   window.jackUp.on "upload:success", (e, options) ->
-    $("img[data-id='#{options.file.__guid__}']").css(borderColor: "green")
+    $("img[data-id='#{options.file.__guid__}']").css(borderColor: "#77CCA4")
 
     # read the response from the server
-    asset = JSON.parse(options.responseText)
-    assetId = asset.id
+    asset_string = options.responseText
+    if !asset_string.id
+      console.log asset_string
+      asset = assetId = asset_string.slice(1,25)
+      console.log asset
+    else
+      asset = JSON.parse(asset_string)
+      assetId = asset.id
+    
     # create a hidden input containing the asset id of the uploaded file
     assetIdsElement = $("<input type='hidden' name='asset_ids' id='assets_#{asset}'>").val("#{asset}")
     # append it to the form so saving the form associates the created post
     # with the uploaded assets
-    $(".file-drop").closest("form").append(assetIdsElement)
+    $form = $(".file-drop").closest("form")
+    $form = $('.standard-attachment').closest("form") unless $form.length
+    $form.append(assetIdsElement)
     
-  $('.file-drop').jackUpDragAndDrop(window.jackUp)
+  # $('.file-drop').jackUpDragAndDrop(window.jackUp)
   # $('.standard-attachment').jackUpAjax(window.jackUp)
   
   
