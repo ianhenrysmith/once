@@ -8,3 +8,4 @@
 %br
 
 %input.standard-attachment{ name: 'standard_attachment', accept: 'image/*', type: "file", multiple: "multiple" }
+.new_image_area.b1

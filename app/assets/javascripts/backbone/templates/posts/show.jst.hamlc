@@ -6,8 +6,9 @@
 
   -# todo: break this into partials like with edit
   - if @post.type == "image"
-    %a{href: "#{@post.content}"}
-      %img{ src: "#{@post.content}", class: "img_responsive"}
+    - img_url = @post.asset_url || @post.content
+    %a{href: img_url}
+      %img{ src: img_url, class: "img_responsive"}
   - else if @post.type == "quote"
     %p.quote_1= @post.content
   - else if @post.type == "video"

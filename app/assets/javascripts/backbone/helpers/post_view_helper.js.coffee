@@ -48,7 +48,7 @@ class Once.Views.Posts.BaseView extends Backbone.View
   setup_upload: () ->
     $('.standard-attachment').jackUpAjax(window.jackUp)
     
-  setup_edit: (post) ->
+  setup_edit: (post) =>
     $content_area = $(".post_content_area")
     post_type_templates = {
       image: "image"
@@ -59,13 +59,15 @@ class Once.Views.Posts.BaseView extends Backbone.View
       video: "text"
     }
     
-    set_content_area = (template="text",type="text") ->
+    set_content_area = (template="text",type="text") =>
       $content_area.html(JST["backbone/templates/posts/content_areas/edit/#{template}"]({post: post, type: type}))
+      if type == "image"
+        @setup_upload()
 
     set_content_area(post_type_templates[post.get("type")], post.get("type"))
 
     # need to tweak the dropdown js in utilities.coffee to trigger a change event, separate these concerns
-    $("#post_type_dd li").click((e) ->
+    $("#post_type_dd li").click((e) =>
       type = $(e.target).attr("v")
       set_content_area(post_type_templates[type], type)
     )

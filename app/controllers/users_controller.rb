@@ -22,7 +22,6 @@ class UsersController < ApplicationController
   end
   
   def update
-    debugger
     if @asset_params.present?
       @asset_params.each{ |id| @user.add_asset(id) }
     end
@@ -34,6 +33,6 @@ class UsersController < ApplicationController
   
   def handle_params
     params[:user][:assets_attributes] ||= []
-    @asset_params = params.delete(:asset_ids).split(" ") if params[:assets_ids]
+    @asset_params = params.delete(:model_asset_ids).split(" ") if params[:model_asset_ids]
   end
 end

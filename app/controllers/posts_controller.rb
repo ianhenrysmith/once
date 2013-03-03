@@ -18,6 +18,7 @@ class PostsController < ApplicationController
   end
   
   def create
+    debugger
     @asset_params.each{ |id| @post.add_asset(id) } if @asset_params.present?
     
     if @post.refresh_cache_fields(true) # save
@@ -30,6 +31,8 @@ class PostsController < ApplicationController
   end
   
   def update
+    # deal with asset_params here too
+    #   probably need a filter here
     respond_with @post.update_attributes(params[:post])
   end
     
@@ -44,14 +47,13 @@ class PostsController < ApplicationController
   private
   
   def handle_params
-    
     params[:post].delete(:id)
     params[:post].delete(:_id)
     params[:post].delete(:updated_at)
     params[:post].delete(:created_at)
     
     params[:post][:assets_attributes] ||= []
-    @asset_params = params[:post].try{|ps| ps.delete(:asset_ids).split(" ")}
+    @asset_params = params[:post].delete(:model_asset_ids).split(" ") if params[:post][:model_asset_ids]
     
     Post::SANITIZE.each do |k,v|
       params[:post][k] = Sanitize.clean(params[:post][k], v)

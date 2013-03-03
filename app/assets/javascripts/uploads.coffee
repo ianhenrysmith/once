@@ -12,7 +12,6 @@ $ -> # when the document is ready
   window.jackUp.on "upload:sentToServer", (e, options) ->
     # change the border color to yellow to signify successful upload (server is still processing)
     $("img[data-id='#{options.file.__guid__}']").css borderColor: '#FBB829'
-
   # # when server responds successfully
   # jackUp.on "upload:success", (e, options) ->
   #   # server has completed processing the image and has returned a response
@@ -25,22 +24,18 @@ $ -> # when the document is ready
     # remove the image from the dom since the upload failed
     $("img[data-id='#{options.file.__guid__}']").remove()
     
-    
   window.jackUp.on "upload:success", (e, options) ->
     $("img[data-id='#{options.file.__guid__}']").css(borderColor: "#77CCA4")
-
     # read the response from the server
     asset_string = options.responseText
     if !asset_string.id
-      console.log asset_string
       asset = assetId = asset_string.slice(1,25)
-      console.log asset
     else
       asset = JSON.parse(asset_string)
       assetId = asset.id
     
     # create a hidden input containing the asset id of the uploaded file
-    assetIdsElement = $("<input type='hidden' name='asset_ids' id='assets_#{asset}'>").val("#{asset}")
+    assetIdsElement = $("<input type='hidden' name='model_asset_ids' id='assets_#{asset}'>").val("#{asset}")
     # append it to the form so saving the form associates the created post
     # with the uploaded assets
     $form = $(".file-drop").closest("form")
