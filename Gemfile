@@ -38,6 +38,7 @@ gem "devise"
 gem "cancan", ">= 1.5.0"
 
 gem "httparty"
+gem 'unicorn'
 
 #uploads
 gem "mongoid-paperclip", :require => "mongoid_paperclip"
@@ -47,3 +48,6 @@ gem 'rack-raw-upload'
 gem 'jack_up', git: "git://github.com/thoughtbot/jack_up.git", branch: "use_form_data"
 
 gem "sanitize"
+
+# testing
+gem "jasmine"
