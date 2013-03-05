@@ -16,5 +16,5 @@ class Once.Views.Posts.PostView extends Once.Views.Posts.BaseView
     return false
 
   render: ->
-    @$el.html(@template(post: @model.toJSON(), h: this.helpers )).addClass(@model.get("type"))
+    @$el.html(@template(post: @model.toJSON(), h: new Once.Helpers.PostsHelper() )).addClass(@model.get("type"))
     return this

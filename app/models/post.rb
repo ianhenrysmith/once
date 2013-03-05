@@ -53,7 +53,7 @@ class Post
   
   def as_json(options={})
     # should also cache this based on user id, and figure out way to expire old items
-    Rails.cache.fetch("post_#{id}_#{updated_at}_as_json", expires: 1.week) do
+    Rails.cache.fetch("post_#{id}_#{updated_at}_as_json") do
       result = super(options)
       result["id"] = id.to_s
       result["created_string"] = created_at.strftime("%D") if created_at

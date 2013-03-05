@@ -13,5 +13,5 @@ class Once.Views.Posts.ShowView extends Once.Views.Posts.BaseView
       ]
     
   do_render: ->
-    @$el.html(@template( post: @model.toJSON(), h: this.helpers ))
+    @$el.html(@template( post: @model.toJSON(), h: new Once.Helpers.PostsHelper() ))
     return this

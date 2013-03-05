@@ -18,7 +18,7 @@ class PostsController < ApplicationController
   end
   
   def create
-    debugger
+    debugger # oh yeah, creating post w assets is broken, right?
     @asset_params.each{ |id| @post.add_asset(id) } if @asset_params.present?
     
     if @post.refresh_cache_fields(true) # save
