@@ -8,7 +8,7 @@ class Ability
 
     can :read, :all
     
-    can :edit, Post, user_id: user.id
+    can [:edit, :update], Post, user_id: user.id
     can :create, Post if user.can_create_post?
     
     can :manage, User, id: user.id

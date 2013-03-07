@@ -39,17 +39,21 @@ class User
   validates_presence_of :encrypted_password
   
   def self.cache_key
-    Digest::MD5.hexdigest "#{max(:updated_at).try(:to_i)}-#{count}"
+    Digest::MD5.hexdigest "users_#{max(:updated_at).try(:to_i)}-#{count}"
   end
   
   def self.cached(ck=cache_key, query=nil)
-    Rails.cache.fetch("users_#{ck}", expires: 1.week) do
+    Rails.cache.fetch(ck, expires: 1.week) do
       puts 'bleh ---------------------- User.all'
       User.all.to_a
     end
   end
   
-  def can_create_post? # probably should rename this
+  def long_cache_key
+    Digest::MD5.hexdigest "#{id}_#{updated_at.to_i}_#{last_post_created_time.to_i}-#{last_post_liked_time.to_i}-#{last_post_edited_time.to_i}"
+  end
+  
+  def can_create_post? # probably should rename this, since its not an ability check
     Rails.cache.fetch("user_#{id}_#{updated_at}_can_create_post") do
       # I'd like to make this work with time zones
       #   (if it doesn't already, have to check that out too)
@@ -59,12 +63,8 @@ class User
     end
   end
   
-  def update_last_post_created_time(time=Time.now)
-    self.update_attribute( :last_post_created_time, time )
-  end
-  
-  def update_last_post_liked_time(time=Time.now)
-    self.update_attribute( :last_post_liked_time, time )
+  def update_timestamp(field, time=Time.now)
+    self.update_attribute( field, time )
   end
   
   def refresh_cache_fields
@@ -76,7 +76,7 @@ class User
   
   def recent_posts
     Rails.cache.fetch("recent_user_posts_#{id}_#{last_post_created_time.to_i}", expires: 1.week) do
-      Post.where(user_id: self.id).desc(:created_at).limit(100).only(:id, :title).to_a
+      Post.where(user_id: self.id).desc(:created_at).limit(100).only(:id, :title, :updated_at).to_a
     end
   end
   
@@ -87,6 +87,7 @@ class User
   end
   
   def as_json(options={})
+    # don't really use this yets
     Rails.cache.fetch("user_#{id}_#{updated_at}_as_json", expires: 1.week) do
       result = super(options)
       result["id"] = id.to_s

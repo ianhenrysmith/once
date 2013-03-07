@@ -17,6 +17,7 @@
     posts_json = #{ @posts.to_json.html_safe };
   
     $(function() {
+      Once.Constants.POST_TYPES = #{Post::TYPES}
       window.router = new Once.Routers.PostsRouter({posts: posts_json});
       Backbone.history.start();
     });

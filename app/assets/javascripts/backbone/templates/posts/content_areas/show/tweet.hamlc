@@ -1,0 +1,2 @@
+=#! unescape(@post.tweet_embed_code.replace("+", " "))
+= "(embedding tweets doesn't work yet...)"

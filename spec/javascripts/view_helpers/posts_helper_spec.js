@@ -131,4 +131,11 @@ describe("Once.Helpers.PostsHelper", function() {
       expect(avatar.match("<div class='avatar large muchos_deliciosos'").length).toEqual(1);
     });
   }); // avatar
+  
+  describe("partial", function() {
+    // this fn is implicitly tested in all of the other helper tests
+    it('exists', function() {
+      expect(helper.partial).not.toBeNull();
+    });
+  });
 }); //posts helper

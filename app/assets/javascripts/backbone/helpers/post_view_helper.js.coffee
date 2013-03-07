@@ -1,11 +1,14 @@
 Once.Views.Posts ||= {}
 
 class Once.Helpers.PostsHelper extends Backbone.View
-  # probably want to make this Once.Views.Posts.Helper
-  #   can you include helpers like modules? Does coffeescript do that?
+  # Can you include helpers like modules? Does coffeescript do that?
   preview: (post) =>
-    JST['backbone/templates/shared/preview'](post)
+    @partial('shared/preview', post)
   dropdown: (options={}) =>
-    JST['backbone/templates/shared/dropdown'](options)
+    @partial('shared/dropdown', options)
   avatar: (url, size="medium", options={}) =>
-    JST['backbone/templates/shared/avatar']({url: url, size: size, options: options})
+    @partial('shared/avatar', { url: url, size: size, options: options })
+  partial: (path, options) =>
+    # would love to have a fallback option here, if partial doesn't exist.
+    #   that would make it easier to add post types on the fly
+    JST["backbone/templates/#{path}"](options)

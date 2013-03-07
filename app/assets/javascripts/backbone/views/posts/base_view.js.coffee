@@ -53,7 +53,8 @@ class Once.Views.Posts.BaseView extends Backbone.View
     }
     
     set_content_area = (template="text",type="text") =>
-      $content_area.html(JST["backbone/templates/posts/content_areas/edit/#{template}"]({post: post, type: type}))
+      html = new Once.Helpers.PostsHelper().partial("posts/content_areas/edit/#{template}", {post: post, type: type})
+      $content_area.html(html)
       if type == "image"
         @setup_upload()
 
@@ -99,7 +100,7 @@ class Once.Views.Posts.BaseView extends Backbone.View
         permission ||= "all"
         
         if permission == "owner"
-          if $("owner_id").val() == Once.Constants.current_user_id
+          if $("#owner_id").val() == Once.Constants.current_user_id
             $to_show.push el
           else
             $to_hide.push el

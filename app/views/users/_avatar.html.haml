@@ -1,3 +1,4 @@
-- avatar_class ||= "medium"
-- if @user.asset_url
-  .avatar{class: avatar_class, style: "background-image: url(#{@user.asset_url});"}
+- cache [@user.id, @user.updated_at.to_i, "avatar"] do
+  - avatar_class ||= "medium"
+  - if @user.asset_url
+    .avatar{class: avatar_class, style: "background-image: url(#{@user.asset_url});"}

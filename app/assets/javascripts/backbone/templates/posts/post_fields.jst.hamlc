@@ -3,7 +3,7 @@
 %br
 
 %span.editable_label.text_smaller.normal="Type"
-- vs = $("#post_types").val().split(" ")
+- vs = Once.Constants.POST_TYPES
 != @h.dropdown({values: vs, field: "type", value: @post.type, options: {class: "editable_dd_1 editable", id: "post_type_dd"}})
 %br
 

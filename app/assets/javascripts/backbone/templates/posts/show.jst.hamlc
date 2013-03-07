@@ -1,25 +1,10 @@
 .post_0
   %input{ type:"hidden", name:"atomic_post_id", id:"atomic_post_id", value: @post.id }
   %input{ type:"hidden", name:"owner_id", id:"owner_id", value: @post.user_id }
-  %div
-    %h2= @post.title
+  .t1
+    %h2 != @post.title
 
   -# todo: break this into partials like with edit
-  - if @post.type == "image"
-    - img_url = @post.asset_url || @post.content
-    %a{href: img_url}
-      %img{ src: img_url, class: "img_responsive"}
-  - else if @post.type == "quote"
-    %p.quote_1= @post.content
-  - else if @post.type == "video"
-    - yt_id = @post.content.split("watch?v=")[1]
-    %iframe{ width:"560", height:"315", src:"http://www.youtube.com/embed/#{yt_id}", frameborder:"0", allowfullscreen:"true"}
-  - else if @post.type == "tweet"
-    =#! unescape(@post.tweet_embed_code.replace("+", " "))
-    = "(embedding tweets doesn't work yet...)"
-  - else
-    %p= @post.content
-    - if @post.asset_url
-      %img{ src: "#{@post.asset_url}", class: "img_responsive"}
-      
-  %p.t1= @post.description
+  != @h.partial("posts/content_areas/show/#{@post.type}", {post: @post, fallback: "text"})
+  
+  %p.t1 != @post.description

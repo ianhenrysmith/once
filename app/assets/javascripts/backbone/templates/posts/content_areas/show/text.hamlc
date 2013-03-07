@@ -1,0 +1,4 @@
+.t1
+  %p != @post.content
+- if @post.asset_url
+  %img{ src: "#{@post.asset_url}", class: "img_responsive"}

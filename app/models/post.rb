@@ -41,11 +41,11 @@ class Post
   
   def self.cache_key
     max_updated_at = desc(:updated_at).limit(1).only(:updated_at).first.updated_at.try(:to_i)
-    Digest::MD5.hexdigest "#{max_updated_at}-#{count}"
+    Digest::MD5.hexdigest "posts_#{max_updated_at}-#{count}"
   end
   
   def self.cached(ck=cache_key, query=nil)
-    Rails.cache.fetch("posts_#{ck}", expires: 1.week) do
+    Rails.cache.fetch(ck, expires: 1.week) do
       puts 'bleh ---------------------- Post.all'
       Post.recent.to_a
     end
@@ -82,7 +82,7 @@ class Post
       # action = "destroy" if like = Like.where(post_id: id, user_id: user.id).first
       
       unless like = Like.where(post_id: id, user_id: user.id).first # change this to be a scoped query
-        user.update_last_post_liked_time
+        user.update_timestamp(:last_post_liked_time)
         Like.create(post: self, user: user, post_title: title) # move this to be a method in Like?
       end
     end

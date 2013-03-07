@@ -6,7 +6,7 @@ class Like
   
   field :post_title
   
-  def update_cache_fields
+  def update_cache_fields # need to update this every once in a while
     self.update_attribute( :post_title, post.title )
   end
 end

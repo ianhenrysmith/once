@@ -1,0 +1,3 @@
+- img_url = @post.asset_url || @post.content
+%a{href: img_url}
+  %img{ src: img_url, class: "img_responsive"}

@@ -1,0 +1,4 @@
+%p= @post.content
+- if @post.asset_url
+  %img{ src: "#{@post.asset_url}", class: "img_responsive"}
+- # I want to implement some sort of ws preview here, that would be dope diggety dog

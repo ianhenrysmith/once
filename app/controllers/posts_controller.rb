@@ -22,7 +22,7 @@ class PostsController < ApplicationController
     @asset_params.each{ |id| @post.add_asset(id) } if @asset_params.present?
     
     if @post.refresh_cache_fields(true) # save
-      current_user.update_last_post_created_time
+      current_user.update_timestamp(:last_post_created_time)
       respond_with @post
     else
       # need to make sure create page doesn't get cleared here on an error
@@ -33,7 +33,11 @@ class PostsController < ApplicationController
   def update
     # deal with asset_params here too
     #   probably need a filter here
-    respond_with @post.update_attributes(params[:post])
+    success = @post.update_attributes(params[:post])
+    
+    current_user.update_timestamp(:last_post_edited_time) if success
+    
+    respond_with @post
   end
     
   def destroy

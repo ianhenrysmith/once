@@ -1,0 +1,2 @@
+- yt_id = @post.content.split("watch?v=")[1]
+%iframe{ width:"560", height:"315", src:"http://www.youtube.com/embed/#{yt_id}", frameborder:"0", allowfullscreen:"true"}
