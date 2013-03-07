@@ -83,7 +83,7 @@ class Post
       
       unless like = Like.where(post_id: id, user_id: user.id).first # change this to be a scoped query
         user.update_timestamp(:last_post_liked_time)
-        Like.create(post: self, user: user, post_title: title) # move this to be a method in Like?
+        Like.create(post: self, user: user) # move this to be a method in Like?
       end
     end
   end

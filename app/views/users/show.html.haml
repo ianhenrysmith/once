@@ -27,4 +27,4 @@
         - posts_count = recent_likes.count
         - cache [@user.id, @user.last_post_liked_time.to_i, max_post_updated, posts_count, "recent_posts_list"] do
           - recent_likes.each do |like|
-            = link_to like[:post_title], bb_path(id: like[:post_id]), class: "block vanilla"
+            = link_to like.post_title, bb_path(id: like.post_id), class: "block vanilla"
