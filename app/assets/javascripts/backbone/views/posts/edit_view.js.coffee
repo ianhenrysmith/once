@@ -10,6 +10,7 @@ class Once.Views.Posts.EditView extends Once.Views.Posts.BaseView
     
   events:
     "submit #edit-post": "update"
+    "click .action": "do_action"
 
   update: (e) ->
     # should make this use autosave form
@@ -30,5 +31,6 @@ class Once.Views.Posts.EditView extends Once.Views.Posts.BaseView
     )
 
   do_render: ->
+    console.log(@events)
     @$el.html(@template(post: @model.toJSON(), h: new Once.Helpers.PostsHelper() ))
     return this

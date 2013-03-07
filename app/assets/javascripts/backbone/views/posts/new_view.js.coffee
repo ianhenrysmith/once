@@ -10,6 +10,7 @@ class Once.Views.Posts.NewView extends Once.Views.Posts.BaseView
     
   events:
     "submit #new-post": "save"
+    "click .action": "do_action"
 
   constructor: (options) ->
     super(options)

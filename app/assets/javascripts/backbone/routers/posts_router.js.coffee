@@ -4,7 +4,7 @@ class Once.Routers.PostsRouter extends Backbone.Router
     @posts = new Once.Collections.PostsCollection()
     @posts.reset options.posts
     
-    @$post = $("#post_pane_content")
+    @$post = $("#post_pane")
     @$posts = $("#posts")
     
   routes:

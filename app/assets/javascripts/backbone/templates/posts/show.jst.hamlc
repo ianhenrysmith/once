@@ -1,10 +1,21 @@
-.post_0
-  %input{ type:"hidden", name:"atomic_post_id", id:"atomic_post_id", value: @post.id }
-  %input{ type:"hidden", name:"owner_id", id:"owner_id", value: @post.user_id }
-  .t1
-    %h2 != @post.title
+#atomic_menu.pane_btns_1.panel_1
+  %a{href: "/#/"}
+    - # have to make this work for user posts index page as well
+    %h2.block="CLOSE"
 
-  -# todo: break this into partials like with edit
-  != @h.partial("posts/content_areas/show/#{@post.type}", {post: @post, fallback: "text"})
+  %h2.block.action{action: "toggle_like"}="LIKE"
+
+  - if @post.user_id == Once.Constants.current_user_id
+    %a.block{ href: "/#/#{@post.id}/edit" }
+      %h2="EDIT"
+
+#post_pane_content.panel_1.white_bg
+  .post_0
+    %input{ type:"hidden", name:"atomic_post_id", id:"atomic_post_id", value: @post.id }
+    %input{ type:"hidden", name:"owner_id", id:"owner_id", value: @post.user_id }
+    .t1
+      %h2 != @post.title
+
+    != @h.partial("posts/content_areas/show/#{@post.type}", {post: @post, fallback: "text"})
   
-  %p.t1 != @post.description
+    %p.t1 != @post.description

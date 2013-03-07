@@ -1,9 +1,16 @@
+#atomic_menu.pane_btns_1.panel_1
+  %a{href: "/#/"}
+    - # have to make this work for user posts index page as well
+    %h2.block="CLOSE"
+
+  %a.block{ href: "/#/#{@post.id}" }
+    %h2="VIEW"
+
 .post_0
   %input{ type:"hidden", name:"atomic_post_id", id:"atomic_post_id", value: @post.id }
   
   - # make this form autoupdate at some pt, once I fix buggos
   %form#edit-post.t1{name: "post"}
-    != JST["backbone/templates/posts/post_fields"]({post: @post, h: @h})
-
+    != @h.partial("posts/post_fields", {post: @post, h: @h})
     - # %h3.autoupdate_btn="Save"
     %input{ type:"submit", value:"Save" }
