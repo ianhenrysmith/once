@@ -6,7 +6,7 @@ module BaseModel
     asset = Asset.find(id)
     if asset
       self.assets << asset
-      self.asset_url = asset.photo.url
+      self.asset_url = asset.asset_image.url
       asset.set_owner(self.id, self.class)
     end
   end

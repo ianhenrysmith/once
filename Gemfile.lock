@@ -1,4 +1,13 @@
 GIT
+  remote: git://github.com/jnicklas/carrierwave-mongoid.git
+  revision: b1ca59e0408d5b01f6b403c458eced9eae8a303d
+  specs:
+    carrierwave-mongoid (0.5.0)
+      carrierwave (~> 0.8.0)
+      mongoid (~> 3.0)
+      mongoid-grid_fs (~> 1.3)
+
+GIT
   remote: git://github.com/thoughtbot/jack_up.git
   revision: 01b55080e9c651e7bf7d7ac6987753efc588f409
   branch: use_form_data
@@ -51,12 +60,11 @@ GEM
       bson (~> 1.8.2)
     builder (3.0.4)
     cancan (1.6.9)
+    carrierwave (0.8.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
     childprocess (0.3.9)
       ffi (~> 1.0, >= 1.0.11)
-    climate_control (0.0.3)
-      activesupport (>= 3.0)
-    cocaine (0.5.1)
-      climate_control (>= 0.0.3, < 1.0)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -85,11 +93,23 @@ GEM
     eventmachine (1.0.1)
     eventmachine-tail (0.6.4)
       eventmachine
+    excon (0.16.10)
     execjs (1.4.0)
       multi_json (~> 1.0)
     ffi (1.4.0)
     file-tail (1.0.12)
       tins (~> 0.5)
+    fog (1.9.0)
+      builder
+      excon (~> 0.14)
+      formatador (~> 0.2.0)
+      mime-types
+      multi_json (~> 1.0)
+      net-scp (~> 1.0.4)
+      net-ssh (>= 2.1.3)
+      nokogiri (~> 1.5.0)
+      ruby-hmac
+    formatador (0.2.4)
     haml (4.0.0)
       tilt
     haml-rails (0.4)
@@ -129,20 +149,18 @@ GEM
       moped (~> 1.4.2)
       origin (~> 1.0)
       tzinfo (~> 0.3.22)
-    mongoid-paperclip (0.0.8)
-      paperclip (>= 2.3.6)
+    mongoid-grid_fs (1.7.0)
+      mime-types (~> 1.19)
+      mongoid (~> 3.0)
     moped (1.4.2)
     multi_json (1.6.1)
     multi_xml (0.5.3)
+    net-scp (1.0.4)
+      net-ssh (>= 1.99.1)
+    net-ssh (2.6.3)
     nokogiri (1.5.6)
     origin (1.0.11)
     orm_adapter (0.4.0)
-    paperclip (3.4.1)
-      activemodel (>= 3.0.0)
-      activerecord (>= 3.0.0)
-      activesupport (>= 3.0.0)
-      cocaine (~> 0.5.0)
-      mime-types
     polyglot (0.3.3)
     rack (1.4.5)
     rack-cache (1.2)
@@ -192,6 +210,7 @@ GEM
     rspec-expectations (2.13.0)
       diff-lcs (>= 1.1.3, < 2.0)
     rspec-mocks (2.13.0)
+    ruby-hmac (0.4.0)
     rubyzip (0.9.9)
     sanitize (2.0.3)
       nokogiri (>= 1.4.4, < 1.6)
@@ -239,11 +258,13 @@ DEPENDENCIES
   aws-sdk
   bson_ext
   cancan (>= 1.5.0)
+  carrierwave-mongoid!
   coffee-rails (~> 3.2.1)
   dalli
   debugger
   devise
   execjs
+  fog
   haml (>= 3.0.0)
   haml-rails
   haml_coffee_assets
@@ -253,7 +274,6 @@ DEPENDENCIES
   jquery-rails
   memcachier
   mongoid (>= 2.0.0.beta.19)
-  mongoid-paperclip
   rack-raw-upload
   rails (= 3.2.3)
   rails-backbone

@@ -39,7 +39,8 @@ gem "httparty"
 gem 'unicorn'
 
 #uploads
-gem "mongoid-paperclip", :require => "mongoid_paperclip"
+gem 'carrierwave-mongoid', :git => 'git://github.com/jnicklas/carrierwave-mongoid.git'
+gem "fog"
 gem "aws-s3",            :require => "aws/s3" #do I need this one?
 gem "aws-sdk"
 gem 'rack-raw-upload'

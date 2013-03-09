@@ -63,7 +63,6 @@ class PostsController < ApplicationController
   end
   
   def handle_asset_params
-    # oh yeah, creating post w assets is broken, right?
     @asset_params.each{ |id| @post.add_asset(id) } if @asset_params.present?
   end
 end
