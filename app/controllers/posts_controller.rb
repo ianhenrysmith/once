@@ -47,6 +47,7 @@ class PostsController < ApplicationController
   private
   
   def handle_params
+    params[:post] ||= {}
     params[:post].delete(:id)
     params[:post].delete(:_id)
     params[:post].delete(:updated_at)
@@ -63,8 +64,21 @@ class PostsController < ApplicationController
   end
   
   def handle_asset_params
-    @asset_params.each{ |id| @post.add_asset(id) } if @asset_params.present?
+    params[:post] ||= {}
+    params[:post][:assets] = (@post && @post.assets) ? @post.assets : []
+    
+    if @asset_params.present?
+      @asset_params.each do |id| 
+        if asset = Asset.find(id)
+          params[:post][:assets] << asset
+          params[:post][:asset_url] = asset.asset_image.url
+          asset.set_owner(@post.id, @post.class) if @post
+        end
+      end  
+    end
+    
   end
+  
 end
 
 
