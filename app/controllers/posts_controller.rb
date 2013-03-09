@@ -19,7 +19,11 @@ class PostsController < ApplicationController
   end
   
   def create
-    if @post.save
+    if @post.update_attributes(params[:post])
+      # ^^^^ this is the 2nd save b/c post is saved in load_and_authorize
+      # have to fix this.
+      
+      
       current_user.update_timestamp(:last_post_created_time)
       respond_with @post
     else
