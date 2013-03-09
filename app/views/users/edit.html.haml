@@ -1,6 +1,6 @@
 .gray_bg
   .post_1.gray_lt_bg
-    %h3="Hey, you can edit yourself"
+    %h3.block="Hey, you can edit yourself"
     = form_for @user, remote: true, html: { class: "autoupdate form_1 b1 avatar medium", :"data-type" => 'json'} do |f|
       %p
         = f.label :name
