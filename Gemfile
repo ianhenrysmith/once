@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 ruby '1.9.3'
-gem 'rails', '3.2.0' # IS: upgrade this before release b/c rails exploit
+gem 'rails', '3.2.3' # IS: upgrade this before release b/c rails exploit
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
