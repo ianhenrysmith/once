@@ -3,13 +3,14 @@ class PostsController < ApplicationController
   
   before_filter :authenticate_user!, except: [:index]
   before_filter :handle_params, only: [:create, :update]
+  before_filter :handle_asset_params, only: [:create, :update]
   
   respond_to :json, :html
   
   def index
     @post_cache_key = Post.cache_key
     @posts = Post.cached(@post_cache_key) # need paging here soon, I think
-    
+        
     respond_with @posts
   end
   
@@ -18,10 +19,7 @@ class PostsController < ApplicationController
   end
   
   def create
-    debugger # oh yeah, creating post w assets is broken, right?
-    @asset_params.each{ |id| @post.add_asset(id) } if @asset_params.present?
-    
-    if @post.refresh_cache_fields(true) # save
+    if @post.save
       current_user.update_timestamp(:last_post_created_time)
       respond_with @post
     else
@@ -31,8 +29,6 @@ class PostsController < ApplicationController
   end
   
   def update
-    # deal with asset_params here too
-    #   probably need a filter here
     success = @post.update_attributes(params[:post])
     
     current_user.update_timestamp(:last_post_edited_time) if success
@@ -63,6 +59,13 @@ class PostsController < ApplicationController
       params[:post][k] = Sanitize.clean(params[:post][k], v)
     end
     
-    params[:post][:user_id] ||= current_user.id
+    params[:post][:user_id] = current_user.id
+  end
+  
+  def handle_asset_params
+    # oh yeah, creating post w assets is broken, right?
+    @asset_params.each{ |id| @post.add_asset(id) } if @asset_params.present?
   end
 end
+
+

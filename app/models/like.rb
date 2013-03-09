@@ -4,6 +4,10 @@ class Like
   belongs_to :user
   belongs_to :post
     
+  def self.user_likes
+    # make this a mongoid scope
+  end
+  
   def update_cache_fields # need to update this every once in a while
     self.update_attribute( :post_title, post.title )
   end

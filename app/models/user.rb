@@ -86,6 +86,18 @@ class User
     end
   end
   
+  def liked_post_ids(post_ids=[])
+    if post_ids.present?
+      # make this a .where(:id.in => [post_ids])
+      #   so that you can get liked post ids
+      Like.where(user_id: id).limit(100).only(:post_id).to_a.map(&:post_id)
+    else
+      Rails.cache.fetch("user_#{id}/liked_post_ids_#{last_post_liked_time.to_i}") do
+        Like.where(user_id: id).limit(100).only(:post_id).to_a.map(&:post_id)
+      end
+    end
+  end
+  
   def as_json(options={})
     # don't really use this yets
     Rails.cache.fetch("user_#{id}_#{updated_at}_as_json", expires: 1.week) do

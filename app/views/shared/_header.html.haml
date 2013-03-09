@@ -4,9 +4,9 @@
       %a.logo_main{href:"/"}="OnceThis"
       .buttons_main
         - if (can? :create, Post)
-          = link_to "NEW POST", "/#/new", class: "button_1 button_nav"
+          = link_to "NEW POST", "/#/new", class: "button_1 button_nav", id: "create_btn"
         - else
-          .button_nav.button_1{inactive: "true"}="NEW POST"
+          #create_btn.button_nav.button_1{inactive: "true"}="NEW POST"
         = link_to "YOUR POSTS", "/#/user/#{current_user.id}", class: "button_1 button_nav" 
         = link_to "ALL POSTS", "/#/", class: "button_1 button_nav"
         .b0.float_right

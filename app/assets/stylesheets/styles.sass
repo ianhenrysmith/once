@@ -46,11 +46,18 @@ p
     line-height: 1.4em
 
 .button
-  &[inactive="true"]
+  &.inactive
     opacity: 0.6
 .button_nav
   @extend .button
   @extend .h2
+  
+.dropdown_item
+  cursor: pointer
+  &:hover
+    color: blue
+.dropdown-menu
+  text-indent: 10px
   
 .editable
   background-color: #E8FFFB
@@ -93,11 +100,16 @@ input.editable_1
   label
     display: inline-block
     width: 55px
-
+    
+.gray, .disabled
+  color: #888
 .gray_bg
   background-color: #f5f5f5
 .gray_lt_bg
   background-color: #f9f9f9
+  
+.liked
+  color: #dd6644
     
 .pane_btns_1
   color: #333332
@@ -105,7 +117,8 @@ input.editable_1
   position: absolute
   width: 180px
   h1, .h1, h2, .h2, h3, .h3, h4, .h4, p
-    color: #333332
+    &:not(.liked)
+      color: #333332
     
 .text_emphasis
   color: #A663C7

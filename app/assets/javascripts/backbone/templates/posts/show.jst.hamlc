@@ -3,11 +3,15 @@
     - # have to make this work for user posts index page as well
     %h2.block="CLOSE"
 
-  %h2.block.action{action: "toggle_like"}="LIKE"
+  - if @h.current_user()
+    - if ($.inArray(@post.id, @h.current_user().liked_post_ids) > -1)
+      %h2.block.liked="LIKED"
+    - else
+      %h2.block.action{action: "toggle_like"}="LIKE"
 
-  - if @post.user_id == Once.Constants.current_user_id
-    %a.block{ href: "/#/#{@post.id}/edit" }
-      %h2="EDIT"
+    - if @post.user_id == @h.current_user().id
+      %a.block{ href: "/#/#{@post.id}/edit" }
+        %h2="EDIT"
 
 #post_pane_content.panel_1.white_bg
   .post_0

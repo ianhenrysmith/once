@@ -30,11 +30,13 @@ class Once.Views.Posts.NewView extends Once.Views.Posts.BaseView
     arr = $("form").serializeArray()
     for kv in arr
       params[kv.name] = kv.value
+      
+    post_params = @h().augment_with_user_params(params)
 
-    @collection.create(params,
+    @collection.create(post_params,
       wait: true
       success: (post) =>
-        window.CanCreate = false
+        @h().post_created(new Date())
         @model = post
         window.location.hash = "/#{@model.id}"
 
@@ -43,5 +45,5 @@ class Once.Views.Posts.NewView extends Once.Views.Posts.BaseView
     )
 
   do_render: () ->
-    @$el.html(@template(post: @model.toJSON(), h: new Once.Helpers.PostsHelper() ))
+    @$el.html(@template(post: @model.toJSON(), h: @h() ))
     return this

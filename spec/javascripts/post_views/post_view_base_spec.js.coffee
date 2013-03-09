@@ -1,4 +1,4 @@
-describe("Once.Helpers.PostsHelper", function() {
+describe("Once.Views.Posts.BaseView", function() {
   beforeEach(function() {
     view = new Once.Views.Posts.BaseView();
   });
@@ -9,6 +9,10 @@ describe("Once.Helpers.PostsHelper", function() {
   
   it('can be instantiated', function() {
     expect(view).not.toBeNull();
+  });
+  
+  it("can instantiate PostsHelper", function() {
+    expect( view.h() ).toBeDefined;
   });
   
   //# what to test?

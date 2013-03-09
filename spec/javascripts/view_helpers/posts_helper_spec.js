@@ -138,4 +138,41 @@ describe("Once.Helpers.PostsHelper", function() {
       expect(helper.partial).not.toBeNull();
     });
   });
+  describe("get and set", function() {
+    beforeEach(function() {
+      init = new Once.Initializer();
+      user = {
+        id: "888",
+        name: "Jack Kerouac",
+        asset_url: "http://smoo.org/yambo.png"
+      };
+      init.set_current_user(user);
+    });
+    
+    it("current_user", function() {
+      current_user = helper.current_user();
+      
+      expect(current_user).not.toBeNull();
+      expect(current_user.id).toBe(Once.CurrentUser.id);
+      expect(current_user.name).toBe(Once.CurrentUser.name);
+      expect(current_user.asset_url).toBe(Once.CurrentUser.asset_url);
+    }); // current_user
+    
+    it("user params", function() {
+      initial = {boof: "smoo"}
+      params = helper.augment_with_user_params(initial);
+      console.log(params);
+      expect(params).not.toBe(initial);
+      expect(params.boof).toBe(initial.boof);
+      expect(params.user_id).toBe(Once.CurrentUser.id);
+      expect(params.creator_name).toBe(Once.CurrentUser.name);
+      expect(params.creator_path).toBe("/users/" + Once.CurrentUser.id);
+      expect(params.creator_avatar_url).toBe(Once.CurrentUser.asset_url);
+    }); // augment_with_user_params
+  });
+  describe("add liked post", function() {
+    it("adds post id to current user", function() {
+      expect(true).toBe(false);
+    });
+  });
 }); //posts helper

@@ -31,6 +31,5 @@ class Once.Views.Posts.EditView extends Once.Views.Posts.BaseView
     )
 
   do_render: ->
-    console.log(@events)
-    @$el.html(@template(post: @model.toJSON(), h: new Once.Helpers.PostsHelper() ))
+    @$el.html(@template(post: @model.toJSON(), h: @h() ))
     return this

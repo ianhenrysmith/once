@@ -1,6 +1,5 @@
 class Once.Routers.PostsRouter extends Backbone.Router
   initialize: (options) ->
-    Once.Constants.current_user_id ||= $("#current_user_id").val()
     @posts = new Once.Collections.PostsCollection()
     @posts.reset options.posts
     

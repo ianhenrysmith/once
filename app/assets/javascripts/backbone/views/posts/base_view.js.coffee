@@ -13,6 +13,9 @@ class Once.Views.Posts.BaseView extends Backbone.View
     edit: "owner"
   callbacks: []
   
+  h: () =>
+    @helper ||= new Once.Helpers.PostsHelper()
+    
   toggle_pane: () =>
     @$pane = @$pane || $("#post_pane")
     pane_open = @$pane.data("open") == true
@@ -66,32 +69,45 @@ class Once.Views.Posts.BaseView extends Backbone.View
       set_content_area(post_type_templates[type], type)
     )
     
+  check_post_create: () =>
+    unless @h().can_create()
+      $("#create_btn").addClass("inactive").attr("href", "javascript://")
+    else
+      $("#create_btn").removeClass("inactive").attr("href", "/#/new")
+    
   render: (view) ->
     that = @do_render()
     @toggle_pane()
     @do_callbacks(@get_callbacks(), @model)
     that
-    
+  
   do_callbacks: (callbacks, post) ->
     setTimeout((setup = () => callback(post) for callback in callbacks), 1)
     
   get_callbacks: (post) ->
     callbacks=[]
+    callbacks.push @check_post_create
     callbacks.push @setup_edit if @render_attributes.edit
     callbacks.push @setup_dropdowns if @render_attributes.dropdown
     callbacks.push @setup_upload if @render_attributes.upload
     callbacks
     
-  toggle_like: (e) =>
+  toggle_like: (e, $t) =>
+    post_id = $("#atomic_post_id").val()
+    @h().add_liked_post_id(post_id)
+    
     $.ajax(
       url: "ajax/send_action"
       data:
-        id: $("#atomic_post_id").val()
+        id: post_id
         class: "Post"
         resource_action: "toggle_like"
       dataType: "json"
       type: "POST"
+      success: () ->
+        $t.removeClass("action").addClass("liked").text("LIKED");
     )
+    
     
   do_action: (e) =>
     if !e.target.getAttribute("action")
@@ -100,4 +116,6 @@ class Once.Views.Posts.BaseView extends Backbone.View
       $t = $(e.target)
     unless $t.attr("href") # links are for following, dawg
       action = $t.attr("action")
-      this[action](e)
+      this[action](e, $t)
+      
+      

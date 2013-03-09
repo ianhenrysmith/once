@@ -1,0 +1,3 @@
+%h2="Sign in first :)"
+
+%a.block{href: "/users/sign_in"}="Sign In"

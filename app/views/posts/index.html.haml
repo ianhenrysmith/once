@@ -1,12 +1,19 @@
-- cache( "#{@post_cache_key}", expires: 1.day ) do
-  #posts.gray_bg
-  #post_pane.pane_1
+#posts.gray_bg
+#post_pane.pane_1.white_bg
 
-  :javascript
-    posts_json = #{ @posts.to_json.html_safe };
-  
-    $(function() {
-      Once.Constants.POST_TYPES = #{Post::TYPES}
-      window.router = new Once.Routers.PostsRouter({posts: posts_json});
-      Backbone.history.start();
-    });
+:javascript
+  posts_json = #{ @posts.to_json.html_safe };
+
+  $(function() {
+    init = new Once.Initializer();
+    init.set_post_types(#{Post::TYPES});
+    
+    current_user_json = #{current_user.to_json};
+    if(current_user_json) {
+      current_user_json.liked_post_ids = #{current_user ? current_user.liked_post_ids : [] };
+      init.set_current_user(current_user_json);
+    }
+    
+    window.router = new Once.Routers.PostsRouter({posts: posts_json});
+    Backbone.history.start();
+  });

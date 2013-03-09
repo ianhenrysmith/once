@@ -4,9 +4,16 @@
     %h2.block="CLOSE"
 
 .post_0
-  %h2= "New"
-  %form#new-post.t1{name: "post"}
-    != @h.partial("posts/post_fields", {post: @post, h: @h})
-    %p
-      %input{ type:"submit", value:"Create Post" }
-  %a{ href:"#/"}="Cancel"
+  - if @h.current_user()
+    - if @h.can_create()
+      %h2= "New"
+      %form#new-post.t1{name: "post"}
+        != @h.partial("posts/post_fields", {post: @post, h: @h})
+        %p
+          %input{ type:"submit", value:"Create Post" }
+      %a{ href:"#/"}="Cancel"
+    - else
+      %h2="You've already posted today."
+      %p="Why not come back tomorrow?"
+  - else
+    != @h.partial("shared/not_signed_in")

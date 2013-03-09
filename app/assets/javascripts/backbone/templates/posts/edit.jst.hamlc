@@ -7,10 +7,13 @@
     %h2="VIEW"
 
 .post_0
-  %input{ type:"hidden", name:"atomic_post_id", id:"atomic_post_id", value: @post.id }
+  - if @h.current_user()
+    %input{ type:"hidden", name:"atomic_post_id", id:"atomic_post_id", value: @post.id }
   
-  - # make this form autoupdate at some pt, once I fix buggos
-  %form#edit-post.t1{name: "post"}
-    != @h.partial("posts/post_fields", {post: @post, h: @h})
-    - # %h3.autoupdate_btn="Save"
-    %input{ type:"submit", value:"Save" }
+    - # make this form autoupdate at some pt, once I fix buggos
+    %form#edit-post.t1{name: "post"}
+      != @h.partial("posts/post_fields", {post: @post, h: @h})
+      - # %h3.autoupdate_btn="Save"
+      %input{ type:"submit", value:"Save" }
+  - else
+    != @h.partial("shared/not_signed_in")
