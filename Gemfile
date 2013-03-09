@@ -22,8 +22,6 @@ gem "haml", ">= 3.0.0"
 gem "haml-rails"
 gem "jquery-rails"
 gem "rails-backbone"
-gem "js-routes" #do I need this one?
-
 
 #backend
 gem "bson_ext"

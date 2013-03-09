@@ -5,7 +5,6 @@
 //= require assets/backbone
 //= require assets/backbone_rails_sync
 //= require assets/backbone_datalink
-//= require assets/js-routes
 //= require assets/hamlcoffee
 //= require assets/backbone/once
 //= require assets/jack_up

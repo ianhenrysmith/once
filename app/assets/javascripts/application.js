@@ -17,7 +17,6 @@
 //= require backbone
 //= require backbone_rails_sync
 //= require backbone_datalink
-//= require js-routes
 //= require hamlcoffee
 //= require backbone/once
 //= require jack_up
