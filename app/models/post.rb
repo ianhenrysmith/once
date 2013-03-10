@@ -40,8 +40,12 @@ class Post
   scope :recent, order_by(created_at: :desc).limit(100)
   
   def self.cache_key
-    max_updated_at = desc(:updated_at).limit(1).only(:updated_at).first.updated_at.try(:to_i)
-    Digest::MD5.hexdigest "posts_#{max_updated_at}-#{count}"
+    if Post.count
+      max_updated_at = desc(:updated_at).limit(1).only(:updated_at).first.updated_at.try(:to_i)
+      Digest::MD5.hexdigest "posts_#{max_updated_at}-#{count}"
+    else
+      Rand(19).to_s
+    end
   end
   
   def self.cached(ck=cache_key, query=nil)
