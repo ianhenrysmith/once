@@ -1,14 +1,13 @@
-.post_1.gray_lt_bg
-  - unless @h.current_user()
-    .white_bg.fw_col.c1
-      %h2="OnceThis is for the things you love."
-      %p="Post the things that inspire you: quotes, images, videos, Tweets, links, text."
-      %p.text_emphasis="Oh yeah: you can post once a day."
-  - if @user
-    .white_bg.fw_col
-      - if @user.asset_url
-        != @h.avatar(@user.asset_url, "medium")
-      %h2.nowrap
-        ="Showing posts from"
-        %a{href: "/users/#{@user.id}", class: "vanilla"}=@user.name
-  #posts_body
+- unless @h.current_user()
+  .white_bg.fw_col.c1
+    %h2="OnceThis is for the things you love."
+    %p="Post the things that inspire you: quotes, images, videos, Tweets, links, text."
+    %p.text_emphasis="Oh yeah: you can post once a day."
+- if @user
+  .white_bg.fw_col
+    - if @user.asset_url
+      != @h.avatar(@user.asset_url, "medium")
+    %h2.nowrap
+      ="Showing posts from"
+      %a{href: "/users/#{@user.id}", class: "vanilla"}=@user.name
+#posts_body

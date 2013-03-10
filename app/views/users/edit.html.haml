@@ -1,26 +1,24 @@
-.gray_bg
-  .post_1.gray_lt_bg
-    %h3.block="Hey, you can edit yourself"
-    = form_for @user, remote: true, html: { class: "autoupdate form_1 b1 avatar medium", :"data-type" => 'json'} do |f|
-      %p
-        = f.label :name
-        = f.text_field :name
-      %p
-        = f.label :email
-        = f.text_field :email
+%h3="Hey, you can edit yourself"
+= form_for @user, remote: true, html: { class: "autoupdate form_1 b1 block avatar medium", :"data-type" => 'json'} do |f|
+  %p
+    = f.label :name
+    = f.text_field :name
+  %p
+    = f.label :email
+    = f.text_field :email
+
+  %h4.block="Photo"
+  - if @user.asset_url
+    %p.b1.text_small="Current photo:"
+    = render partial: "avatar"
   
-      %h4.block="Photo"
-      - if @user.asset_url
-        %p.b1.text_small="Current photo:"
-        = render partial: "avatar"
-        
-      -# will implement this later when I figure out:
-        - # a) getting multiple assets on user to work
-        - # b) how this area should look / interact
-        .file-drop
-          %span{ 'data-placeholder' => 'Drop files here' } Drop files here
-          
-      .b1
-        %p.text_small="Choose new photo:"
-        %input.standard-attachment{ name: 'standard_attachment', accept: 'image/*', type: "file", multiple: "multiple" }
-      .new_image_area.b1
+  -# will implement this later when I figure out:
+    - # a) getting multiple assets on user to work
+    - # b) how this area should look / interact
+    .file-drop
+      %span{ 'data-placeholder' => 'Drop files here' } Drop files here
+    
+  .b1
+    %p.text_small="Choose new photo:"
+    %input.standard-attachment{ name: 'standard_attachment', accept: 'image/*', type: "file", multiple: "multiple" }
+  .new_image_area.b1
