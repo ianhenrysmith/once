@@ -40,7 +40,7 @@ class Post
   scope :recent, order_by(created_at: :desc).limit(100)
   
   def self.cache_key
-    if Post.count
+    if Post.count > 0
       max_updated_at = desc(:updated_at).limit(1).only(:updated_at).first.updated_at.try(:to_i)
       Digest::MD5.hexdigest "posts_#{max_updated_at}-#{count}"
     else
