@@ -12,6 +12,11 @@ group :assets do
   gem 'execjs'
 end
 
+group :development, :test do
+  gem 'guard-jasmine'
+  gem "jasminerice", :git => 'https://github.com/bradphelan/jasminerice.git'
+end
+
 # Deploy with Capistrano
 # gem 'capistrano'
 

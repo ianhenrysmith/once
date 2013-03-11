@@ -4,12 +4,12 @@
       %a.logo_main{href:"/"}="OnceThis"
       .buttons_main
         = link_to "NEW POST", "/#/new", class: "button_1 button_nav", id: "create_btn"
-        = link_to "YOUR POSTS", "/#/user/#{current_user.id}", class: "button_1 button_nav" 
-        = link_to "ALL POSTS", "/#/", class: "button_1 button_nav"
+        = link_to "YOUR POSTS", "/#/user/#{current_user.id}", class: "button_1 button_nav your_posts_btn" 
+        = link_to "ALL POSTS", "/#/", class: "button_1 button_nav all_posts_btn"
         .b0.float_right
           %p
-            = link_to "Sign out", destroy_user_session_path, class: "button_1 vanilla"
-            = link_to "You", user_path(current_user), class: "button_1 vanilla"
+            = link_to "Sign out", destroy_user_session_path, class: "button_1 vanilla sign_out_btn"
+            = link_to "You", user_path(current_user), class: "button_1 vanilla current_user_btn"
 - else
   - cache "index/header", expires: 1.week do
     .gray_lt_bg
@@ -18,5 +18,5 @@
         = link_to "ALL POSTS", "/#/", class: "button_1 button_nav"
         .b0.float_right
           %p
-            = link_to "Sign in", new_user_session_path, class: "button_1"
-            = link_to "Register", new_user_registration_path, class: "button_1"
+            = link_to "Sign in", new_user_session_path, class: "button_1 sign_in_btn"
+            = link_to "Register", new_user_registration_path, class: "button_1 registration_btn"
