@@ -3,6 +3,8 @@ var casper = require('casper').create();
 casper.start('http://localhost:9191/', function() {
   // casper.viewport(1280, 800);
   
+  // should clear test user posts here
+  
   this.click('.sign_in_btn');
 });
 

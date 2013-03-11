@@ -43,6 +43,8 @@ gem "cancan", ">= 1.5.0"
 gem "httparty"
 gem 'unicorn'
 
+gem "newrelic_rpm"
+
 #uploads
 gem 'carrierwave-mongoid', :git => 'git://github.com/jnicklas/carrierwave-mongoid.git'
 gem "fog"
