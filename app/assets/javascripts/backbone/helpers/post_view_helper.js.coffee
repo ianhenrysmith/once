@@ -40,8 +40,8 @@ class Once.Helpers.PostsHelper extends Backbone.View
       created_date = new Date(current_user.last_post_created_time)
       now = new Date()
       
-      return true if current_user.email == "ian@kapost.com"
-
+      return true if $("#rails_env").val() == "development"
+      
       if created_date.getDate() == now.getDate()
         if created_date.getMonth() == now.getMonth()
           if created_date.getFullYear() == now.getFullYear()

@@ -14,6 +14,6 @@
     %form#edit-post.t1{name: "post"}
       != @h.partial("posts/post_fields", {post: @post, h: @h})
       - # %h3.autoupdate_btn="Save"
-      %input{ type:"submit", value:"Save" }
+      %input{ type:"submit", value:"Save", class: "submit_edit_post" }
   - else
     != @h.partial("shared/not_signed_in")

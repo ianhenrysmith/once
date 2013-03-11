@@ -8,7 +8,7 @@ class Post
   SANITIZE = {   # fields that get sanitized in PoCo#create and update
     title:       Sanitize::Config::RESTRICTED,
     content:     Sanitize::Config::RESTRICTED,
-    desctiption: Sanitize::Config::RELAXED
+    description: Sanitize::Config::RELAXED
   }
 
   field :content, type: String

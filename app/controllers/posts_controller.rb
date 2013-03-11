@@ -9,7 +9,11 @@ class PostsController < ApplicationController
   
   def index
     @post_cache_key = Post.cache_key
-    @posts = Post.cached(@post_cache_key) # need paging here soon, I think
+    if Rails.env.development? && current_user && ( current_user.id == User.test_user.id )
+      @posts = User.test_user.posts
+    else
+      @posts = Post.cached(@post_cache_key) # need paging here soon, I think
+    end
         
     respond_with @posts
   end

@@ -7,7 +7,7 @@
     - if ($.inArray(@post.id, @h.current_user().liked_post_ids) > -1)
       %h2.block.liked="LIKED"
     - else
-      %h2.block.action{action: "toggle_like"}="LIKE"
+      %h2.block.action.like_btn{action: "toggle_like"}="LIKE"
 
     - if @post.user_id == @h.current_user().id
       %a.block{ href: "/#/#{@post.id}/edit" }

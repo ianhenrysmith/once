@@ -49,6 +49,10 @@ class User
     end
   end
   
+  def self.test_user
+    where(email: "hazdrubal@carth.age").first
+  end
+  
   def long_cache_key
     Digest::MD5.hexdigest "#{id}_#{updated_at.to_i}_#{last_post_created_time.to_i}-#{last_post_liked_time.to_i}-#{last_post_edited_time.to_i}"
   end
