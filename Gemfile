@@ -12,11 +12,6 @@ group :assets do
   gem 'execjs'
 end
 
-group :development, :test do
-  gem 'guard-jasmine'
-  gem "jasminerice", :git => 'https://github.com/bradphelan/jasminerice.git'
-end
-
 # Deploy with Capistrano
 # gem 'capistrano'
 
@@ -31,8 +26,7 @@ gem "rails-backbone"
 #backend
 gem "bson_ext"
 gem "mongoid", ">= 2.0.0.beta.19"
-
-gem "remote_syslog"
+gem 'delayed_job_mongoid'
 
 gem 'memcachier'
 gem 'dalli'
@@ -42,8 +36,6 @@ gem "cancan", ">= 1.5.0"
 
 gem "httparty"
 gem 'unicorn'
-
-gem "newrelic_rpm"
 
 #uploads
 gem 'carrierwave-mongoid', :git => 'git://github.com/jnicklas/carrierwave-mongoid.git'

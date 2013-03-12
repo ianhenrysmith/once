@@ -7,8 +7,3 @@
     = @post.created_string
   .text_smaller
     != @post.description
--#  
-  %p
-    %a{href:"#/#{ @post.id }/edit"}="Edit"
-  %p
-    %a{href:"#/#{ @post.id }/destroy"}="Delete"

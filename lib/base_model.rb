@@ -1,4 +1,3 @@
 module BaseModel
 
-
 end
