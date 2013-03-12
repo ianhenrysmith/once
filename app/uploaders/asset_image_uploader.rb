@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class AssetImageUploader < CarrierWave::Uploader::Base
-
+  include CarrierWave::MiniMagick
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
@@ -39,6 +39,10 @@ class AssetImageUploader < CarrierWave::Uploader::Base
   # version :thumb do
   #   process :scale => [50, 50]
   # end
+  
+  version :preview do
+    process :resize_to_limit => [288, 10000]
+  end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:

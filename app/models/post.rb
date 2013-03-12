@@ -24,6 +24,7 @@ class Post
   field :assets_attributes
   # assets
   field :asset_url, type: String
+  field :preview_url, type: String
   
   index updated_at: 1
   index user_id: 1
@@ -74,7 +75,11 @@ class Post
       self.creator_avatar_url = u.asset_url
     end
     if assets.present?
-      self.asset_url = assets.last.photo.url
+      asset_image = assets.last.try(:asset_image)
+      if asset_image
+        self.asset_url = asset_image.url
+        self.preview_url = asset_image.preview.url if asset_image.preview
+      end
     end
     return save ? self.save : true
   end

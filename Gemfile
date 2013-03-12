@@ -47,6 +47,7 @@ gem "newrelic_rpm"
 
 #uploads
 gem 'carrierwave-mongoid', :git => 'git://github.com/jnicklas/carrierwave-mongoid.git'
+gem "mini_magick"
 gem "fog"
 gem "aws-s3",            :require => "aws/s3" #do I need this one?
 gem "aws-sdk"

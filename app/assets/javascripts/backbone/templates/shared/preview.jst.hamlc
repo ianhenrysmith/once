@@ -1,6 +1,6 @@
 .inline_block
   - if @type == "image"
-    - img_url = @asset_url || @content
+    - img_url = @preview_url || @asset_url || @content #start w preview
     %img{ src: img_url, class: 'preview_img'}
   - else if @type == "quote"
     .preview_quote != @content
