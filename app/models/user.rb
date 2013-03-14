@@ -58,13 +58,11 @@ class User
   end
   
   def can_create_post? # probably should rename this, since its not an ability check
-    Rails.cache.fetch("user_#{id}_#{updated_at}_can_create_post") do
-      # I'd like to make this work with time zones
-      #   (if it doesn't already, have to check that out too)
-      
-      # maybe want to add an is_ian field cause this is my product and I do what I want.
-      last_post_created_time == nil || !last_post_created_time.today? || Rails.env.development?
-    end
+    # I'd like to make this work with time zones
+    #   (if it doesn't already, have to check that out too)
+    
+    # maybe want to add an is_ian field cause this is my product and I do what I want.
+    last_post_created_time.blank? || !last_post_created_time.today? || Rails.env.development?
   end
   
   def update_timestamp(field, time=Time.now)
@@ -86,7 +84,7 @@ class User
   
   def recent_likes
     Rails.cache.fetch("recent_user_posts_#{id}_#{last_post_liked_time.to_i}", expires: 1.week) do
-      Like.where(user_id: self.id).desc(:created_at).limit(100).only(:post_id).to_a
+      Like.where(user_id: self.id).desc(:created_at).limit(100).only(:post_id, :post_title).to_a
     end
   end
   

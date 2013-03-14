@@ -5,7 +5,6 @@ class Once.Views.Posts.EditView extends Once.Views.Posts.BaseView
   render_attributes:
     pane: "open"
     dropdown: true
-    sidebar_actions: ["view", "delete"]
     edit: true
     
   events:

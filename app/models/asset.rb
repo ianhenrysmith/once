@@ -7,6 +7,26 @@ class Asset
   
   mount_uploader :asset_image, AssetImageUploader
   
+  def self.new_from_path(path)
+    file = File.new(path)
+    return new_from_file(file) if file.present?
+    nil
+  end
+  
+  def self.new_from_file(file)
+    asset_image = AssetImageUploader.new
+    asset_image.cache!(file)
+    asset = new
+    asset.asset_image = asset_image
+    asset
+  end
+  
+  def self.create_from_path(path)
+    asset = new_from_path(path)
+    asset.save
+    asset
+  end
+  
   def as_json(options={})
     result = super(options)
     result["id"] = id.to_s

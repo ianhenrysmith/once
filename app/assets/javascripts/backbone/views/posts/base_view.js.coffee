@@ -7,7 +7,6 @@ class Once.Views.Posts.BaseView extends Backbone.View
     dropdown: false
     pane: "closed"
     upload: false
-    sidebar_actions: ["like","comment"]
   permissions:
     delete: "owner"
     edit: "owner"

@@ -4,7 +4,7 @@ class Post
   include BaseModel
   
   TYPES = %w(quote image video link tweet text)
-  AJAX_ACTIONS = %w(toggle_like)
+  AJAX_ACTIONS = %w(toggle_like clear_test_posts)
   SANITIZE = {   # fields that get sanitized in PoCo#create and update
     title:       Sanitize::Config::RESTRICTED,
     content:     Sanitize::Config::RESTRICTED,
@@ -39,6 +39,16 @@ class Post
   validates_inclusion_of	:type, in: TYPES
   
   scope :recent, order_by(created_at: :desc).limit(100)
+  
+  def self.test_posts
+    where(user_id: "513dd113a09fc2483c000023")
+  end
+  
+  def self.clear_test_posts
+    tps = test_posts
+    puts "clearing #{tps.count} test posts -------------------------"
+    tps.destroy
+  end
   
   def self.cache_key
     if Post.count > 0
@@ -92,7 +102,7 @@ class Post
       
       unless like = Like.where(post_id: id, user_id: user.id).first # change this to be a scoped query
         user.update_timestamp(:last_post_liked_time)
-        Like.create(post: self, user: user) # move this to be a method in Like?
+        Like.create(post: self, user: user, post_title: title) # move this to be a method in Like?
       end
     end
   end
@@ -113,5 +123,18 @@ class Post
   
   def tweet?
     type == "tweet"
+  end
+  
+  def link?
+    type == "link"
+  end
+  
+  def url
+    content if link?
+  end
+  
+  def add_asset(asset)
+    self.assets << asset
+    self.save!
   end
 end

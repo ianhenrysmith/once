@@ -1,7 +1,7 @@
 #atomic_menu.pane_btns_1.panel_1
   %a{href: "/#/"}
     - # have to make this work for user posts index page as well
-    %h2.block="CLOSE"
+    %h2#close_btn.block="CLOSE"
 
   %a.block{ href: "/#/#{@post.id}" }
     %h2="VIEW"

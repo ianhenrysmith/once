@@ -1,16 +1,16 @@
 #atomic_menu.pane_btns_1.panel_1
   %a{href: "/#/"}
     - # have to make this work for user posts index page as well
-    %h2.block="CLOSE"
+    %h2#close_btn.block="CLOSE"
 
   - if @h.current_user()
     - if ($.inArray(@post.id, @h.current_user().liked_post_ids) > -1)
       %h2.block.liked="LIKED"
     - else
-      %h2.block.action.like_btn{action: "toggle_like"}="LIKE"
+      %h2.block.action{action: "toggle_like", id: "like_btn"}="LIKE"
 
     - if @post.user_id == @h.current_user().id
-      %a.block{ href: "/#/#{@post.id}/edit" }
+      %a.block{ href: "/#/#{@post.id}/edit", id: "edit_btn" }
         %h2="EDIT"
 
 #post_pane_content.panel_1.white_bg

@@ -27,6 +27,7 @@ gem "rails-backbone"
 gem "bson_ext"
 gem "mongoid", ">= 2.0.0.beta.19"
 gem 'delayed_job_mongoid'
+gem "iron_worker_ng"
 
 gem 'memcachier'
 gem 'dalli'
