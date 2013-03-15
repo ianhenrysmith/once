@@ -10,7 +10,7 @@ class PostsController < ApplicationController
   def index
     @post_cache_key = Post.cache_key
     if Rails.env.development? && current_user && ( current_user.id == User.test_user.id )
-      @posts = User.test_user.posts
+      @posts = Post.test_posts
     else
       @posts = Post.cached(@post_cache_key) # need paging here soon, I think
     end
@@ -50,6 +50,12 @@ class PostsController < ApplicationController
   
   def show
     respond_with @post
+  end
+  
+  def add_connection
+    @connection = Connection.create(params[:connection])
+    
+    respond_with @connection
   end
   
   private

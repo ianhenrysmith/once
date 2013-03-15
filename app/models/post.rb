@@ -60,7 +60,7 @@ class Post
   end
   
   def self.cached(ck=cache_key, query=nil)
-    Rails.cache.fetch(ck, expires: 1.week) do
+    Rails.cache.fetch(ck, expires: 1.hour) do
       puts 'bleh ---------------------- Post.all'
       Post.recent.to_a
     end
@@ -68,7 +68,7 @@ class Post
   
   def as_json(options={})
     # should also cache this based on user id, and figure out way to expire old items
-    Rails.cache.fetch("post_#{id}_#{updated_at}_as_json") do
+    Rails.cache.fetch("post_#{id}_#{updated_at}_as_json", expires: 1.hour) do
       result = super(options)
       result["id"] = id.to_s
       result["created_string"] = created_at.strftime("%D") if created_at

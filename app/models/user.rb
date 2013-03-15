@@ -78,12 +78,14 @@ class User
   
   def recent_posts
     Rails.cache.fetch("recent_user_posts_#{id}_#{last_post_created_time.to_i}", expires: 1.week) do
+      # this should be a scope on post
       Post.where(user_id: self.id).desc(:created_at).limit(100).only(:id, :title, :updated_at).to_a
     end
   end
   
   def recent_likes
     Rails.cache.fetch("recent_user_posts_#{id}_#{last_post_liked_time.to_i}", expires: 1.week) do
+      # also should be a scope
       Like.where(user_id: self.id).desc(:created_at).limit(100).only(:post_id, :post_title).to_a
     end
   end
@@ -92,9 +94,11 @@ class User
     if post_ids.present?
       # make this a .where(:id.in => [post_ids])
       #   so that you can get liked post ids
+      # also should be a scooope
       Like.where(user_id: id).limit(100).only(:post_id).to_a.map(&:post_id)
     else
       Rails.cache.fetch("user_#{id}/liked_post_ids_#{last_post_liked_time.to_i}") do
+        # also a scope :)
         Like.where(user_id: id).limit(100).only(:post_id).to_a.map(&:post_id)
       end
     end

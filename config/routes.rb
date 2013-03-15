@@ -4,7 +4,10 @@ Once::Application.routes.draw do
   match "/users/sign_out", to: "devise/sessions#destroy"
 
   resources :users
-  resources :posts
+  resources :posts do
+    resources :connections
+    resources :collections
+  end
   resources :assets
   
   match "/ajax/send_action", to: "ajax#send_action"
