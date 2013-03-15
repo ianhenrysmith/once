@@ -3,7 +3,7 @@ class Connection
   include Mongoid::Timestamps
   include BaseModel
   
-  TYPES = ["was inspired by", "is like", "has poeple in common with", "has same creator as"]
+  TYPES = ["was inspired by", "is like", "has same creator as"]
   #   <product> <connection> <source>
   
   
@@ -12,11 +12,11 @@ class Connection
   
   field :connection_type
   
-  field :how_connected # creator's note about how
+  field :how_connected # creator's note about how posts relate to each other
   
   # made me think of how jackson pollock was a propagandist (sp?)
-  # is also like this other post about malcolm gladwell
-  # this site was also 
+  # is also like this other post about enzo ferrari
+  # this site was designed by the same guy as ministryoftype
   
   belongs_to :user
 end
