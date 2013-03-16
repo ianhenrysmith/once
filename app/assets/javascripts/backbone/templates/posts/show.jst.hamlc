@@ -1,25 +1,27 @@
+- current_user = @h.current_user()
+
 #atomic_menu.pane_btns_1.panel_1
   %a{href: "/#/"}
     - # have to make this work for user posts index page as well
     %h2#close_btn.block="CLOSE"
 
-  - if @h.current_user()
-    - if ($.inArray(@post.id, @h.current_user().liked_post_ids) > -1)
+  - if current_user
+    - if ($.inArray(@post.id, current_user.liked_post_ids) > -1)
       %h2.block.liked="LIKED"
     - else
       %h2.block.action{action: "toggle_like", id: "like_btn"}="LIKE"
-
-    - if @post.user_id == @h.current_user().id
+    %a.block{ href: "/#/#{@post.id}/connect", id: "connect_btn" }
+      %h2="CONNECT"
+    - if @post.user_id == current_user.id
       %a.block{ href: "/#/#{@post.id}/edit", id: "edit_btn" }
         %h2="EDIT"
 
 #post_pane_content.panel_1.white_bg
   .post_0
-    %input{ type:"hidden", name:"atomic_post_id", id:"atomic_post_id", value: @post.id }
-    %input{ type:"hidden", name:"owner_id", id:"owner_id", value: @post.user_id }
     .t1
       %h2 != @post.title
 
     != @h.partial("posts/content_areas/show/#{@post.type}", {post: @post, fallback: "text"})
   
     %p.t1 != @post.description
+    

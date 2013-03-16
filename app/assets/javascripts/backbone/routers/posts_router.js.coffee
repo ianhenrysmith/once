@@ -11,6 +11,7 @@ class Once.Routers.PostsRouter extends Backbone.Router
     "index"         : "index"
     ":id/edit"      : "edit"
     ":id"           : "show"
+    ":id/connect"   : "connect"
     ".*"            : "index"
     "user/:user_id" : "user_index"
     ""              : "index"
@@ -38,6 +39,11 @@ class Once.Routers.PostsRouter extends Backbone.Router
   show: (id) ->
     post = @posts.get(id)
     @view = new Once.Views.Posts.ShowView(model: post)
+    @$post.html(@view.render().el)
+    
+  connect: (id) ->
+    post = @posts.get(id)
+    @view = new Once.Views.Posts.ConnectView(model: post)
     @$post.html(@view.render().el)
 
   edit: (id) ->

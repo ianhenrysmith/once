@@ -27,6 +27,8 @@ class Once.Views.Posts.NewView extends Once.Views.Posts.BaseView
     @model.unset("errors")
     
     params = {}
+    
+    # move to utility?
     arr = $("form").serializeArray()
     for kv in arr
       params[kv.name] = kv.value

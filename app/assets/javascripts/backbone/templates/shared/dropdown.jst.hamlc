@@ -1,6 +1,9 @@
+- value = @value
+- value = @values[0] unless @value
+
 .dropdown{ class: @options.class, id: @options.id}
-  %input.dropdown_target{ type: "text", name: @field, id: @field, value:"#{@value}"}
-  %span.dropdown-toggle= @value
+  %input.dropdown_target{ type: "text", name: @field, id: @field, value: value}
+  %span.dropdown-toggle= value
   %ul.dropdown-menu{ role:"menu"}
     - for opt in @values
       %li.dropdown_item{v: opt}= opt

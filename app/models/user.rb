@@ -77,7 +77,7 @@ class User
   end
   
   def recent_posts
-    Rails.cache.fetch("recent_user_posts_#{id}_#{last_post_created_time.to_i}", expires: 1.week) do
+    Rails.cache.fetch("recent_user_posts_#{id}/#{last_post_created_time.to_i}/#{last_post_edited_time.to_i}") do
       # this should be a scope on post
       Post.where(user_id: self.id).desc(:created_at).limit(100).only(:id, :title, :updated_at).to_a
     end

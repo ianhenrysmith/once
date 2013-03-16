@@ -7,9 +7,7 @@
     %h2="VIEW"
 
 .post_0
-  - if @h.current_user()
-    %input{ type:"hidden", name:"atomic_post_id", id:"atomic_post_id", value: @post.id }
-  
+  - if @h.current_user()  
     - # make this form autoupdate at some pt, once I fix buggos
     %form#edit-post.t1{name: "post"}
       != @h.partial("posts/post_fields", {post: @post, h: @h})

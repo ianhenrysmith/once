@@ -43,7 +43,8 @@ class Once.Views.Posts.BaseView extends Backbone.View
   setup_upload: () ->
     $('.standard-attachment').jackUpAjax(window.jackUp)
     
-  setup_edit: (post) =>
+  setup_edit: () =>
+    console.log 
     $content_area = $(".post_content_area")
     post_type_templates = {
       image: "image"
@@ -55,12 +56,12 @@ class Once.Views.Posts.BaseView extends Backbone.View
     }
     
     set_content_area = (template="text",type="text") =>
-      html = new Once.Helpers.PostsHelper().partial("posts/content_areas/edit/#{template}", {post: post, type: type})
+      html = new @h().partial("posts/content_areas/edit/#{template}", {post: @model, type: type})
       $content_area.html(html)
       if type == "image"
         @setup_upload()
 
-    set_content_area(post_type_templates[post.get("type")], post.get("type"))
+    set_content_area(post_type_templates[@model.get("type")], @model.get("type"))
 
     # need to tweak the dropdown js in utilities.coffee to trigger a change event, separate these concerns
     $("#post_type_dd li").click((e) =>
@@ -92,13 +93,12 @@ class Once.Views.Posts.BaseView extends Backbone.View
     callbacks
     
   toggle_like: (e, $t) =>
-    post_id = $("#atomic_post_id").val()
-    @h().add_liked_post_id(post_id)
+    @h().add_liked_post_id(@model.id)
     
     $.ajax(
       url: "ajax/send_action"
       data:
-        id: post_id
+        id: @model.id
         class: "Post"
         resource_action: "toggle_like"
       dataType: "json"
@@ -107,7 +107,6 @@ class Once.Views.Posts.BaseView extends Backbone.View
         $t.removeClass("action").addClass("liked").text("LIKED");
     )
     
-    
   do_action: (e) =>
     if !e.target.getAttribute("action")
       $t = $(e.target).closest("*[action]")
@@ -115,6 +114,10 @@ class Once.Views.Posts.BaseView extends Backbone.View
       $t = $(e.target)
     unless $t.attr("href") # links are for following, dawg
       action = $t.attr("action")
-      this[action](e, $t)
+      if action
+        # want to set post id etc
+        this[action](e, $t)
+      else
+        console.log "make sure to set the action attr of this element"
       
       

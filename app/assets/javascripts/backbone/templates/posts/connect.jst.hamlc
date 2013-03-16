@@ -1,0 +1,18 @@
+- current_user = @h.current_user()
+
+#atomic_menu.pane_btns_1.panel_1
+  %a{href: "/#/#{@post.id}"}
+    %h2#back_btn.block="< BACK"
+
+#post_pane_content.panel_1.white_bg
+  .post_0
+    .t1
+      %h2.w1c="CONNECT POST"
+      %h3 != @post.title
+      - vs = Once.Constants.CONNECTION_TYPES
+      != @h.dropdown({values: vs, field: "type", options: {class: "editable_dd_1 editable", id: "connection_type_dd"}})
+      
+      %span.post_title="(no post selected)"
+      - for post in current_user.recent_posts
+        - unless post.id == @post.id
+          .add_connection{post_id: post.id}= post.title

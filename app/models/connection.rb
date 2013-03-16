@@ -3,7 +3,7 @@ class Connection
   include Mongoid::Timestamps
   include BaseModel
   
-  TYPES = ["was inspired by", "is like", "has same creator as"]
+  TYPES = ["was inspired by", "is like", "has same creator as", "inspired"]
   #   <product> <connection> <source>
   
   
