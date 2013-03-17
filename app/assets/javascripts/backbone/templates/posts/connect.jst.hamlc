@@ -11,6 +11,8 @@
     // Need to make this a form at some point
     
     %div
+      .created_connections.text_small
+      
       %h3 != @post.title
       - vs = Once.Constants.CONNECTION_TYPES
       != @h.dropdown({values: vs, field: "type", options: {class: "editable_dd_1 editable", id: "connection_type_dd"}})
@@ -19,6 +21,8 @@
      
     %div
       %h2.create_connection_btn.button.button_green{style:"display:none"}="CREATE CONNECTION"
+      
+      %h3.connection_created.message_1{style:"display:none"}="Connection Created"
       
     .post_column
       - for post in current_user.recent_posts.models

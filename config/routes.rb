@@ -5,9 +5,9 @@ Once::Application.routes.draw do
 
   resources :users
   resources :posts do
-    resources :connections
     resources :collections
   end
+  resources :connections
   resources :assets
   
   match "/ajax/send_action", to: "ajax#send_action"

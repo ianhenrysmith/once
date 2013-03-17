@@ -14,18 +14,24 @@ class Once.Views.Posts.ConnectView extends Once.Views.Posts.BaseView
     pane: "open"
     
   create_connection: (e) =>
+    connection_type = $("#type").val()
     connection = {
       source_post_id: @model.get("id")
       product_post_id: @current_post.get("id")
-      connection_type: $("#type").val()
+      connection_type: connection_type
     }
-    console.log connection
-    # $.post(connection, )
+    
+    $.post("connections", { connection }, () =>
+      @$(".connection_created").show();
+      @$(".created_connections").append("<p>#{@model.get("title")} #{connection_type} <a href='/#/#{@current_post.get('id')}' class='vanilla'>#{@current_post.get("title")}</a></p>")
+      @unlock_preview()
+    )
     
   lock_preview: (e) =>
     @locked = true
     @set_current_post(e)
     @$(".unlock_btn, .create_connection_btn").show()
+    @$(".connection_created").hide()
     
   unlock_preview: () =>
     @locked = false

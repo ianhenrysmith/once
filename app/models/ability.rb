@@ -11,6 +11,8 @@ class Ability
     can [:edit, :update], Post, user_id: user.id
     can :create, Post if user.can_create_post?
     
+    can :manage, Connection, user_id: user.id
+    
     can :manage, User, id: user.id
   end
 end

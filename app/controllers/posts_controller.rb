@@ -52,12 +52,6 @@ class PostsController < ApplicationController
     respond_with @post
   end
   
-  def add_connection
-    @connection = Connection.create(params[:connection])
-    
-    respond_with @connection
-  end
-  
   private
   
   def handle_params
