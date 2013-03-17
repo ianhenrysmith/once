@@ -44,7 +44,6 @@ class Once.Views.Posts.BaseView extends Backbone.View
     $('.standard-attachment').jackUpAjax(window.jackUp)
     
   setup_edit: () =>
-    console.log 
     $content_area = $(".post_content_area")
     post_type_templates = {
       image: "image"

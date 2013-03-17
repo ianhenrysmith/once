@@ -46,18 +46,25 @@ p
     line-height: 1.4em
 
 .button
+  cursor: pointer
   &.inactive
     opacity: 0.6
 .button_nav
   @extend .button
   @extend .h2
+.button_green
+  color: white
+  background: #69D77A
+  padding: 0.5em
   
 .dropdown_item
   cursor: pointer
+  display: block
+  white-space: nowrap
   &:hover
     color: blue
 .dropdown-menu
-  text-indent: 10px
+  padding: 10px
   
 .editable
   background-color: #E8FFFB

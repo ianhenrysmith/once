@@ -16,7 +16,8 @@
     current_user_json = #{current_user.to_json};
     if(current_user_json) {
       current_user_json.liked_post_ids = #{current_user ? current_user.liked_post_ids : [] };
-      current_user_json.recent_posts = #{current_user ? current_user.recent_posts.to_json : []}
+      recent_posts = #{current_user ? current_user.recent_posts.to_json : []}
+      current_user_json.recent_posts = new Once.Collections.PostsCollection(recent_posts)
       init.set_current_user(current_user_json);
     }
     

@@ -161,7 +161,6 @@ describe("Once.Helpers.PostsHelper", function() {
     it("user params", function() {
       initial = {boof: "smoo"}
       params = helper.augment_with_user_params(initial);
-      console.log(params);
       expect(params).not.toBe(initial);
       expect(params.boof).toBe(initial.boof);
       expect(params.user_id).toBe(Once.CurrentUser.id);
