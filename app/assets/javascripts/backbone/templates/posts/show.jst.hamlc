@@ -20,8 +20,11 @@
   .post_0
     .t1
       %h2 != @post.title
-
-    != @h.partial("posts/content_areas/show/#{@post.type}", {post: @post, fallback: "text"})
+      %p
+        %a.vanilla{href: @post.creator_bb_path}=@post.creator_name
+      %p.text_smaller= @post.created_string
+      .content_container{class: @post.type}
+        != @h.partial("posts/content_areas/show/#{@post.type}", {post: @post, fallback: "text"})
   
     %p.t1 != @post.description
     
