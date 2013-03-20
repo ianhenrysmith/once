@@ -7,7 +7,7 @@ class Post
   AJAX_ACTIONS = %w(toggle_like clear_test_posts)
   SANITIZE = {   # fields that get sanitized in PoCo#create and update
     title:       Sanitize::Config::RESTRICTED,
-    content:     Sanitize::Config::RESTRICTED,
+    content:     Sanitize::Config::RELAXED,
     description: Sanitize::Config::RELAXED
   }
 
@@ -130,11 +130,22 @@ class Post
   end
   
   def url
-    content if link?
+    content.strip if link?
   end
   
-  def add_asset(asset)
+  def add_asset(asset, update_preview=true)
     self.assets << asset
+    
+    if update_preview
+      self.asset_url = asset.asset_image.url
+      self.preview_url = asset.asset_image.preview.url
+    end
+    
     self.save!
+  end
+  
+  def generate_screenshot
+    picman = PicMan.new
+    picman.create_pic_for_post(self) if url.present? # this is a delayed jorb
   end
 end
