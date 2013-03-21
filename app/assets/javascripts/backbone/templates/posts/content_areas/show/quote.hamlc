@@ -1,2 +1,1 @@
-.t1
-  %p.quote_1 != @post.content
+.t1 != @post.content

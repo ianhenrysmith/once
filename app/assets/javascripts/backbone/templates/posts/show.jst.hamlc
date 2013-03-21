@@ -18,13 +18,13 @@
 
 #post_pane_content
   .post_2
-    .t1
-      %h2 != @post.title
-      %p
-        %a.vanilla{href: @post.creator_bb_path}=@post.creator_name
+    .author_1
+      %a.vanilla{href: @post.creator_bb_path}=@post.creator_name
       %p.text_smaller= @post.created_string
-      .content_container{class: @post.type}
-        != @h.partial("posts/content_areas/show/#{@post.type}", {post: @post, fallback: "text"})
+    .title_1
+      %h2 != @post.title
+    .content_container{class: @post.type}
+      != @h.partial("posts/content_areas/show/#{@post.type}", {post: @post, fallback: "text"})
   
-    %p.t1 != @post.description
+    %p != @post.description
     
