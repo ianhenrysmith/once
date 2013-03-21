@@ -16,36 +16,45 @@ class Once.Views.Posts.BaseView extends Backbone.View
     @helper ||= new Once.Helpers.PostsHelper()
     
   toggle_pane: () =>
-    @$pane = @$pane || $("#post_pane")
-    pane_open = @$pane.data("open") == true
-    should_open = @render_attributes.pane == "open"
-    
-    scroll_top = $(window).scrollTop()
-    if scroll_top > 39
-      @$pane.css("margin-top": "#{scroll_top}px")
-    else
-      @$pane.css("margin-top": "")
-
-    if should_open && !pane_open
-      @$pane.animate({
-        width: "100%"
-      }, 200)
-      @$pane.data("open", true)
-    else if !should_open && pane_open
-        @$pane.animate({
-          width: "0"
-        }, 200)
-        @$pane.data("open", false)
+    @$pane ||= $("#post_pane")
+    @$index ||= $("#posts")
         
-  setup_dropdowns: () ->
+    should_open = @render_attributes.pane == "open"
+    @$w ||= $(window)
+
+    if should_open
+      @set_scroll()
+      
+      @$pane.show()
+      @$index.hide()
+      
+      @$pane.data("open", true)
+      @scroll_to(0)
+    else
+      @$pane.hide(0, () =>
+        @scroll_to(@get_scroll())
+      )
+      @$index.show()      
+      @$pane.data("open", false)
+      
+  set_scroll: () =>
+    Once.Constants.Scroll = @$w.scrollTop()
+    
+  get_scroll: () =>
+    Once.Constants.Scroll
+    
+  scroll_to: (height) =>
+    @$w.scrollTop(height) if typeof(height) == "number"
+  
+  setup_dropdowns: () =>
     $(".dropdown-toggle").dropdown()
     
-  setup_upload: () ->
+  setup_upload: () =>
     $('.standard-attachment').jackUpAjax(window.jackUp)
     
   setup_edit: () =>
-    $content_area = $(".post_content_area")
-    post_type_templates = {
+    @$content_area ||= $(".post_content_area")
+    @post_type_templates ||= {
       image: "image"
       link:  "text"
       quote: "text"
@@ -56,16 +65,16 @@ class Once.Views.Posts.BaseView extends Backbone.View
     
     set_content_area = (template="text",type="text") =>
       html = new @h().partial("posts/content_areas/edit/#{template}", {post: @model, type: type})
-      $content_area.html(html)
+      @$content_area.html(html)
       if type == "image"
         @setup_upload()
 
-    set_content_area(post_type_templates[@model.get("type")], @model.get("type"))
+    set_content_area(@post_type_templates[@model.get("type")], @model.get("type"))
 
     # need to tweak the dropdown js in utilities.coffee to trigger a change event, separate these concerns
     $("#post_type_dd li").click((e) =>
       type = $(e.target).attr("v")
-      set_content_area(post_type_templates[type], type)
+      set_content_area(@post_type_templates[type], type)
     )
     
   check_post_create: () =>

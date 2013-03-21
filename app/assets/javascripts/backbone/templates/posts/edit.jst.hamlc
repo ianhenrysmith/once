@@ -1,4 +1,4 @@
-#atomic_menu.pane_btns_1.panel_1
+.pane_btns_1
   %a{href: "/#/"}
     - # have to make this work for user posts index page as well
     %h2#close_btn.block="CLOSE"
@@ -6,7 +6,7 @@
   %a.block{ href: "/#/#{@post.id}" }
     %h2="VIEW"
 
-.post_0
+.post_2
   - if @h.current_user()  
     - # make this form autoupdate at some pt, once I fix buggos
     %form#edit-post.t1{name: "post"}

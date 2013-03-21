@@ -1,11 +1,11 @@
 - current_user = @h.current_user()
 
-#atomic_menu.pane_btns_1.panel_1
+.pane_btns_1
   %a{href: "/#/#{@post.id}"}
     %h2#back_btn.block="< BACK"
 
-#post_pane_content.panel_1.white_bg
-  .post_0
+#post_pane_content
+  .post_2
     %h2.w1c="CONNECT POST"
     
     // Need to make this a form at some point

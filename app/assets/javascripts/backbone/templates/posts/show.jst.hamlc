@@ -1,6 +1,6 @@
 - current_user = @h.current_user()
 
-#atomic_menu.pane_btns_1.panel_1
+.pane_btns_1
   %a{href: "/#/"}
     - # have to make this work for user posts index page as well
     %h2#close_btn.block="CLOSE"
@@ -16,8 +16,8 @@
       %a.block{ href: "/#/#{@post.id}/edit", id: "edit_btn" }
         %h2="EDIT"
 
-#post_pane_content.panel_1.white_bg
-  .post_0
+#post_pane_content
+  .post_2
     .t1
       %h2 != @post.title
       %p
