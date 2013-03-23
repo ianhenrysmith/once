@@ -30,9 +30,9 @@ class Post
   index user_id: 1
   
   belongs_to :user
-  has_many :comments
-  has_many :likes
+  has_many :comments # this should probably be embedded
   has_many :assets, dependent: :destroy
+  embeds_many :likes
 
   accepts_nested_attributes_for :assets
   
@@ -66,9 +66,18 @@ class Post
     end
   end
   
+  def likers_cached
+    Rails.cache.fetch("post_#{id}_#{updated_at.to_i}/likers", expires: 1.week) do
+      users = []
+      likes.each do |like|
+        users << {id: like.user_id, name: like.user_name}
+      end
+    end
+  end
+  
   def as_json(options={})
     # should also cache this based on user id, and figure out way to expire old items
-    Rails.cache.fetch("post_#{id}_#{updated_at}_as_json", expires: 1.day) do
+    Rails.cache.fetch("post_#{id}_#{updated_at.to_i}_as_json", expires: 1.day) do
       result = super(options)
       result["id"] = id.to_s
       result["created_string"] = created_at.strftime("%m/%d/%y") if created_at
@@ -102,14 +111,11 @@ class Post
   end
   
   def toggle_like(options={})
-    if user = options[:user]
-      # should probably send over like id, if possible, for faster find
-      
-      # action = "destroy" if like = Like.where(post_id: id, user_id: user.id).first
-      
-      unless like = Like.where(post_id: id, user_id: user.id).first # change this to be a scoped query
+    if user = options[:user]      
+      unless likes.any{|l| l.user_id == user.id}
         user.update_timestamp(:last_post_liked_time)
-        Like.create(post: self, user: user, post_title: title) # move this to be a method in Like?
+        likes << Like.new(user_id: user.id, user_name: user.name)
+        save
       end
     end
   end

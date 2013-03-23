@@ -83,10 +83,10 @@ class User
     end
   end
   
-  def recent_likes
+  def recent_liked_posts
     Rails.cache.fetch("recent_user_posts_#{id}_#{last_post_liked_time.to_i}", expires: 1.week) do
       # also should be a scope
-      Like.where(user_id: self.id).desc(:created_at).limit(100).only(:post_id, :post_title).to_a
+      Post.elem_match(likes: {user_id: self.id}).only(:title).to_a
     end
   end
   

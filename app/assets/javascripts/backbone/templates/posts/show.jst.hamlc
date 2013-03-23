@@ -6,10 +6,12 @@
     %h2#close_btn.block="CLOSE"
 
   - if current_user
+    - #### NEED TO FIX THISSS
     - if ($.inArray(@post.id, current_user.liked_post_ids) > -1)
       %h2.block.liked="LIKED"
     - else
       %h2.block.action{action: "toggle_like", id: "like_btn"}="LIKE"
+      
     %a.block{ href: "/#/#{@post.id}/connect", id: "connect_btn" }
       %h2="CONNECT"
     - if @post.user_id == current_user.id
@@ -18,13 +20,20 @@
 
 #post_pane_content
   .post_2
-    .author_1
-      %a.vanilla{href: @post.creator_bb_path}=@post.creator_name
-      %p.text_smaller= @post.created_string
-    .title_1
-      %h2 != @post.title
-    .content_container{class: @post.type}
-      != @h.partial("posts/content_areas/show/#{@post.type}", {post: @post, fallback: "text"})
+    .post_container
+      .author_1
+        %a.vanilla{href: @post.creator_bb_path}=@post.creator_name
+        %p.text_smaller= @post.created_string
+      .title_1
+        %h2 != @post.title
+      .content_container{class: @post.type}
+        != @h.partial("posts/content_areas/show/#{@post.type}", {post: @post, fallback: "text"})
   
-    %p != @post.description
+      %p != @post.description
     
+    - if @post.likes && @post.likes.length
+      %hr.hr1
+      %h5.block="Liked by:"
+      - for like in @post.likes
+        - name = like.user_name || "(no name)"
+        %a{href: "/#/user/#{like.user_id}"}=name

@@ -12,7 +12,7 @@
 .post_content_area
 
 %span.editable_label.text_smaller.normal="Description"
-%span.editable_1.editable.t1{contenteditable: true, id: "post_description"}
+%p.editable_1.editable.t1{contenteditable: true, id: "post_description"}
   != @post.description
   - #%br ---- have to get these working again to fix cursor issue
 %input.ce_target{ type:"text", name:"description", id:"description", value:"#{@post.description}"}
