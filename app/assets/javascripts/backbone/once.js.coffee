@@ -5,12 +5,13 @@
 #= require_tree ./views
 #= require_tree ./routers
 
-window.Once =
-  Models: {}
-  Collections: {}
-  Routers: {}
-  Views: {}
-  Helpers: {}
-  Constants: {}
+window.Once ||= {}
+
+Once.Models = {}
+Once.Collections = {}
+Once.Routers = {}
+Once.Views = {}
+Once.Helpers = {}
+Once.Constants = {}
   
 Once.Constants.CanCreate = true

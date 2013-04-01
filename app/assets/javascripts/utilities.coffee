@@ -1,3 +1,5 @@
+window.Once ||= {}
+
 $(".dropdown_item").live("click", (e) ->
   $target = $(e.target)
   $container = $target.closest(".dropdown")
@@ -8,20 +10,83 @@ $(".dropdown_item").live("click", (e) ->
   $container.find(".dropdown-toggle").text(v)
 )
 
-$('[contenteditable]')
-  .live 'focus', ->
-    $this = $(this)
-    $this.data 'before', $this.html()
-    return $this
-  .live 'blur keyup paste', ->
-    $this = $(this)
-    html = $this.html()
-    if $this.data('before') isnt html
-      index = $("[contenteditable]").index($this)
-      $($(".ce_target")[index]).val(html).change()
-      $this.data 'before', html
-    return $this
+class ContentEditableFridge
+  constructor: () ->
+    @editors = []
+    @init()
+    
+  init: () =>
+    $ce = $('[contenteditable]')
+    $ce.live 'blur change focus keyup paste', (e) =>
+      @get_editor($(e.target)).update_data()
+        
+  get_editor: ($el) =>
+    if !$el.data("editor_setup")
+      editor = new Editor($el, @editors.length)
+      @editors.push( editor )
+    else
+      editor = @editors[$el.data("editor_index")]
+    editor
 
+class Editor
+  # to implement:
+  #     get, save selection on keyup/mouseup
+  constructor: ($el, editor_index) ->
+    @$el = $el
+    @$el.data("editor_setup", true)
+    @$el.data("editor_index", editor_index)
+    
+    @editor_index = editor_index
+    @before = ""
+    
+    index = $("[contenteditable]").index(@$el)
+    @$data_target = $(".ce_target").eq(index)
+    
+    @insert_enabled = @$el.hasClass('insert_link_target')
+    if @insert_enabled
+      @setup_insert()
+    
+  setup_insert: () =>
+    insert_index = $(".insert_link_target").index(@$el)
+    @$insert_field = $(".insert_link_field").eq(insert_index)
+    @$insert_btn = $(".insert_link").eq(insert_index)
+    @$el.bind "mouseup keyup", () =>
+      @update_selection()
+    @$insert_btn.bind "click", () =>
+      @insert_selection()
+
+  update_data: () =>
+    html = @$el.html()
+    if @before isnt html
+      @$data_target.val(html).change()
+      @before = html
+      
+  update_selection: () =>
+    selection_temp = window.getSelection()
+    if $(selection_temp.baseNode.parentNode).data("editor_index") == @editor_index
+      console.log "changing selection"
+      @range = selection_temp.getRangeAt(0)
+      @selection = new Object(selection_temp)
+      window.Smoo = window.getSelection()
+      @selected_text = selection_temp.toString()
+    
+  insert_selection: () =>
+    console.log "inserting"
+    console.log @selection
+    console.log this
+    
+    if @selected_text.length
+      location = @$insert_field.val()
+      
+      new_element = document.createElement('a')
+      new_element.innerHTML = @selected_text
+      new_element.href = location
+      new_element.target = "_blank"
+
+      @range.deleteContents();
+      @range.insertNode(new_element)
+      @$el.change()
+      
 $ ->
   $('.standard-attachment').jackUpAjax(window.jackUp) # make this only init once
   
@@ -72,3 +137,4 @@ update_form = ($form) ->
     $form.find('.form_status').text("Saving...")
     $form.submit()
   
+Once.content_editable_fridge = new ContentEditableFridge()
