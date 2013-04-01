@@ -145,6 +145,11 @@ input.editable_1
       color: #333332
 
 .preview_container
+  &[type="image"]
+    background-color: #f9f9f9
+    background-image: linear-gradient(90deg, transparent 50%, #F2FFE8 50%)
+    background-size: 50px 50px
+
   &[type="link"]
     background: linear-gradient(135deg, #f9f9f5 25%, transparent 25%) -50px 0,linear-gradient(225deg, #f9f9f5 25%, transparent 25%) -50px 0,linear-gradient(315deg, #f9f9f5 25%, transparent 25%),linear-gradient(45deg, #f9f9f5 25%, transparent 25%)
     background-color: #f5f5f5
@@ -163,6 +168,11 @@ input.editable_1
     background-color: #f9f9f9
     background-size: 2em 2em
     padding: 10px 14px
+    
+  &[type="video"]
+    background: linear-gradient(135deg, #F9F9F9 22px, #FFFBE8 22px, #FFFBE8 24px, transparent 24px, transparent 67px, #FFFBE8 67px, #FFFBE8 69px, transparent 69px), linear-gradient(225deg, #F9F9F9 22px, #FFFBE8 22px, #FFFBE8 24px, transparent 24px, transparent 67px, #FFFBE8 67px, #FFFBE8 69px, transparent 69px)0 64px
+    background-color: #F9F9F9
+    background-size: 64px 128px
 
 .text_emphasis
   color: #A663C7
