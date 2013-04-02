@@ -5,7 +5,13 @@
 - #   so that I can add things like String#capitalize
 %span.editable_label.text_smaller.normal=type
 
-%span.editable_1.editable.t1{contenteditable: true, id: "post_content"}
+%p.editable_1.editable.t1.insert_link_target{contenteditable: true, id: "post_content"}
   != content
   - #%br ---- have to get these working again to fix cursor issue
 %input.ce_target{ type:"text", name:"content", id:"content", value:"#{content}"}
+
+.insert_container{style: "display: none"}
+  %span.insert_link="Add Link"
+  %input{ type: "text", class: "editable editable_2 insert_link_field", placeholder: "location" }
+  %p.insert_flash{style: "display: none"}
+%br
