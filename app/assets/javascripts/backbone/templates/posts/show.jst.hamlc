@@ -6,7 +6,7 @@
     %h2#close_btn.block="CLOSE"
 
   - if current_user
-    - #### NEED TO FIX THISSS
+    - #### NEED TO FIX THISSS, as in, likes don't really work
     - if ($.inArray(@post.id, current_user.liked_post_ids) > -1)
       %h2.block.liked="LIKED"
     - else

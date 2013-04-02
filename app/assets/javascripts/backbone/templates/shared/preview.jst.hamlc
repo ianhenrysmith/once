@@ -1,4 +1,4 @@
-.inline_block
+.inline_block.white_bg
   - if @type == "image"
     - img_url = @preview_url || @asset_url || @content #start w preview
     %img{ src: img_url, class: 'preview_img'}
