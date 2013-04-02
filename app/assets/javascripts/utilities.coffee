@@ -48,12 +48,18 @@ class Editor
     
   setup_insert: () =>
     insert_index = $(".insert_link_target").index(@$el)
-    @$insert_field = $(".insert_link_field").eq(insert_index)
-    @$insert_btn = $(".insert_link").eq(insert_index)
+    
+    @$insert_container = $(".insert_container").eq(insert_index)
+    @$insert_field = @$insert_container.find(".insert_link_field")
+    @$insert_btn = @$insert_container.find(".insert_link")
+    @$insert_flash = @$insert_container.find(".insert_flash")
+    
     @$el.bind "mouseup keyup", () =>
       @update_selection()
     @$insert_btn.bind "click", () =>
       @insert_selection()
+    
+    @$insert_container.slideDown()
 
   update_data: () =>
     html = @$el.html()
@@ -71,10 +77,6 @@ class Editor
       @selected_text = selection_temp.toString()
     
   insert_selection: () =>
-    console.log "inserting"
-    console.log @selection
-    console.log this
-    
     if @selected_text.length
       location = @$insert_field.val()
       
@@ -85,8 +87,17 @@ class Editor
 
       @range.deleteContents();
       @range.insertNode(new_element)
+      @$insert_field.val("")
       @$el.change()
-      
+      @set_flash("Link inserted.")
+    else
+      @set_flash("Select some text first.")
+  set_flash: (message) =>
+    @$insert_flash.text(message).show()
+    fn = () =>
+      @$insert_flash.hide()
+    setTimeout(fn, 5000)
+    
 $ ->
   $('.standard-attachment').jackUpAjax(window.jackUp) # make this only init once
   

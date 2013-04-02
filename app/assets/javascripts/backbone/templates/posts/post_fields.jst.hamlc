@@ -15,11 +15,12 @@
 %p.editable_1.editable.t1.insert_link_target{contenteditable: true, id: "post_description"}
   != @post.description
   - #%br ---- have to get these working again to fix cursor issue
-.hidden
-  %input{ type: "text", class: "insert_link_field" }
-  %span.insert_link="Insert"
-
 %input.ce_target{ type:"text", name:"description", id:"description", value:"#{@post.description}"}
+
+.insert_container{style: "display: none"}
+  %span.insert_link="Add Link"
+  %input{ type: "text", class: "editable editable_2 insert_link_field", placeholder: "location" }
+  %p.insert_flash{style: "display: none"}
 %br
 
 

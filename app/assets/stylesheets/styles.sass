@@ -79,14 +79,7 @@ p
     background-color: #fff
     color: inherit
     outline: 1px solid #A2EFE2
-.editable_1
-  display: inline-block
-  margin: 1em 0
-  min-width: 320px
-  padding: 0.3em 16px
-  a
-    color: #0095E9
-input.editable_1
+input.editable
   border-width: 0px
   min-width: 100%
   outline: none
@@ -95,6 +88,26 @@ input.editable_1
     padding: 3px 12px
   &:not(.h2)
     font-size: 1em
+.editable_1, input.editable_1
+  display: inline-block
+  margin: 1em 0
+  min-width: 320px
+  padding: 0.3em 16px
+  a
+    color: #0095E9
+  &.insert_link_target
+    margin: 1em 0 0 0
+.editable_2, input.editable_2, input.editable_2:not(.h2)
+  background-color: #f9f9e5
+  font-size: 0.8em
+  margin-top: 5px
+  min-width: 0px
+  width: 562px
+  &:active, &:focus
+    background-color: #fff
+    color: inherit
+    outline: 1px solid #EFEEA2
+  
 .editable_dd_1
   @extend .editable_1
   min-width: 0
@@ -107,9 +120,9 @@ input.editable_1
   vertical-align: top
   width: 144px
   &.normal
-    margin-top: 25px
+    margin-top: 30px
   &.tall
-    margin-top: 39px
+    margin-top: 46px
 
 .form_1
   label
@@ -128,6 +141,22 @@ input.editable_1
   border: 0px
   height: 1px
   width: 100%
+  
+.insert_container
+  border: 5px solid #f5f5f5
+  border-top: 0
+  margin: 0 1px 0 -1px
+  padding: 5px
+.insert_flash
+  color: orange
+  font-size: 0.8em
+.insert_link
+  background-color: #f5f5f5
+  cursor: pointer
+  display: inline-block
+  font-size: 0.8em
+  padding: 2px 14px
+  vertical-align: middle
   
 .liked
   color: #dd6644
