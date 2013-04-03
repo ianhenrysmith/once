@@ -10,6 +10,8 @@ Once::Application.routes.draw do
   resources :connections
   resources :assets
   
+  match "/about", to: "static#about"
+  
   match "/ajax/send_action", to: "ajax#send_action"
 
   # The priority is based upon order of creation:
