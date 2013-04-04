@@ -3,7 +3,7 @@ class PicMan
     url = post.url
     if url.present?
       puts "creating screencap for post #{post.id}"
-      output = `phantomjs #{path} #{url} #{post.id}`
+      output = `vendor/phantomjs #{path} #{url} #{post.id}`
       post.add_asset(create_asset(post.id))
       return true
     end
