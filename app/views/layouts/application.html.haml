@@ -9,5 +9,6 @@
     = render :partial => "shared/global_fields"
     = render :partial => "shared/header"
     #content_div.gray_bg
-      .post_1.gray_lt_bg
+      - style = devise_controller? ? "margin-left: 8em; padding-left: 1em;" : ""
+      .post_1.gray_lt_bg{style: style}
         = yield
