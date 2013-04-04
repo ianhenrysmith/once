@@ -28,11 +28,9 @@ class User
   field :asset_url, type: String
   
   index post_ids: 1
-  index like_ids: 1
   
   has_many :assets, dependent: :destroy
   has_many :posts
-  has_many :likes
   has_many :comments
   
   validates_presence_of :email
@@ -92,14 +90,12 @@ class User
   
   def liked_post_ids(post_ids=[])
     if post_ids.present?
-      # make this a .where(:id.in => [post_ids])
-      #   so that you can get liked post ids
       # also should be a scooope
-      Like.where(user_id: id).limit(100).only(:post_id).to_a.map(&:post_id)
+      Post.where(:id.in => post_ids).limit(100).only(&:id).to_a.map(&:id)
     else
       Rails.cache.fetch("user_#{id}/liked_post_ids_#{last_post_liked_time.to_i}") do
         # also a scope :)
-        Like.where(user_id: id).limit(100).only(:post_id).to_a.map(&:post_id)
+        Post.where(:likes =>{ "$elemMatch" => {user_id: self.id}}).limit(100).only(&:id).to_a.map(&:id)
       end
     end
   end
