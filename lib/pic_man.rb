@@ -1,15 +1,23 @@
 class PicMan
+  handle_asynchronously :good_jorb
+  
   def create_pic_for_post(post)
     url = post.url
     if url.present?
       puts "creating screencap for post #{post.id}"
-      output = `vendor/phantomjs #{path} #{url} #{post.id}`
+      output = `#{bin} #{path} #{url} #{post.id}`
       post.add_asset(create_asset(post.id))
       return true
     end
     false
   end
-  handle_asynchronously :create_pic_for_post
+  
+  def good_jorb(post)
+    # good jorb, homestray!
+    create_pic_for_post(post)
+    
+    # Delayed::Job.last.invoke_job
+  end
   
   def create_asset(post_id)
     # move some of this stuff to Asset.create_from_file
@@ -29,6 +37,10 @@ class PicMan
   
   def path
     Rails.root.join("lib", "do_pic_man.js")
+  end
+  
+  def bin
+    Rails.env.development? ? "phantomjs" : "vendor/phantomjs"
   end
   
   def file_path(id)

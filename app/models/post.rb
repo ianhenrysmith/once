@@ -157,8 +157,12 @@ class Post
     self.save!
   end
   
-  def generate_screenshot
+  def generate_screenshot(job=false)
     picman = PicMan.new
-    picman.create_pic_for_post(self) if url.present? # this is a delayed jorb
+    unless job
+      picman.create_pic_for_post(self) if url.present? # this is a delayed jorb
+    else
+      picman.good_jorb(self) if url.present?
+    end
   end
 end
