@@ -1,6 +1,4 @@
 class PicMan
-  handle_asynchronously :good_jorb
-  
   def create_pic_for_post(post)
     url = post.url
     if url.present?
@@ -18,6 +16,7 @@ class PicMan
     
     # Delayed::Job.last.invoke_job
   end
+  handle_asynchronously :good_jorb
   
   def create_asset(post_id)
     # move some of this stuff to Asset.create_from_file

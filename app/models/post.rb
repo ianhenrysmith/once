@@ -40,6 +40,11 @@ class Post
   
   scope :recent, order_by(created_at: :desc).limit(100)
   
+  def self.link_type_without_preview
+    # Post.link_type_without_preview.each {|p| p.generate_screenshot}
+    where(type: "link", preview_url: nil)
+  end
+  
   def self.test_posts
     where(user_id: "513dd113a09fc2483c000023")
   end
