@@ -26,6 +26,14 @@ class PostsController < ApplicationController
       # ^^^^ this is the 2nd save b/c post is saved in load_and_authorize
       # have to fix this.
       
+      if @post.link?
+        @post.generate_screenshot
+      end
+      
+      # if @post.text?
+      #         
+      #         @post.generate_screenshot
+      #       end
       
       current_user.update_timestamp(:last_post_created_time)
       respond_with @post

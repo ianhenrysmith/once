@@ -4,6 +4,7 @@ class Post
   include BaseModel
   
   TYPES = %w(quote image video link tweet text)
+  SCREENSHOTABLE_TYPES = %w(quote link text)
   AJAX_ACTIONS = %w(toggle_like clear_test_posts)
   SANITIZE = {   # fields that get sanitized in PoCo#create and update
     title:       Sanitize::Config::RESTRICTED,
@@ -40,9 +41,9 @@ class Post
   
   scope :recent, order_by(created_at: :desc).limit(100)
   
-  def self.link_type_without_preview
+  def self.screenshotable_without_preview
     # Post.link_type_without_preview.each {|p| p.generate_screenshot}
-    where(type: "link", preview_url: nil)
+    where(:type.in => SCREENSHOTABLE_TYPES, preview_url: nil)
   end
   
   def self.test_posts
@@ -135,8 +136,16 @@ class Post
     end
   end
   
+  def quote?
+    type == "quote"
+  end
+  
   def tweet?
     type == "tweet"
+  end
+  
+  def text?
+    type == "text"
   end
   
   def link?
@@ -144,7 +153,13 @@ class Post
   end
   
   def url
-    content.strip if link?
+    if link?
+      content.strip
+    elsif text? || quote?
+      bb_root = Rails.env.development? ? "http://localhost:9191/#" : "http://oncethis.com/#"
+      
+      "#{bb_root}/#{self.id}/preview"
+    end
   end
   
   def add_asset(asset, update_preview=true)

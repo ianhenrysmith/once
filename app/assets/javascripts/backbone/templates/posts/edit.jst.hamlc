@@ -1,17 +1,18 @@
 .pane_btns_1
   %a{href: "/#/"}
     - # have to make this work for user posts index page as well
-    %h2#close_btn.block="CLOSE"
+    %h2#close_btn.block="BACK"
 
   %a.block{ href: "/#/#{@post.id}" }
     %h2="VIEW"
 
 .post_2
-  - if @h.current_user()  
-    - # make this form autoupdate at some pt, once I fix buggos
-    %form#edit-post.t1{name: "post"}
-      != @h.partial("posts/post_fields", {post: @post, h: @h})
-      - # %h3.autoupdate_btn="Save"
-      %input{ type:"submit", value:"Save", class: "submit_edit_post" }
-  - else
-    != @h.partial("shared/not_signed_in")
+  .post_container
+    - if @h.current_user()  
+      - # make this form autoupdate at some pt, once I fix buggos
+      %form#edit-post.t1{name: "post"}
+        != @h.partial("posts/post_fields", {post: @post, h: @h})
+        - # %h3.autoupdate_btn="Save"
+        %input{ type:"submit", value:"Save", class: "submit_edit_post" }
+    - else
+      != @h.partial("shared/not_signed_in")

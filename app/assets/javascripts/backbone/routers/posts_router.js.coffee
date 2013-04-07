@@ -15,6 +15,7 @@ class Once.Routers.PostsRouter extends Backbone.Router
     ".*"            : "index"
     "user/:user_id" : "user_index"
     ""              : "index"
+    ":id/preview"   : "preview"
 
   newPost: ->
     @view = new Once.Views.Posts.NewView(collection: @posts)
@@ -39,6 +40,11 @@ class Once.Routers.PostsRouter extends Backbone.Router
   show: (id) ->
     post = @posts.get(id)
     @view = new Once.Views.Posts.ShowView(model: post)
+    @$post.html(@view.render().el)
+    
+  preview: (id) ->
+    post = @posts.get(id)
+    @view = new Once.Views.Posts.PreviewView(model: post)
     @$post.html(@view.render().el)
     
   connect: (id) ->

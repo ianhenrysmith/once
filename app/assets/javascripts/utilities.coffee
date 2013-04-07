@@ -70,7 +70,6 @@ class Editor
   update_selection: () =>
     selection_temp = window.getSelection()
     if $(selection_temp.baseNode.parentNode).data("editor_index") == @editor_index
-      console.log "changing selection"
       @range = selection_temp.getRangeAt(0)
       @selection = new Object(selection_temp)
       window.Smoo = window.getSelection()

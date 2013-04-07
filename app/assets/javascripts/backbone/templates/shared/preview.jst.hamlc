@@ -4,24 +4,16 @@
     %img{ src: img_url, class: 'preview_img'}
   - else if @type == "quote"
     .preview_quote != @content
-  - else if @type == "text"
-    != @content
   - else if @type == "video"
     - yt_id = @content.split("watch?v=")[1]
-    %iframe{ width:'270', height:'152', src:"http://www.youtube.com/embed/#{yt_id}", frameborder:'0', allowfullscreen:'true'
+    %iframe{ width:'288', height:'177', src:"http://www.youtube.com/embed/#{yt_id}", frameborder:'0', allowfullscreen:'true'
   - else if @type == "tweet"
     = "Tweet"
-  - else if @type == "link"
+  - else if @type == "link" # || @type == "text"
     - img_url = @preview_url || @asset_url
     - if img_url
       %img{ src: img_url, class: 'preview_img'}
     - else
-      - if @content && @content.length > 60
-        = @content.substring(0,60) + "..."
-      - else
-        = @content
+      != @content
   - else
-    - if @content && @content.length > 60
-      = @content.substring(0,60) + "..."
-    - else
-      = @content
+    != @content

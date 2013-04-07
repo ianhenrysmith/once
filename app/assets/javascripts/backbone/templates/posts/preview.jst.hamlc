@@ -1,0 +1,17 @@
+#post_pane_content
+  .post_2
+    .post_container
+      .title_1
+        %h2 != @post.title
+    .content_container{class: @post.type}
+      != @h.partial("posts/content_areas/show/#{@post.type}", {post: @post, fallback: "text"})
+  
+    .post_container
+      %p != @post.description
+    
+      - if @post.likes && @post.likes.length
+        %hr.hr1
+        %h5.block="Liked by:"
+        - for like in @post.likes
+          - name = like.user_name || "(no name)"
+          %a{href: "/#/user/#{like.user_id}"}=name

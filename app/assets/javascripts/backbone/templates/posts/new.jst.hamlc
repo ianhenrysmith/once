@@ -1,19 +1,20 @@
 .pane_btns_1
   %a{href: "/#/"}
     - # have to make this work for user posts index page as well
-    %h2#close_btn.block="CLOSE"
+    %h2#close_btn.block="BACK"
 
 .post_2
-  - if @h.current_user()
-    - if @h.can_create()
-      %h2= "New"
-      %form#new-post.t1{name: "post"}
-        != @h.partial("posts/post_fields", {post: @post, h: @h})
-        %p
-          %input{ type:"submit", value:"Create Post", class: "submit_create_post" }
-      %a{ href:"#/"}="Cancel"
+  .post_container
+    - if @h.current_user()
+      - if @h.can_create()
+        %h2= "New"
+        %form#new-post.t1{name: "post"}
+          != @h.partial("posts/post_fields", {post: @post, h: @h})
+          %p
+            %input{ type:"submit", value:"Create Post", class: "submit_create_post" }
+        %a{ href:"#/"}="Cancel"
+      - else
+        %h2="You've already posted today."
+        %p="Why not come back tomorrow?"
     - else
-      %h2="You've already posted today."
-      %p="Why not come back tomorrow?"
-  - else
-    != @h.partial("shared/not_signed_in")
+      != @h.partial("shared/not_signed_in")

@@ -3,7 +3,7 @@
 .pane_btns_1
   %a{href: "/#/"}
     - # have to make this work for user posts index page as well
-    %h2#close_btn.block="CLOSE"
+    %h2#close_btn.block="BACK"
 
   - if current_user
     - #### NEED TO FIX THISSS, as in, likes don't really work
@@ -26,9 +26,11 @@
         %p.text_smaller= @post.created_string
       .title_1
         %h2 != @post.title
-      .content_container{class: @post.type}
+    .content_container{class: @post.type}
+      .post_container
         != @h.partial("posts/content_areas/show/#{@post.type}", {post: @post, fallback: "text"})
-  
+      
+    .post_container
       %p != @post.description
     
     - if @post.likes && @post.likes.length
