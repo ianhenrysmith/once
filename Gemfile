@@ -15,7 +15,9 @@ end
 # Deploy with Capistrano
 # gem 'capistrano'
 
-gem 'debugger'
+group :development do
+  gem 'debugger'
+end
 
 # frontend
 gem "haml", ">= 3.0.0"
