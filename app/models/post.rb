@@ -65,10 +65,8 @@ class Post
   end
   
   def self.cached(ck=cache_key, query=nil)
-    Rails.cache.fetch(ck, expires: 1.hour) do
-      puts 'bleh ---------------------- Post.all'
-      Post.recent.to_a
-    end
+    # not caching these for now
+    Post.recent.to_a
   end
   
   def likers_cached
@@ -82,21 +80,19 @@ class Post
   
   def as_json(options={})
     # should also cache this based on user id, and figure out way to expire old items
-    Rails.cache.fetch("post_#{id}_#{updated_at.to_i}_as_json", expires: 1.day) do
-      result = super(options)
-      result["id"] = id.to_s
-      result["created_string"] = created_at.strftime("%m/%d/%y") if created_at
-      result["tweet_embed_code"] = CGI::escape(tweet_embed_code) if tweet_embed_code
-      
-      if u = user
-        result["creator_name"] = u.name
-        result["creator_path"] = "/users/#{u.id}"
-        result["creator_bb_path"] = "/#/user/#{u.id}"
-        result["creator_avatar_url"] = u.asset_url
-      end
-      
-      result
+    result = super(options)
+    result["id"] = id.to_s
+    result["created_string"] = created_at.strftime("%m/%d/%y") if created_at
+    result["tweet_embed_code"] = CGI::escape(tweet_embed_code) if tweet_embed_code
+    
+    if u = user
+      result["creator_name"] = u.name
+      result["creator_path"] = "/users/#{u.id}"
+      result["creator_bb_path"] = "/#/user/#{u.id}"
+      result["creator_avatar_url"] = u.asset_url
     end
+    
+    result
   end
   
   def refresh_cache_fields(save=false)

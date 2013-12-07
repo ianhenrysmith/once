@@ -1,13 +1,11 @@
 - is_current_user = current_user && ( current_user.id == @user.id )
-- cache [@user, "show", is_current_user] do
+
   - if is_current_user
-    - cache [@user, "me_edit"] do
-      %h2="Me"
-      %span.text_smaller="(#{@user.name})"
-      = link_to "Edit", edit_user_path(@user), class: "vanilla"
+    %h2="Me"
+    %span.text_smaller="(#{@user.name})"
+    = link_to "Edit", edit_user_path(@user), class: "vanilla"
   - else
-    - cache [@user, "h2_username"] do
-      %h2= @user.name || "(no name)"
+    %h2= @user.name || "(no name)"
   .clr
   = render partial: "avatar"
   .clr
@@ -16,13 +14,11 @@
     - recent_posts = @user.recent_posts
     - max_post_updated = recent_posts.map{|u| u.updated_at.to_i}.max
     - posts_count = recent_posts.count
-    - cache [@user.id, @user.last_post_created_time.to_i, @user.last_post_edited_time.to_i, max_post_updated, posts_count, "recent_posts_list"] do
-      - recent_posts.each do |post|
-        = link_to post[:title], bb_path(resource: post), class: "block vanilla"
+    - recent_posts.each do |post|
+      = link_to post[:title], bb_path(resource: post), class: "block vanilla"
   .col1
     %h3.block="Liked Posts"
     - recent_liked_posts = @user.recent_liked_posts
     - posts_count = recent_liked_posts.count
-    - cache [@user.id, @user.last_post_liked_time.to_i, max_post_updated, posts_count, "recent_posts_list"] do
-      - recent_liked_posts.each do |post|
-        = link_to post.title, bb_path(id: post.id), class: "block vanilla"
+    - recent_liked_posts.each do |post|
+      = link_to post.title, bb_path(id: post.id), class: "block vanilla"

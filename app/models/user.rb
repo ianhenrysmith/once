@@ -41,10 +41,7 @@ class User
   end
   
   def self.cached(ck=cache_key, query=nil)
-    Rails.cache.fetch(ck, expires: 1.week) do
-      puts 'bleh ---------------------- User.all'
-      User.all.to_a
-    end
+    User.all.to_a
   end
   
   def self.test_user
@@ -75,17 +72,13 @@ class User
   end
   
   def recent_posts
-    Rails.cache.fetch("recent_user_posts_#{id}/#{last_post_created_time.to_i}/#{last_post_edited_time.to_i}") do
-      # this should be a scope on post
-      Post.where(user_id: self.id).desc(:created_at).limit(100).only(:id, :title, :updated_at).to_a
-    end
+    # this should be a scope on post
+    Post.where(user_id: self.id).desc(:created_at).limit(100).only(:id, :title, :updated_at).to_a
   end
   
   def recent_liked_posts
-    Rails.cache.fetch("recent_user_posts_#{id}_#{last_post_liked_time.to_i}", expires: 1.week) do
-      # also should be a scope
-      Post.elem_match(likes: {user_id: self.id}).only(:title).to_a
-    end
+    # also should be a scope
+    Post.elem_match(likes: {user_id: self.id}).only(:title).to_a
   end
   
   def liked_post_ids(post_ids=[])
@@ -93,19 +86,15 @@ class User
       # also should be a scooope
       Post.where(:id.in => post_ids).limit(100).only(&:id).to_a.map(&:id)
     else
-      Rails.cache.fetch("user_#{id}/liked_post_ids_#{last_post_liked_time.to_i}") do
-        # also a scope :)
-        Post.where(:likes =>{ "$elemMatch" => {user_id: self.id}}).limit(100).only(&:id).to_a.map(&:id)
-      end
+      # also a scope :)
+      Post.where(:likes =>{ "$elemMatch" => {user_id: self.id}}).limit(100).only(&:id).to_a.map(&:id)
     end
   end
   
   def as_json(options={})
     # don't really use this yets
-    Rails.cache.fetch("user_#{id}_#{updated_at}_as_json", expires: 1.week) do
-      result = super(options)
-      result["id"] = id.to_s
-      result
-    end
+    result = super(options)
+    result["id"] = id.to_s
+    result
   end
 end

@@ -13,8 +13,6 @@ class PicMan
   def good_jorb(post)
     # good jorb, homestray!
     create_pic_for_post(post)
-    
-    # Delayed::Job.last.invoke_job
   end
   handle_asynchronously :good_jorb
   

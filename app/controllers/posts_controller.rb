@@ -8,11 +8,10 @@ class PostsController < ApplicationController
   respond_to :json, :html
   
   def index
-    @post_cache_key = Post.cache_key
     if Rails.env.development? && current_user && ( current_user.id == User.test_user.id )
       @posts = Post.test_posts
     else
-      @posts = Post.cached(@post_cache_key) # need paging here soon, I think
+      @posts = Post.all
     end
         
     respond_with @posts
