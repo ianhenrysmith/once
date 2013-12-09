@@ -29,6 +29,7 @@ class Post
   
   index updated_at: 1
   index user_id: 1
+  index created_at: 1
   
   belongs_to :user
   has_many :comments # this should probably be embedded

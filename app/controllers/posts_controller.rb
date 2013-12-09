@@ -8,11 +8,7 @@ class PostsController < ApplicationController
   respond_to :json, :html
   
   def index
-    if Rails.env.development? && current_user && ( current_user.id == User.test_user.id )
-      @posts = Post.test_posts
-    else
-      @posts = Post.all
-    end
+    @posts = Post.order_by(:created_at.desc).limit(100)
         
     respond_with @posts
   end
